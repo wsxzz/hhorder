@@ -1,0 +1,59 @@
+/*
+修改uni-ui默认样式
+*/
+uni-textarea{
+				width: 100%;
+			}
+uni-button[type=default] {
+    color: #17212EFF;
+    background-color: #EFEFEFFF;
+}
+uni-button[type=primary] {
+    background-color: #1371F7FF;
+	color: #FFFFFF;
+}
+.footer uni-button:after{
+	border:0px solid rgba(0,0,0,.2);
+}
+.uni-list-reset{
+	padding-bottom: 130upx;
+}
+.uni-list-reset .uni-list-cell::after{
+	background-color: #FFFFFF;
+}
+.uni-list-reset:after{
+	background-color: #FFFFFF;
+}
+.uni-searchbar__box{
+	justify-content: left!important;
+}
+.uni-numbox{
+			width: 170upx;
+			height: 44upx;
+			
+		}
+		.uni-numbox .uni-input-input{
+			font-size: 26upx;
+		}
+.uni-numbox__minus,.uni-numbox__value,.uni-numbox__plus{
+	height: 44upx!important;
+}
+/* 修改多选框 */
+uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked{
+	width: 44upx;
+	height: 44upx;
+	border-radius: 44upx;
+	background-color:#007aff ;
+	border: 2upx solid #007aff;
+}
+uni-checkbox .uni-checkbox-input{
+	width: 44upx;
+	height: 44upx;
+	border-radius: 44upx;
+	border: 2upx solid #CCCCCC;
+	background-color:#FFFFFF ;
+	color: #FFFFFF;
+}
+uni-checkbox .uni-checkbox-input.uni-checkbox-input-checked:before{
+	color: #FFFFFF;
+}

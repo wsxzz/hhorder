@@ -1,0 +1,2394 @@
+ @charset "UTF-8";
+ page{
+ 	background-color: #FFFFFF;
+ }
+ /* 设置不可滑动 */
+ .nonSliding{
+ 	width: 100%;
+ 	height: 90vh;
+ 	overflow: hidden;
+ }
+ .uniyy-page-head{
+ 	position: fixed;
+ 	z-index: 100;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+ }
+ /* 自定义头部 */
+ .custom-header{
+ 	padding-top: 90upx!important;
+	padding-bottom: 140upx!important;
+ 	/* padding-bottom: 100upx!important; */
+ }
+ /* 带底部tabar */
+ .takebar{
+ 	padding-bottom: 140upx!important; 
+ }
+ .row{
+ 	display: flex;
+ 	box-sizing: border-box;
+ }
+ .col{
+ 	width: 100%;
+ }
+ .col-2{
+ 	flex-direction: row;
+ 	flex: 1;
+ 	width: 50%;
+ }
+ .col-3{
+ 	flex-direction: row;
+ 	flex: 1;
+ 	width: 33.3%;
+ }
+ 
+ .col-4{
+ 	flex-direction: row;
+ 	flex: 1;
+ 	width: 25%;
+ }
+ .col-6{
+ 	width: 60%;
+ }
+ .col-4{
+ 	width: 40%;
+ }
+ .right{
+ 	    text-align: right;
+ }
+ .numberright{
+ 	display: flex;
+ 	justify-content: flex-end;
+ }
+ .center{
+ 	text-align: center;
+ }
+ .marR40{
+ 	margin-right: 40upx;
+ }
+ .marB20{
+ 	margin-bottom: 20upx;
+ }
+ .PadB20{
+ 	padding-bottom: 20upx;
+ }
+ .h39{
+ 	height: 78upx;
+ 	line-height: 78upx;
+ }
+ .pad{
+ 	padding: 20upx 30upx;
+ }
+ .w82{
+ 	width: 164upx;
+ }
+ .fontsize12{
+ 	font-size: 24upx;
+ }
+ .notes{
+ 	// color: #70767FF;
+ }
+ .fillet39 uni-button[type=primary] {
+ 	border-radius: 78upx;
+ 	line-height: 78upx;
+ }
+ .fillet39 uni-button[type=default] {
+ 	border-radius: 78upx;
+ 	line-height: 78upx;
+ }
+ .marR8{
+ 	margin-right: 16upx;
+ }
+ .marR10{
+ 	margin-right: 16upx;
+ }
+ .col-70{
+ 	width: 70%;
+ }
+ .col-15{
+ 	width: 15%;
+ }
+ .col-15{
+ 	width: 15%;
+ }
+ .uni-flex-column{
+ 	flex-direction: column;
+ }
+ .w100{
+ 	width: 100%;
+ }
+ .popbox{
+	 width: 90%;
+	 height: 100upx;
+	 background-color: #FFFFFF;
+ }
+ /* 占位 */
+ .seizeSeat{
+ 	width: 100%;
+ 	height: 40upx;
+ 	background-color: #FFFFFF;
+ }
+ .uni-list-reset {
+     background-color: #FFFFFF;
+     width: 100%;
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: flex;
+     -webkit-box-orient: vertical;
+     -webkit-box-direction: normal;
+     -webkit-flex-direction: column;
+     flex-direction: column;
+ 	font-size: 30upx;
+     line-height: 1.8;
+ 	/* padding: 0 15upx; */
+ }
+ .uni-list-reset .uni-list-cell-pd {
+ 	 position: relative;
+ 	display: block;
+     padding: 22upx 30upx;
+ 	padding-left: 120upx;
+ }
+ .footer{
+	 background-color: #FFFFFF;
+ 	width: 100%;
+ 	height: 120upx;
+ 	    box-sizing: border-box;
+ 	    position: fixed;
+ 	    left: 0;
+ 	    bottom: 0;
+ 	    width: 100%;
+ 	    z-index: 998;
+ 		
+ }
+ .footer .halfline{
+ 		width: 100%;
+ 		background: #EFEFEFFF;
+ 		height: 2upx;
+ 		transform: scaleY(0.5);
+ }
+ .borderB{
+ 	border-bottom: 1upx solid #EFEFEF;
+ }
+/* -----------------------------------订单公共样式---------------------------------- */
+/* 文字尺寸 */
+$yy-order-font-size-sm:26upx;
+$yy-order-font-size-base:30upx;
+$yy-order-font-size-lg:34upx;
+/* 背景颜色 */
+$yy-order-bg-color:#ffffff;
+$yy-order-bg-color-grey:#f8f8f8;
+$yy-order-bg-color-blue:#1371F7;
+
+/* 文字颜色 */
+$yy-order-txt-base:#17212E;
+$yy-order-txt-blue:#1371F7;
+$yy-order-txt-grey:#70767F;
+$yy-order-txt-orange:#F57C40;
+$yy-order-txt-lightGrey:#C3C3C3;
+$yy-order-txt-white:#FFFFFF;
+
+// 浅灰色分割底线
+$yy-order-border-bottom: 1upx solid  #EFEFEF; 
+.loadAll{
+	text-align: center;
+	font-size: $yy-order-font-size-sm;
+	color: $yy-order-txt-grey;
+	padding: 14upx 0 30upx;
+}
+//预览
+.pdfbody{
+	width: 100%;
+	height: 300upx;
+}
+.printbtnbd{
+	width: 100%;
+	box-sizing: border-box;
+	height: 20vh;
+	padding: 0 30upx;
+	.printbtn{
+		width:100% ;
+		text-align: center;
+		height: 70upx;
+		line-height: 70upx;
+		border-radius: 70upx;
+		background:rgba(19,113,247,1);
+		color: #FFFFFF;
+		font-size: $yy-order-font-size-lg;
+	}
+}
+.printpopup-con{
+	background-color: #FFFFFF;
+	.list{
+		text-align: center;
+		padding: 28upx 0;
+		font-size: $yy-order-font-size-lg;
+		color: $yy-order-txt-base;
+		border-bottom: $yy-order-border-bottom;
+	}
+	.closeprintpopup{
+		width: 100%;
+		height:100upx ;
+		line-height: 100upx;
+		text-align: center;
+		font-size: $yy-order-font-size-lg;
+		color: $yy-order-txt-base;
+		border-top: 18upx solid #F5F5F5;
+	}
+}
+
+
+
+// 客户信息列表
+.n_customer{
+	.n_customerlist{
+		padding:0 30upx ;
+		.n_customercell{
+			color:$yy-order-txt-base;
+			padding:34upx 0;
+			border-bottom: $yy-order-border-bottom;
+			.detials{
+				flex: 1;
+				.name{
+					font-family:pingFangSC-Medium;
+					font-size:$yy-order-font-size-lg ;
+					.sex{
+						color:$yy-order-txt-grey ;
+						font-size: 22upx;
+					}
+				}
+				.phone{
+					font-size:$yy-order-font-size-base ;
+				}
+			}
+			.data{
+				width: 130upx;
+				color: $yy-order-txt-lightGrey;
+				font-size: 24upx;
+			}
+		}
+	}
+}
+// 订单填写页面
+.submitorder-content{
+	color: $yy-order-txt-base;
+	font-size: $yy-order-font-size-base;
+	// 基本的input
+	.uni-input{
+		padding: 0;
+		font-size: $yy-order-font-size-base;
+	}
+	// 蓝色竖杠标题
+	.blueline-title{
+		background-color: #FFFFFF;
+		border-bottom: $yy-order-border-bottom;
+		padding: 18upx 0;
+		padding-left: 50upx;
+		padding-right: 30upx;
+		position: relative;
+		color: $yy-order-txt-base;
+		font-family: pingFangSC-Medium;
+		.blueline-infor{
+			font-size: $yy-order-font-size-lg;
+			height: 48upx;
+			line-height: 48upx;
+		}
+		.blueline{
+			position: absolute;
+			top: 24upx;
+			left: 30upx;
+			width: 6upx;
+			height: 33upx;
+			border-radius: 3upx;
+			background-color: $yy-order-txt-blue;
+		}
+		.blueline-icons{
+			width: 48upx;
+			height: 48upx;
+		}
+	}
+	//选择按钮基本样式
+	uni-button[size=mini].yybtn{
+		padding: 0 22upx;
+		font-size: $yy-order-font-size-base;
+		height: 50upx;
+		line-height: 50upx;
+		border-radius: 50upx;
+		background-color: #F9F9F9;
+	}
+	uni-button[size=mini].yybtn+ uni-button[size=mini].yybtn{
+		margin-left: 20upx;
+	}
+	uni-button[size=mini].yybtn:after{
+		border: none;
+	}
+	uni-button[size=mini].on{
+		color: $yy-order-txt-blue;
+		background:rgba(19,113,247,0.08);
+		font-family: pingFangSC-Medium;
+	}
+	//订单底部
+	.bottomgroup{
+		.bottom-price{
+			background-color: #FFFFFF;
+			border-bottom: $yy-order-border-bottom;
+			padding: 20upx 30upx;
+			.total{
+				color: $yy-order-txt-grey;
+				font-size: 20upx;
+				.price-icon{
+					margin-left: 8upx;
+					color: $yy-order-txt-orange;
+				}
+				.price{
+					font-size:$yy-order-font-size-lg ;
+					color: $yy-order-txt-orange;
+					font-family: pingFangSC-Medium;
+				}
+			}
+			.discount{
+				color: #262626;
+			}
+			.category{
+				color: $yy-order-txt-grey;
+				font-size:24upx ;
+				.check{
+					margin-left: 16upx;
+					color: $yy-order-txt-blue;
+					font-size:24upx ;
+				}
+			}
+		}
+			
+		.bottomgroupbtns{
+			background-color: #FFFFFF;
+			
+			.selectAllbtn{
+				height: 98upx;
+				line-height: 98upx;
+				padding-left: 30upx;
+				font-size: $yy-order-font-size-base;
+			}
+			.deletebtn{
+				width: 40%;
+				text-align: center;
+				background-color: #F9F9F9;
+				color:$yy-order-txt-base ;
+				font-size: $yy-order-font-size-lg;
+				height: 98upx;
+				line-height: 98upx;
+			}
+			.comfirmbtn{
+				width: 60%;
+				text-align: center;
+				background-color: $yy-order-txt-blue;
+				color:#FFFFFF ;
+				font-size:$yy-order-font-size-lg;
+				height: 98upx;
+				line-height: 98upx;
+			}
+		}
+	}
+	// 基本样式
+	.commom-content{
+		.content{
+			background-color: $yy-order-bg-color;
+			padding: 0 30upx;
+			.content-title{
+				font-size: 26upx;
+				color: #70767F;
+				padding: 16upx 0;
+				border-bottom:$yy-order-border-bottom ;
+			}
+			// 带chekbox的标题
+			.optionaltitle{
+				padding:10upx 0 ;
+				border-bottom: $yy-order-border-bottom;
+				.txt{
+					color: $yy-order-txt-grey;
+					font-size: 26upx;
+					margin-left:32upx ;
+				}
+			}
+			// 基本list
+			.list{
+				// 专用分割标题
+				.split-title{
+					color: $yy-order-txt-grey;
+					font-size: 26upx;
+				}
+				.cell{
+					padding: 28upx 0;
+					border-bottom: $yy-order-border-bottom;
+					// 基本
+					.notesL{
+						width: 22%;
+						font-size: $yy-order-font-size-base;
+					}
+					.notesR{
+						font-size: $yy-order-font-size-base;
+						width: 78%;
+					}
+					// 地址
+					.addressL{
+						width: 24%;
+						font-size: $yy-order-font-size-base;
+					}
+					.addressR{
+						width: 76%;
+						box-sizing: border-box;
+						font-size: $yy-order-font-size-base;
+					}
+					// 必填
+					.Required{
+						position: relative!important;
+						.Required-star{
+							position: absolute!important;
+							top: 0upx!important;
+							left: -20upx!important;
+							color: red!important;
+						}
+					}
+				}
+				.cell:last-child{
+					border: none;
+				}
+				.remarks{
+					color: $yy-order-txt-grey;
+					font-size: 20upx;
+				}	
+			}	
+		}
+	}
+	// 右边箭头
+	.turntootherpage,.unit{
+		position: relative;
+		padding-right: 46upx;
+		color: $yy-order-txt-grey;
+		.icon-unit{
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size:$yy-order-font-size-base;
+			color: $yy-order-txt-grey;
+			width: 40upx;
+			line-height: 38upx;
+			height: 38upx;
+		}
+		.icon-next,.icon-unit{
+			display: block;
+			position: absolute;
+			top: 4upx;
+			right: 0;
+			width: 40upx;
+			height: 38upx;
+		}
+	}	
+
+	// 客户订单明细*****商品信息
+	.goodsinfolist{
+		background-color: #FFFFFF;
+		padding-top: 24upx;
+		padding-left: 80upx;
+		position: relative;
+		.checkboxs{
+			position: absolute;
+			left: 0;
+			top: 64upx;
+			width: 44upx;
+			height: 44upx;
+		}
+		.newcarcell_f{
+			margin-bottom: 26upx;
+			border-bottom: 1upx solid #F9F9F9;
+			.goodavatar{
+				width:156upx;
+				height: 116upx;
+				overflow: hidden;
+				-webkit-justify-content: center;justify-content: center;-webkit-align-items: center;align-items: center;
+				.goodpicIMG{
+					width: 100%;
+				}
+			}
+			.carinfo{
+				width:610upx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: flex-start;align-items: flex-start;
+				.carname{
+					font-size: 26upx;
+					color: $yy-order-txt-base;		
+					line-height: 36upx;
+					margin-bottom: 14upx;
+				}
+				.listinfo{
+					font-size: 24upx;
+					color: $yy-order-txt-grey;	
+					font-family: pingFangSC-regular;
+					margin-bottom: 6upx;
+					.title{
+						display: inline-block;
+						width: 115upx;
+						color:#C3C3C3;
+						margin-right: 16upx;
+					}
+				}
+			}		
+		}
+	}
+	
+	// 关联原有订单
+	.related-old-order{
+		background-color: #FFFFFF;
+		margin-bottom:20upx;
+		.headtitle{
+			padding: 24upx 30upx;
+			border-bottom:1upx solid #F5F5F5 ;
+			.headtitleL{
+				font-size: $yy-order-font-size-base;
+				color: $yy-order-txt-base;	
+				height: 48upx;
+				line-height: 48upx;
+			}
+			.icon-qiehuan{
+				height: 48upx;
+				width: 48upx;
+			}
+			
+		}
+		
+		.old-order-list{
+			color: $yy-order-txt-base;	
+			.cell-1{
+				width: 100%;
+				height: 40upx;
+				margin-bottom: 24upx;
+				.ordernum{
+					float: left;
+					font-size: 26upx;
+				}
+				.orderstate{
+					float: right;
+					font-size: 26upx;
+					color: $yy-order-txt-orange;	
+				}
+			}
+			.name{
+				font-family: pingFangSC-Medium;
+				margin-bottom: 16upx;
+				font-size: $yy-order-font-size-lg;
+			}
+			.carinfo{
+				font-size: $yy-order-font-size-base;
+				margin-bottom: 24upx;
+				line-height: 42upx;	
+			}
+			.shopnums{
+				width: 100%;
+				height: 30upx;	
+				.nums{
+					float: left;
+					color: $yy-order-txt-grey;	
+					font-size: 26upx;
+					.num{
+						color: $yy-order-txt-base;	
+					}
+				}
+				.date{
+					float: right;
+					font-size: 24upx;
+					color: #C3C3C3;
+				}
+			}
+		}
+		
+	}
+	
+	//客户信息
+	.customer-Infor{
+		background-color: #FFFFFF;
+		margin-bottom: 20upx;
+		.content{
+			padding: 0 30upx;
+			.cell-headportrait{
+				padding: 32upx 0;
+				border-bottom: 1upx solid #F5F5F5;
+				.character{
+					display: block;
+					width: 84upx;
+					height: 84upx;
+					border-radius: 50%;
+					margin-right: 20upx;
+				}
+				.name{
+					height: 84upx;
+					line-height: 84upx;
+					color: $yy-order-txt-base;	
+					font-size: $yy-order-font-size-lg;
+					font-family: pingFangSC-Medium;
+				}
+			}
+			.info{
+				padding-top:26upx ;
+				padding-bottom:28upx ;
+				border-bottom: 1upx solid #F5F5F5;
+				.infoL{
+					color: $yy-order-txt-grey;	
+					font-size: $yy-order-font-size-base;
+				}
+				.infoR{
+					color: $yy-order-txt-base;	
+					font-size: $yy-order-font-size-base;
+				}
+				.addressL{
+					width: 30%;
+				}
+				.Required{
+					position: relative!important;
+					.Required-star{
+						position: absolute!important;
+						top: 0upx!important;
+						left: -20upx!important;
+						color: red!important;
+					}
+				}
+				.addressR{
+					width: 70%;
+				}
+			}
+			.ownerinfo{
+				color: $yy-order-txt-base;	
+				font-size: 26upx;
+				.title{
+					padding: 18upx 0;
+					border-bottom: 1upx solid #F5F5F5;
+				}
+				.list{
+					padding-top:26upx ;
+					.cell{
+						padding-bottom: 22upx;
+						.cellL{
+							color: $yy-order-txt-grey;	
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//商品信息
+	.Commodity-infor-nonvehical{
+		.followCar{
+			padding-top: 60upx;
+			padding-bottom: 34upx;
+			border-bottom: 1upx solid #EFEFEF;
+		}
+		.followCarbtn{
+			display: inline-block;
+			width: 60upx;
+			height: 32upx;
+			line-height: 32upx;
+			text-align: center;
+			color: #C3C3C3;
+			font-size: 22upx;
+			border-radius: 4upx;
+			border: 1upx solid #E1E1E1;
+		}
+		.stockinfo{
+			margin-left: 20upx;
+			font-size: 26upx;
+			color: $yy-order-txt-grey;	
+		}
+		.subtotal{
+			width: 100%;
+			padding: 18upx 0;
+			.subtotaltxt{
+				color: $yy-order-txt-grey;	
+				font-size: 20upx;
+				margin-right: 8upx;
+			}
+			.subtotalicon{
+				color: $yy-order-txt-orange;	
+				font-size: 20upx;
+			}
+			.subtotalmoney{
+				color: $yy-order-txt-orange;	
+				font-size: $yy-order-font-size-lg;
+			}
+		}
+		// 数字加减器
+		.number-box{
+			width: 170upx;
+			height: 44upx;
+			border: 2upx solid #E1E1E1;
+			border-radius: 2upx;
+			.reduce,.increase{
+				width: 50upx;
+				height: 42upx;
+				line-height: 42upx;
+				text-align: center;
+				.iconfont{
+					font-size:30upx ;
+					color: $yy-order-txt-base;	
+				}
+			}
+			.numberbox{
+				font-size:26upx ;
+				color: $yy-order-txt-base;	
+				width: 70upx;
+				text-align: center;
+				height: 42upx;
+				line-height: 42upx;
+				border-left: 2upx solid #E1E1E1;
+				border-right: 2upx solid #E1E1E1;
+			}
+		}
+	}
+	
+	//商品信息
+	.Insurance-infor{
+		background-color: #FFFFFF;
+		margin-bottom: 20upx;
+		
+		.Insurance-infor-title{
+			padding: 22upx 30upx;
+			border-bottom: 1upx solid #EFEFEF;
+		}
+		
+		.Insurance-infor-list{
+			padding:0 30upx ;
+			box-sizing: border-box;
+			.subtotal{
+				width: 100%;
+				padding: 18upx 0;
+				.subtotaltxt{
+					color: $yy-order-txt-grey;	
+					font-size: 20upx;
+					margin-right: 8upx;
+				}
+				.subtotalicon{
+					color: $yy-order-txt-orange;	
+					font-size: 20upx;
+				}
+				.subtotalmoney{
+					color: $yy-order-txt-orange;	
+					font-size: $yy-order-font-size-lg;
+				}
+			}
+			.cell{
+				padding: 18upx 30upx;
+				border-bottom: 1upx solid #F5F5F5;
+				uni-view{
+					font-size: 26upx;
+				}
+				.notesL{
+					width: 30%;
+				}
+				.notesR{
+					width: 70%;
+				}
+				.cellR{
+					font-size: $yy-order-font-size-base;
+					color: $yy-order-txt-grey;	
+				}
+				.tax-rate{
+					color: $yy-order-txt-grey;	
+				}
+				.view-policy{
+					color: $yy-order-txt-blue;	
+				}
+				
+				
+			}
+		}
+	}
+
+}
+.customerorderdetails{
+	.sum{
+		padding: 18upx 0;
+		color: #70767F;
+		font-size: 20upx;
+		.icon-yuan{
+			color: #F57C40;
+		}
+		.money{
+			font-size: 34upx;
+			color: #F57C40;
+		}
+	}
+		.blueline-title{
+			background-color: #FFFFFF;
+			border-bottom: 1upx solid #F5F5F5;
+			padding: 24upx 0;
+			padding-left: 50upx;
+			position: relative;
+			font-size: 34upx;
+			color: #17212E;
+			font-family: pingFangSC-Medium;
+			.blueline{
+				position: absolute;
+				top: 36upx;
+				left: 30upx;
+				width: 6upx;
+				height: 33upx;
+				border-radius: 3upx;
+				background-color: #1371F7;
+			}
+		}
+		.baseinfo{
+			width: 100%;
+			height: 1220upx;
+			position: relative;
+			background-color: #FFFFFF;
+			margin-bottom: 20upx;
+			.baseinfo-bg{
+				width: 100%;
+				height:130upx ;
+				background: linear-gradient(to right,#41C5FF ,#1371F7);
+			}
+			.content{
+				position: absolute;
+				left: 30upx;
+				top: 24upx;
+				width: 690upx;
+				height: 1152upx;
+				border-radius: 10upx;
+				background:rgba(255,255,255,1);
+				padding: 0 30upx;
+				box-sizing: border-box;
+				font-size: 30upx;
+				box-shadow:0px 16upx 80upx -8upx rgba(222,229,236,1);
+				.ordernumT{
+					border-bottom: 1upx dashed #EFEFEF;
+					.ordernum{
+						padding-top:30upx ;
+						padding-bottom:26upx ;
+						width: 80%;
+						color: #17212E;
+						.time{
+							display: block;
+							color: #C3C3C3;
+							font-size: 24upx;
+						}
+					}
+					.state{
+						padding-top:30upx ;
+						width: 20%;
+						color: #F57C40;
+						font-size: 26upx;
+					}
+				}
+				._list{
+					._cell{
+						border-bottom: 1upx solid #EFEFEF;
+						padding: 30upx 0;
+						.title{
+							color: #70767F;
+						}
+						.value{
+							color: #17212E;
+						}
+					}
+					._cell:last-child{
+						border-bottom: none;
+					}
+
+				}
+				
+			}
+			
+		}
+		// 关联原有订单
+		.related-old-order{
+			background-color: #FFFFFF;
+			margin-bottom:20upx;
+			.title{
+				padding: 34upx 30upx;
+				border-bottom: 1upx solid #EFEFEF;
+				color: #17212E;
+				font-size: 30upx;
+			}
+			.old-order-list{
+				color: #17212E;
+				.cell-1{
+					width: 100%;
+					height: 40upx;
+					margin-bottom: 24upx;
+					.ordernum{
+						float: left;
+						font-size: 26upx;
+					}
+					.orderstate{
+						float: right;
+						font-size: 26upx;
+						color: #F57C40;
+					}
+				}
+				.name{
+					font-family: pingFangSC-Medium;
+					margin-bottom: 16upx;
+					font-size: 34upx;
+				}
+				.carinfo{
+					font-size: 30upx;
+					margin-bottom: 24upx;
+					line-height: 42upx;	
+				}
+				.shopnums{
+					width: 100%;
+					height: 30upx;	
+					.nums{
+						float: left;
+						color: #70767F;
+						font-size: 26upx;
+						.num{
+							color: #17212E;
+						}
+					}
+					.date{
+						float: right;
+						font-size: 24upx;
+						color: #C3C3C3;
+					}
+				}
+			}
+			
+		}
+		//客户信息
+		.customer-Infor{
+			background-color: #FFFFFF;
+			margin-bottom: 20upx;
+			.content{
+				padding: 0 30upx;
+				.cell-headportrait{
+					padding: 32upx 0;
+					border-bottom: 1upx solid #F5F5F5;
+					.character{
+						display: block;
+						width: 84upx;
+						height: 84upx;
+						border-radius: 50%;
+						margin-right: 20upx;
+					}
+					.name{
+						height: 84upx;
+						line-height: 84upx;
+						color: #17212E;
+						font-size: 34upx;
+						font-family: pingFangSC-Medium;
+					}
+				}
+				.info{
+					padding-top:26upx ;
+					padding-bottom:28upx ;
+					border-bottom: 1upx solid #F5F5F5;
+					.infoL{
+						color: #70767F;
+						font-size: 30upx;
+					}
+					.infoR{
+						color: #17212E;
+						font-size: 30upx;
+					}
+					.addressL{
+						width: 30%;
+					}
+					.addressR{
+						width: 70%;
+					}
+				}
+				.ownerinfo{
+					color: #17212E;
+					font-size: 26upx;
+					.title{
+						padding: 18upx 0;
+						border-bottom: 1upx solid #F5F5F5;
+					}
+					.list{
+						padding-top:26upx ;
+						.cell{
+							padding-bottom: 22upx;
+							.cellL{
+								color: #70767F;
+							}
+						}
+					}
+				}
+			}
+		}
+		//商品信息
+		.commodity-Infor{
+			.additional_title{
+				background-color: #FFFFFF;
+				padding: 18upx 30upx;
+				color: #17212E;
+				font-size: 26upx;
+				border-bottom: 1upx solid #F5F5F5;
+			}
+			// 客户订单明细*****商品信息
+			.goodsinfolist{
+				background-color: #FFFFFF;
+					.newcarcell_f{
+						margin-bottom: 26upx;
+						border-bottom: 1upx solid #F9F9F9;
+						.goodavatar{
+							width:156upx;
+							height: 116upx;
+							overflow: hidden;
+							-webkit-justify-content: center;justify-content: center;-webkit-align-items: center;align-items: center;
+							.goodpicIMG{
+								width: 100%;
+							}
+						}
+						.carinfo{
+							width:610upx;-webkit-justify-content: center;justify-content: center;-webkit-align-items: flex-start;align-items: flex-start;
+							.carname{
+								font-size: 26upx;
+								color: #17212E;	
+								line-height: 36upx;
+								margin-bottom: 14upx;
+							}
+							.listinfo{
+								font-size: 24upx;
+								color: #70767F;
+								font-family: pingFangSC-regular;
+								margin-bottom: 6upx;
+								.title{
+									display: inline-block;
+									width: 115upx;
+									color:#C3C3C3;
+									margin-right: 16upx;
+								}
+							}
+							
+						}		
+					}
+				
+				
+				
+			}
+			.list{
+				background-color: #FFFFFF;
+				padding: 0 30upx;
+				margin-bottom: 20upx;
+				.cell{
+					font-size: 30upx;
+					color: #70767F;
+					padding: 28upx 0;
+					border-bottom: 1upx solid #F5F5F5;
+					.cellR{
+						color: #17212E;
+					}
+					.check_{
+						display: block;
+						color: #1371F7;
+						font-size: 26upx;
+					}
+					.price{
+						color: #F57C40;
+						font-size: 34upx;
+					}
+					.icon-yuan{
+						font-size: 20upx;
+					}
+					.tips{
+						display: block;
+						font-size: 20upx;
+					}
+				}
+				.cell:last-child{
+					border: none;
+				}
+			}
+			.additional{
+				// background-color: #FFFFFF;
+				margin-bottom: 20upx;
+				.additional-cell{
+					margin-bottom: 20upx;
+					background-color: #FFFFFF;
+					
+				}
+				.actual-price{
+					padding: 0 30upx;
+					.actual-price-cell{
+						padding: 28upx 0;
+						border-bottom: 1upx solid #F5F5F5;
+						.cellL{
+							color: #70767F;
+							.check_{
+								display: block;
+								font-size: 26upx;
+								color: #1371F7;
+							}
+						}
+						.cellR{
+							color: #17212E;
+							.on-board-btn{
+								display: inline-block;
+								font-size: 22upx;
+								padding: 2upx 8upx;
+								border-radius: 4upx;
+								border: 1upx solid #E1E1E1;
+							}
+						}
+					}
+					
+				}
+				
+			}
+		}
+		//保险信息
+		.Insurance-infor{
+			.content{
+				background-color: #FFFFFF;
+				// padding: 0 30upx;
+				.list{
+					.cell{
+						padding: 18upx 0;
+						border-bottom: 1upx solid #EFEFEF;
+						.cellL{
+							font-size: 26upx;
+							color: #70767F;
+						}
+						.cellR{
+							font-size: 30upx;
+							color: #17212E;
+						}
+						.policy{
+							font-size: 20upx;
+							display: block;
+						}
+						.policybtn{
+							color: #1371F7;
+							display: block;
+						}
+					}
+				}
+			}
+		}
+		.Payment-infor{
+			margin-bottom: 20upx;
+			.content{
+				background-color: #FFFFFF;
+				// padding: 0 30upx;
+				.list{
+					.cell{
+						padding: 18upx 0;
+						border-bottom: 1upx solid #EFEFEF;
+						.cellL{
+							font-size: 30upx;
+							color: #70767F;
+						}
+						.cellR{
+							font-size: 30upx;
+							color: #17212E;
+						}
+					}
+					.cell:last-child{
+						border: none;
+					}
+				}
+			}
+		}
+		.commom-content{
+			.notesL{
+				width: 30%;
+			}
+			.notesR{
+				width: 70%;
+			}
+			.content{
+				background-color: #FFFFFF;
+				padding: 0 30upx;
+				.list{
+					.cell{
+						padding: 18upx 0;
+						border-bottom: 1upx solid #EFEFEF;
+						.cellL{
+							font-size: 30upx;
+							color: #70767F;
+						}
+						.cellR{
+							font-size: 30upx;
+							color: #17212E;
+						}
+					}
+					.cell:last-child{
+						border: none;
+					}
+				}
+			}
+		}
+		
+		.mortgage-pro{
+			margin-bottom: 20upx;
+			.loan-infor{
+				margin-top: 20upx;
+				padding: 18upx 30upx;
+				color: #17212E;
+				font-size: 26upx;
+				border-bottom: 1upx solid #EFEFEF;
+				background-color: #FFFFFF;
+			}
+			
+		}
+		.delivery-infor{
+			margin-bottom: 20upx;
+		}
+		.other-conventions{
+			margin-bottom: 20upx;
+			.other-conventions-title{
+				color: #17212E;
+				font-size: 26upx;
+				border-bottom: 1upx solid #F5F5F5;
+				padding: 18upx 30upx;
+				background-color: #FFFFFF;
+			}
+			
+		}
+		.remarks-infor,.Invoice-infor{
+			margin-bottom: 20upx;
+		}
+		
+		// 底部按钮审核信息
+		.button-group{
+			box-sizing: border-box;
+			border-top: 1upx solid #EFEFEF;
+			background-color: #FFFFFF;
+			.button-group-btn{
+				padding:24upx 0;
+				color: #1371F7;
+				font-size: 34upx;
+				border-right: 1upx solid #EFEFEF;
+			}
+			.button-group-btn:last-child{
+				border-right:0;
+			}
+		}
+		
+		//审核订单时的底部按钮：同意和驳回
+		.bottom-price{
+			background-color: #FFFFFF;
+			padding: 20upx 30upx;
+			.total{
+				color: #70767F;
+				font-size: 20upx;
+				.price-icon{
+					margin-left: 8upx;
+					color: #F57C40;
+				}
+				.price{
+					font-size:34upx ;
+					color: #F57C40;
+					font-family: pingFangSC-Medium;
+				}
+			}
+			.discount{
+				color: #262626;
+			}
+			.category{
+				color: #70767F;
+				font-size:24upx ;
+				.check{
+					margin-left: 16upx;
+					color: #1371F7;
+					font-size:24upx ;
+				}
+			}
+		}
+		
+		// 测试底部弹框
+		.popupbd{
+			.popup-content {
+				background-color: #fff;
+				padding-bottom: 30upx;
+				color: #17212E;
+				font-size: 30upx;
+				.popup-title{
+					padding: 0 30upx;
+					border-bottom: 1upx solid #EFEFEF;
+					.popup-title-name{
+						height:90upx ;
+						line-height: 90upx;
+						font-size: 34upx;
+						font-family:pingFangSC-Medium ;
+					}
+					.popup-title-icon{
+						height:90upx ;
+					}
+				}
+				.content{
+					padding: 0 30upx;
+					padding-bottom: 60upx;
+					.content-title{
+						//步骤条
+						.icon-choiceO{
+							color: #1371F7;
+							font-size:20upx ;
+							margin-left: -6upx;
+						}
+						.time{
+							display: inline-block;
+							padding-left:20upx ;
+							font-size: 24upx;
+							color:#C3C3C3 ;
+						}
+					}
+					
+					.remarks{
+						padding:30upx 0 ;
+						border-bottom: 1upx solid #EFEFEF;
+					}
+					.textarea{
+						padding: 18upx 0;
+						textarea{
+							height:260upx ;
+						}
+						// .uni-textarea-textarea{
+						// 	height:260upx ;
+						// }
+					}
+					.content-contaner{
+						border-left: 1upx solid #EFEFEF;
+						.content-contaner-tlt{
+							font-size: 30upx;
+							padding: 20upx 0 16upx 32upx;
+						}
+						.content-contaner-con{
+							font-size: 26upx;
+							color: #70767F;
+							padding-left: 32upx;
+							line-height: 42upx;
+						}
+					
+						
+					}
+					
+					
+					
+					// 确定按钮
+					.comfirmbtns{
+						display: flex;
+						uni-button[type=default]{
+							justify-content: center;
+							text-align: center;
+							width:690upx ;
+							height: 78upx;
+							line-height: 78upx;
+							border-radius: 78upx;
+							padding: 0;
+							background-color: #1371F7;
+							color: #FFFFFF;
+							font-size: 34upx;
+							
+						}
+						uni-button[disabled][type=default]{
+							width:690upx ;
+							height: 78upx;
+							line-height: 78upx;
+							border-radius: 78upx;
+							padding: 0;
+							background-color: #E1E1E1;
+							color: #FFFFFF;
+							font-size: 34upx;
+						}
+					}
+					
+				}
+			}
+		}
+		
+	}
+//商城
+.shop-Mall{
+	// 商城首页的筛选
+	.screen-bd{
+		.screen-bd-in{
+			background-color: #FFFFFF;
+			position: relative;
+			.screen-btn{
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				right: 0;
+				padding: 26upx 30upx;
+				color: #000000;
+				background: #FFFFFF;
+			}
+			.screen-lists{
+				width: 100%;
+				white-space: nowrap;
+				.screen-list-cell{
+					display: inline-block;
+					padding: 26upx 0;
+					margin: 0 20upx;
+					color: $yy-order-txt-grey;	
+					font-size: $yy-order-font-size-base;
+				}
+				.screen-list-cell-on{
+					color: #2F2F2F;
+					font-family: pingFangSC-Medium;
+					border-bottom: 4upx solid #1371F7;
+				}
+				.Noactive{
+					color: #C3C3C3;
+				}
+			}
+		}
+	}
+	//商城首页整车的列表
+	.goods-lists{
+		// 商品页面的标题
+		.goods-titles{
+			font-size: 26upx;
+			color:$yy-order-txt-grey;
+		}
+		// 整车
+		.newcarlist_c{
+			.uni-gri-s{
+				padding-left: 16upx;
+				overflow: hidden;
+				.uni-grid-item-s{
+					width: 350upx;
+					margin-right: 16upx;
+					background: #FFFFFF;
+					border-radius: 8px;
+					float: left;
+					.carinfo{
+						.proname{
+							text-align: center;
+							font-size: 26upx;
+							color:$yy-order-txt-base;
+							line-height: 42upx;
+							padding: 14px 0;
+						}
+					}
+				}
+				.proImage{
+					width: 100%;
+				}
+			}
+			
+		}
+		
+	}
+	//商城里面带箭头的排序筛选（公共）
+	.sortFilter{
+		// 筛选框
+		.screen-bd{
+			width: 100%;
+			height: 88upx;
+			position: relative;
+			.screen-bd-in{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 20;
+				width: 100%;
+				box-sizing: border-box;
+				background: #ffffff;
+				.lists{
+					background: #FFFFFF;
+					.list-cell{
+						padding: 20upx 0;
+						color: $yy-order-txt-base;	 	
+						font-size: $yy-order-font-size-lg;
+						border-bottom:2upx solid #EFEFEF;
+						.txt{
+							width: 90%;
+							padding-right: 20upx;
+						}
+						.iconbtn{
+							width: 10%;
+							.iconfont{
+								color:$yy-order-txt-base;
+							}
+						}
+						.currentConditionT{
+							font-size: $yy-order-font-size-lg;
+						}
+					}
+				}
+				
+			}
+			.mask{
+				position: fixed;
+				width: 100%;
+				height:100%;
+				background: #000000;
+				opacity: 0.4;
+				z-index: 10;
+			}
+			.screen{
+				color: #000000;
+				font-size: 26upx;
+				.iconfont{
+					color: #999999;
+					font-size: 24upx;
+				}
+			}
+			.on{
+				color: $yy-order-txt-blue;	
+			}
+			
+		}
+		
+		// 筛选结果标题
+		.screen-condition{
+				color: $yy-order-txt-grey;	
+				font-size: 26upx;
+				padding: 18upx 30upx;
+		}
+	}
+	//分类
+	.classification{
+		// 精致新车
+		.newcarlist_s{
+			.uni-gri-s{
+				padding-left: 16upx;
+				overflow: hidden;
+				.uni-grid-item-s{
+					width: 350upx;
+					margin-right: 16upx;
+					margin-bottom: 16upx;
+					background: #FFFFFF;
+					border-radius: 8px;
+					float: left;
+					.carinfo{
+						.proname{
+							font-size: $yy-order-font-size-base;
+							color: $yy-order-txt-base;	
+							line-height: 42upx;
+						}
+						.proprice{
+							font-size: $yy-order-font-size-lg;
+							color: $yy-order-txt-orange;	
+							font-family: pingFangSC-Medium;
+							.icon-money,.icon-wanyuan{
+								font-size: 20upx;
+								font-family: pingFangSC-regular;
+							}
+						}
+						.pronum{
+							font-size: 20upx;
+							color: $yy-order-txt-grey;	
+						}
+					}
+				}
+				.proImage{
+					width: 100%;
+				}
+			}
+		}
+		
+		
+	}
+	//某类的车列表
+	.carlist{
+		// 2020款 改款 1.6L XE 手动舒享版两排效果
+		.newcarlist_f{
+			background-color: #FFFFFF;
+			.newcarcell_f{
+				margin-bottom: 26upx;
+				border-bottom: 1upx solid #F9F9F9;
+				.carinfo{
+					.proname{
+						font-size: $yy-order-font-size-base;
+						color: $yy-order-txt-base;	
+						height: 80upx;
+						line-height: 42upx;
+					}
+					.proprice{
+						font-size: $yy-order-font-size-lg;
+						color: $yy-order-txt-orange;	
+						font-family: pingFangSC-Medium;
+						.icon-money,.icon-wanyuan{
+							font-size: 20upx;
+							font-family: pingFangSC-regular;
+						}
+					}
+					.pronum{
+						font-size: 20upx;
+						color: $yy-order-txt-grey;	
+					}
+				}		
+			}
+		
+		}
+		
+	}
+	//详情
+	.vehicle-details-bd{
+		img{
+			display: block;
+		}
+		.vehicle-details{
+			background-color: #FFFFFF;
+			margin-bottom: 24upx;
+			.carname{
+				padding: 0 30upx;
+				font-size: 36upx;
+				color: #2F2F2F;
+				margin-bottom: 22upx;
+				font-family: pingFangSC-Medium;
+			}
+			.proprice{
+				background-color: #FFFFFF;
+					padding: 0 30upx;
+					font-size: $yy-order-font-size-lg;
+					color: $yy-order-txt-orange;	
+					font-family: pingFangSC-Medium;
+					.icon-money,.icon-wanyuan{
+						font-size: 20upx;
+						font-family: pingFangSC-regular;
+					}
+					.delprice{
+						font-size: 20upx;
+						color: $yy-order-txt-grey;	
+						margin-left: 8upx;
+						font-family: pingFangSC-regular;
+					}
+				}
+				.express-fee{
+					
+					padding: 0 30upx;
+					margin-top: 32upx;
+					margin-bottom: 44upx;
+					font-size: 24upx;
+					color: $yy-order-txt-grey;	
+					font-family: pingFangSC-regular;
+				}
+		}
+		
+			.tabs{
+				background-color: #FFFFFF;
+				.tabs-nav{
+					border-bottom: 1upx solid #EFEFEF;
+					padding: 0 30upx;
+					.tabs-nav-cell{
+						position: relative;
+						padding: 20upx 0;
+						.line{
+							display: none;
+							width: 60upx;
+							height: 6upx;
+							background-color: $yy-order-txt-blue;	
+							border-radius: 4upx;
+							position: absolute;
+							z-index: 1;
+							bottom: 0;
+							left: 50%;
+							margin-left: -30upx;
+						}
+					}
+					.on{
+						.line{
+							display: inline-block;
+						}
+					}
+				}
+				.tabs-content{
+					padding: 0 30upx;
+					box-sizing: border-box;
+					img{
+						border: 1upx solid #F5F5F5;
+						width: 100%;
+						border-radius: 4upx;
+						margin-bottom: 20upx;
+					}
+				}
+				.tabs-btn{
+					padding: 0 30upx;
+					padding-bottom: 20upx;
+					uni-button[type=default]{
+						background-color: $yy-order-txt-blue;	
+						color: #FFFFFF;
+						font-size: $yy-order-font-size-lg;
+						height: 78upx;
+						line-height: 78upx;
+						border-radius: 78upx;
+					}
+					uni-button:after{
+						border: 0;
+					}
+				}
+			}	
+	}
+	
+}
+// 顾问
+.consultants{
+	.mask{
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			background: #000000;
+			opacity: 0.4;
+			z-index: 1;
+		}
+		// 筛选框
+		.screen-bd{
+			width: 100%;
+			height: 110upx;
+			position: relative;
+			.screen-bd-in{
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 2;
+				width: 100%;
+				box-sizing: border-box;
+				background: #ffffff;
+				margin-bottom:20upx;
+				.dialogcontent{
+					background: #FFFFFF;
+					.tlt{
+						font-size: $yy-order-font-size-base;
+						color:$yy-order-txt-base ;
+						font-family: pingFangSC-Medium ;
+						padding: 28upx 30upx;
+					}
+					.controw{
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+					.cont{
+						.separator{
+							display: inline-block;
+							padding: 0 20upx;
+						}						
+						.filterperiod{
+							width: 230upx;
+							height: 60upx;
+							line-height: 60upx;
+							font-size: 26upx;
+							color: #70767F;
+							display: block;
+							padding-right:62upx ;
+							background:rgba(249,249,249,1);
+							border-radius:8upx;
+							position: relative;
+							.iconcalendar{
+								position: absolute;
+								right: 20upx;
+								width:36upx ;
+								height: 36upx;
+								top: 12upx;
+							}
+						}
+						.btns{
+							display: inline-block;
+							background:rgba(249,249,249,1);
+							color:$yy-order-txt-grey ;
+							font-size: $yy-order-font-size-sm;
+							border-radius:8upx;
+							padding: 12upx 0;
+							margin-left: 20upx;
+							margin-bottom: 20upx;
+						}
+						.btnsActive{
+							background:#c1d6f5;
+							color: $yy-order-txt-blue;
+						}
+						.btnsSm{
+							width:160upx ;
+							text-align: center;
+						}
+						.btnsMm{
+							width:336upx ;
+							text-align: center;
+						}
+						.btnsLm{
+							width:690upx;
+							text-align: center;
+						}
+					}
+					
+				}
+				.btns{
+					font-size:34upx ;
+					border-top: 1upx solid #EFEFEF;
+					.resetBtn{
+						width: 50%;
+						height: 97upx;
+						line-height: 97upx;
+						text-align: center;
+						color: $yy-order-txt-base;
+						background-color: #FFFFFF;
+					}
+					.comfirmBtn{
+						width: 50%;
+						height: 97upx;
+						line-height: 97upx;
+						text-align: center;
+						color:#FFFFFF ;
+						background-color: #1371F7;
+					}
+				}
+			}
+			.screen{
+				display: inline-block;
+				uni-button[size=mini]{
+					color: #17212E;
+					font-size: 26upx;
+					padding: 6upx 30upx;
+					border-radius: 52upx;
+					background: #F9F9F9;
+				}
+				uni-button:after{
+					border: 0;
+				}
+			}
+			.on{
+				uni-button[size=mini]{
+					background: #1371F7;
+					color: #FFFFFF;
+				}
+			}
+			.screen-condition{
+				color: #70767F;
+				font-size: 26upx;
+				padding: 18upx 0;
+			}
+		}
+	.consultants-lists{
+		background-color: #F5F5F5;
+		padding: 0 30upx;
+		padding-top: 20upx;
+		box-sizing: border-box;
+		.consultants-lists-cell{
+			box-sizing: border-box;
+			margin-top: 20upx;
+			background-color: #FFFFFF;
+			border-radius: 8upx;
+			width: 100%;
+			padding: 0 30upx;
+			color: #17212E;
+			font-size:26upx ;
+			.ordernum{
+				padding-top: 24upx;
+				.ordernumL{
+					width: 75%;
+				}
+				.ordernumR{
+					width: 25%;
+				}
+				.date{
+					color: #C3C3C3;
+					font-size:24upx;
+					display: block;
+				}
+				.attribute{
+					color: #262626;
+					font-size:22upx;
+					padding:0upx 8upx ;
+					border-radius:4upx;
+					border:1px solid #E1E1E1;
+					margin-left: 6upx;
+					display: inline-block;
+				}
+				.state{
+					color:#F57C40;
+				}
+			}
+			.ordercontant{
+				padding-top: 20upx ;
+				color: #70767F;
+				font-size: 22upx;
+				.ordername{
+					font-family:pingFangSC-Medium ;
+					color: #17212E;
+					font-size: 34upx;
+				}
+				.orderphone{
+					width: 48upx;
+				}
+			}
+			.carinfo{
+				padding-top: 16upx ;
+				display: block;
+				width: 630upx;
+				overflow: hidden;/*超出部分隐藏*/
+				white-space: nowrap;/*不换行*/
+				text-overflow:ellipsis;/*超出部分文字以...显示*/
+				font-size: 30upx;
+			}
+			.detailslist{
+				padding-bottom: 14upx ;
+				.text{
+					display: inline-block;
+					color: #70767F;
+					width: 140upx;
+				}
+				.value{
+					flex: 1;
+					display: inline-block;
+					color: $yy-order-txt-base;
+					.position{
+						display: block;
+						font-size: 20upx;
+						color: $yy-order-txt-grey;
+					}
+				}
+				.edit-more-btn{
+					position: relative;
+					.icon-more{
+						width: 40upx;
+					}
+					.edit-lists{
+						position:absolute ;
+						z-index: 10;
+						top: 56upx;
+						right: 0;
+						background-color: #FFFFFF;
+						padding-top: 34upx;
+						border-radius: 10upx;
+						box-shadow:0px 8px 40px -4px rgba(222,229,236,1);
+						text{
+							text-align: center;
+							display: block;
+							padding:  0 32upx;
+							padding-bottom: 36upx;	
+							font-size: 30upx;
+						}
+					}
+					
+				}
+					
+				
+			}
+			.shopnumber{
+				padding-top: 16upx ;
+				.text{
+					margin-top: 8upx;
+					color: #70767F;
+				}
+				.value{
+					margin-top: 8upx;
+					font-family:pingFangSC-Medium ;
+				}
+				.edit-more-btn{
+					position: relative;
+					.icon-more{
+						width: 40upx;
+					}
+					.edit-lists{
+						position:absolute ;
+						z-index: 10;
+						top: 56upx;
+						right: 0;
+						background-color: #FFFFFF;
+						padding-top: 34upx;
+						box-shadow:0px 8px 40px -4px rgba(222,229,236,1);
+						text{
+							text-align: center;
+							display: block;
+							padding:  0 32upx;
+							padding-bottom: 36upx;	
+							font-size: 30upx;
+						}
+					}
+					
+				}
+				
+			}
+		}
+	}
+	// 自定义头部
+	.uniyy-page-head{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		.hx-navbarr{
+			.ctn5{
+				border-radius: 40px;
+				padding: 10upx 20upx;
+				width: 100%;
+				display: flex;
+				line-height: 44upx;
+				margin: 8upx 30upx;
+				background-color: #F9F9F9;
+				.txt{
+					color: #C3C3C3;
+				}
+				background-color: #FFFFFF;
+			}
+			.add{
+				padding-right: 10upx;
+				.iconfont{
+					font-size: 40upx;
+				}
+				
+			}
+			
+		}
+		.dropdown{
+			position: fixed;
+			top: 88upx;
+			right: 30upx;
+			width: 310upx;
+			background-color: #FFFFFF;
+			box-shadow: 10upx 5upx 5upx #F5F5F5;
+			border-radius: 10upx;
+			z-index: 10000;
+			.options{
+				color: #17212E;
+				font-size: 30upx;
+				padding: 18upx 30upx;
+				font-family: pingFangSC-regular;
+			}
+		}
+	}
+	.uni-navbar__header-btns-left{
+		display: none;
+	}
+	.renavbar{
+		width: 100%!important;
+		.iconfont{
+			font-size: 30upx;
+			color: #000000;
+		}
+	}
+	
+}
+
+//经理
+.manager{
+	// 头部
+	.manager-hx-navbar{
+			.managerorderlist-nav{
+					width: 100%;	
+			}
+			.navbar{
+				position: relative;
+				padding-bottom: 15upx;
+				color: #70767F;
+				font-size: 30upx;
+				.line{
+					position: absolute;
+					display: none;
+					width: 32upx;
+					height: 10upx;
+					background-color: #1371F7;
+					border-radius: 5upx;
+					bottom: 0;
+					left: 50%;
+					z-index: 15;
+					margin-left: -16upx;
+				}
+			}
+			// 3
+			.on{
+				color: #2F2F2F;
+				font-size: 36upx;
+				font-family:pingFangSC-Medium ;
+				.line{
+					z-index: 15;
+					display: inline-block;
+				}
+			}
+			// 2,3
+			.iconfont{
+				font-size: 40upx;
+			}
+			.search_icon{
+				margin-right: 30upx;
+			}
+		}
+	.manager-list{
+		background-color: #F5F5F5;
+		padding: 0 30upx;
+		box-sizing: border-box;
+		
+		//查阅的弹框
+		.Checkpopup{
+			.popup-content{
+				width:690upx ;
+				background-color: #FFFFFF;
+				border-radius: 20upx;
+				padding-bottom:48upx;
+				.toptitle{
+					padding:20upx ;
+					
+				}
+				.checkList{
+					padding-left:48upx;
+					font-size: 30upx;
+					.title{
+						color: #C3C3C3;
+						margin-right: 20upx;
+					}
+					.value{
+						color: #17212E;
+					}
+				}
+			}
+		}
+		
+		.manager-lists-cell{
+			box-sizing: border-box;
+			margin-top: 20upx;
+			background-color: #FFFFFF;
+			border-radius: 8upx;
+			width: 100%;
+			padding: 0 30upx;
+			color: #17212E;
+			font-size:26upx ;
+			.ordernum{
+				padding-top: 24upx;
+				.date{
+					color: #C3C3C3;
+					font-size:24upx;
+					display: block;
+				}
+				.state{
+					color:#F57C40;
+				}
+			}
+			
+			.name{
+				color: #17212E;
+				font-family:pingFangSC-Medium ;
+			}
+			.ordercontant{
+				padding-top: 20upx ;
+				color: #70767F;
+				font-size: 22upx;
+				.ordername{
+					font-family:pingFangSC-Medium ;
+					color: #17212E;
+					font-size: 34upx;
+				}
+			}
+			.carinfo{
+				padding-top: 16upx ;
+				display: block;
+				width: 630upx;
+				overflow: hidden;/*超出部分隐藏*/
+				white-space: nowrap;/*不换行*/
+				text-overflow:ellipsis;/*超出部分文字以...显示*/
+				font-size: 30upx;
+			}
+			.shopnumber{
+				padding-top: 16upx ;
+				.text{
+					margin-top: 8upx;
+					color: #70767F;
+				}
+				.value{
+					margin-top: 8upx;
+					font-family:pingFangSC-Medium ;
+				}
+				.consult-btn{
+					color: #1371F7;
+					margin-left: 32upx;
+				}
+				
+			}
+		}
+	}
+	// 筛选
+	.screenBD{
+		.mask{
+			position: fixed;
+			z-index: 10;
+			background-color: #000000;
+			opacity: 0.4;
+			width: 100%;
+			height: 100vh;
+		}
+		.screenbody{
+			position: fixed;
+			z-index: 11;
+			background-color: #FFFFFF;
+			width: 100%;
+			box-sizing: border-box;
+			top: 88upx;
+			left: 0;
+			max-height:800upx ;
+			.screencontent{
+				height:700upx ;
+				.contentin{
+					height:700upx ;
+					overflow: scroll;
+					padding: 0 30upx;
+					.title{
+						font-size: $yy-order-font-size-base;
+						color: $yy-order-txt-base;
+						font-family:pingFangSC-Medium ;
+						padding: 28upx 0;
+					}
+					.date{
+						justify-content: center;
+						padding-bottom:20upx ;
+						.line{
+							padding: 0 20upx;
+						}
+						.starttime{
+							width: 230upx;
+							height: 60upx;
+							line-height: 60upx;
+							font-size: 26upx;
+							color: #70767F;
+							display: block;
+							padding-right:62upx ;
+							background:rgba(249,249,249,1);
+							border-radius:8upx;
+							position: relative;
+							.iconcalendar{
+								float: right;
+								position:absolute!important;
+								right: 20upx;
+								width:36upx ;
+								height: 36upx;
+								top: 12upx;
+							}
+						}
+						.endtime{
+							width: 230upx;
+							height: 60upx;
+							line-height: 60upx;
+							font-size: 26upx;
+							color: #70767F;
+							display: block;
+							padding-right:62upx ;
+							background:rgba(249,249,249,1);
+							border-radius:8upx;
+							position: relative;
+							.iconcalendar{
+								position: absolute!important;
+								float: right;
+								z-index: 10000;
+								right: 20upx;
+								width:36upx ;
+								height: 36upx;
+								top: 12upx;
+							}
+							
+						}
+					}
+					.choices{
+						.lists{
+							flex-wrap:wrap;
+							justify-content:space-between;
+							.cell{
+								width:150upx;
+								height:60upx;
+								line-height: 60upx;
+								background:#F9F9F9;
+								color:$yy-order-txt-grey ;
+								font-size:$yy-order-font-size-sm ;
+								border-radius:8upx;
+								margin-right: 20upx;
+								text-align: center;
+								margin-bottom:22upx ;
+								overflow: hidden;
+							}
+							.on{
+								background:#dcf1fb;
+								color:$yy-order-txt-blue ;
+							}
+						}
+					}
+				}
+			}
+			.buttons{
+				width: 100%;
+				height: 100upx;
+				background-color: #FFFFFF;
+				border-top: $yy-order-border-bottom;
+				.reset{
+					width: 50%;
+					text-align: center;
+					line-height: 100upx;
+					font-size: $yy-order-font-size-lg;
+					color: $yy-order-txt-base;
+				}
+				.confirm{
+					background-color:#1371F7 ;
+					width: 50%;
+					line-height:100upx;
+					text-align: center;
+					font-size: $yy-order-font-size-lg;
+					color: #FFFFFF;
+				}
+			}
+		}
+	}
+}
+
+.usedCar{
+	.baseinfo{
+		height: 190upx;
+		margin: 0;
+		.content{
+			height: 140upx;
+			.ordernumT{
+				border: 0px;
+			}
+		}
+	}
+	.bottomgroup{
+		.bottomgroupbtn{
+			height: 98upx;
+			line-height: 98upx;
+			text-align: center;
+		}
+		.save{
+			background-color:$yy-order-bg-color;
+			color:$yy-order-txt-base ;
+			font-size: $yy-order-font-size-lg;
+		}
+		.submitb{
+			background-color:$yy-order-bg-color-blue;
+			color:$yy-order-txt-white ;
+			font-size: $yy-order-font-size-lg;
+		}
+	}
+	.content{
+		background-color: #FFFFFF;
+		.list{
+			padding: 0 30upx;
+			.cell{
+				padding: 28upx 0;
+				border-bottom:$yy-order-border-bottom ;
+				.notesL{
+					width: 50%;
+					font-size:$yy-order-font-size-base ;
+					color:$yy-order-txt-grey ;
+				}
+				.notesR{
+					width: 50%;
+					font-size:$yy-order-font-size-base ;
+					color:$yy-order-txt-base ;
+				}
+			}
+			
+			.cell:last-child{
+				border: 0;
+			}
+			.ownertitle{
+				padding: 16upx 0;
+				color:$yy-order-txt-base ;
+				font-size:$yy-order-font-size-sm ;
+				margin-bottom: 30upx;
+			}
+			.ownerconcell{
+				padding-bottom: 22upx;
+				.notesL{
+					width: 50%;
+					font-size:$yy-order-font-size-sm ;
+					color:$yy-order-txt-grey ;
+				}
+				.notesR{
+					width: 50%;
+					font-size:$yy-order-font-size-sm ;
+					color:$yy-order-txt-base ;
+				}
+			}
+		}
+	}
+}

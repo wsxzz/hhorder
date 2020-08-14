@@ -1,0 +1,95 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
+		{
+		    "path" : "pages/consultantsLists/consultantsLists",
+		    "style" : {
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+	    ,{
+            "path" : "pages/autoSalesOrder/autoSalesOrder",
+            "style" : {
+				"navigationStyle": "custom"
+			}
+        },
+		{
+			"path": "pages/shop-Mall/shop-Mall",
+			"style": {
+				"navigationBarTitleText": "商品"
+			}
+		}, {
+			"path": "pages/shop-Mall/newcarlist/newcarlist",
+			"style": {
+				"navigationBarTitleText": "精致新车"
+			}
+		}, {
+			"path": "pages/shop-Mall/modelist/modelist",
+			"style": {
+				"navigationBarTitleText": "车型列表"
+			}
+		}, {
+			"path": "pages/shop-Mall/detailed/detailed",
+			"style": {
+				"navigationBarTitleText": "车辆详情"
+			}
+		}, {
+			"path": "pages/shop-Mall/detailed/partsdetails",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		}
+        ,{
+            "path" : "pages/shop/shop",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/shop-Mall/selColor/selColor",
+            "style" : {
+				"navigationBarTitleText": "选择颜色和内饰"
+			}
+        },
+		{
+		    "path" : "pages/search/search",
+		    "style" : {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+		    "path" : "pages/Insuranceinstitutions/Insuranceinstitutions",
+		    "style" : {
+				"navigationBarTitleText": "保险机构"
+			}
+		}
+		
+		
+        ,{
+            "path" : "pages/test/test",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/loading/loading",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/managerlist/managerlist",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/autoSalesOrderDetail/autoSalesOrderDetail",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
