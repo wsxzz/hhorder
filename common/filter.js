@@ -189,6 +189,18 @@ module.exports = {
 	    let formatdatetime = d.getFullYear() + '-' + addDateZero(d.getMonth() + 1) + '-' + addDateZero(d.getDate());
 	    return formatdatetime;
 	},
+	//转化小写
+	lowercaseJSONKey(jsonObj) {
+		  // for (var key in jsonObj){
+		  //       jsonObj[""+key.toLowerCase()+""] = jsonObj[key];
+		  //   }
+		  //   return jsonObj;
+		  newObj_re = {}
+		  for (var key in jsonObj){
+			  newObj_re[key.toLowerCase()] = jsonObj[key];
+		  }
+		  return newObj_re;
+	},
 	// 字符串截取 包含对中文处理,str需截取字符串,start开始截取位置,n截取长度
 	  Substr(str, start, n) { // eslint-disable-line
 	    if (str.replace(/[\u4e00-\u9fa5]/g, '**').length <= n) {

@@ -2,26 +2,117 @@
 page {
   background-color: #FFFFFF;
 }
-
+.cancelpop{
+	background-color: #FFFFFF;
+	padding: 40upx 0;
+	text-align: center;
+	border-top: 16upx solid #f7f8fa;
+}
+.uni-list-bd{
+	padding: 0 20upx;
+	background-color: #FFFFFF;
+}
+.uni-list-item{
+	padding: 30upx 0;
+	text-align: center;
+	font-size: 24upx;
+	
+	border-bottom:1upx solid #f9f9f9; ;
+}
+.uni-list-item-disabled{
+	color: #c3c3c3;
+}
 /* 设置不可滑动 */
 .nonSliding {
   width: 100%;
   height: 90vh;
   overflow: hidden;
 }
-
+.screen-pop{
+	background-color: #FFFFFF;
+	width: 100%;
+	padding-top: 240upx;
+	height: 600upx;
+	overflow: hidden;
+	position: relative;
+}
+.screen-pop .title{
+	    font-size: 30upx;
+	    color: #17212E;
+	    font-family: pingFangSC-Medium;
+	    padding: 28upx 30upx;
+}
+.screen-pop .date{
+	    width: 230upx;
+	    height: 60upx;
+	    line-height: 60upx;
+	    font-size: 26upx;
+		background: #f9f9f9;
+	    color: #70767F;
+		border-radius: 8upx;
+}
+.screen-pop .dllist-bd .btns{
+	display: inline-block;
+	background: #f9f9f9;
+	color: #70767F;
+	font-size: 26upx;
+	border-radius: 8upx;
+	padding: 6upx 12upx;
+	margin-left: 20upx;
+	margin-bottom: 20upx;
+}
+.screen-pop .dllist-bd .on{
+	background-color: #007AFF;
+	color: #FFFFFF;
+}
+.screen-pop .fbtns{
+	font-size: 34upx;
+	border-top:1upx solid #EFEFEF;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.screen-pop .fbtns .resetBtn{
+	    height: 96upx;
+	    line-height: 96upx;
+	    text-align: center;
+	    color: #17212E;
+	    background-color: #FFFFFF;
+}
+.screen-pop .fbtns .comfirmBtn{
+	    width: 50%;
+		height: 96upx;
+		line-height: 96upx;
+		text-align: center;
+		color: #FFFFFF;
+		background-color: #1371F7;
+}
 .uniyy-page-head {
   position: fixed;
   z-index: 100;
   top: 0;
   left: 0;
   width: 100%;
+  height: 88upx;
+  background-color: #FFFFFF;
+}
+.uniyy-page-head-con {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200upx;
+  background-color: #FFFFFF;
 }
 
 /* 自定义头部 */
 .custom-header {
   padding-top: 90upx !important;
   /* padding-bottom: 140upx!important; */
+}
+.custom-header-con{
+	 padding-top: 90upx !important;
 }
 
 /* 带底部tabar */
@@ -1597,6 +1688,12 @@ border:2upx solid  #007AFF;
 .consultants .screen-bd .screen-bd-in .dialogcontent {
   background: #FFFFFF;
 }
+.consultants .screen-bd .screen-bd-in .screen-bdL{
+	flex: 1;
+}
+.consultants .screen-bd .screen-bd-in .screen-bdR{
+	width: 60upx;
+}
 .consultants .screen-bd .screen-bd-in .dialogcontent .tlt {
   font-size: 30upx;
   color: #17212E;
@@ -1840,13 +1937,13 @@ border:2upx solid  #007AFF;
   padding-bottom: 36upx;
   font-size: 30upx;
 }
-.consultants .uniyy-page-head {
+.consultants .uniyy-page-head-con {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
 }
-.consultants .uniyy-page-head .hx-navbarr .ctn5 {
+.consultants .uniyy-page-head-con .hx-navbarr .ctn5 {
   border-radius: 40px;
   padding: 10upx 20upx;
   width: 100%;
@@ -1856,16 +1953,16 @@ border:2upx solid  #007AFF;
   background-color: #F9F9F9;
   background-color: #FFFFFF;
 }
-.consultants .uniyy-page-head .hx-navbarr .ctn5 .txt {
+.consultants .uniyy-page-head-con .hx-navbarr .ctn5 .txt {
   color: #C3C3C3;
 }
-.consultants .uniyy-page-head .hx-navbarr .add {
+.consultants .uniyy-page-head-con .hx-navbarr .add {
   padding-right: 10upx;
 }
-.consultants .uniyy-page-head .hx-navbarr .add .iconfont {
+.consultants .uniyy-uniyy-page-head-con-head .hx-navbarr .add .iconfont {
   font-size: 40upx;
 }
-.consultants .uniyy-page-head .dropdown {
+.consultants .uniyy-uniyy-page-head-con-head .dropdown {
   position: fixed;
   top: 88upx;
   right: 30upx;
@@ -1875,7 +1972,17 @@ border:2upx solid  #007AFF;
   border-radius: 10upx;
   z-index: 10000;
 }
-.consultants .uniyy-page-head .dropdown .options {
+.dropdown {
+  position: fixed;
+  top: 88upx;
+  right: 30upx;
+  width: 310upx;
+  background-color: #FFFFFF;
+  box-shadow: 10upx 5upx 5upx #F5F5F5;
+  border-radius: 10upx;
+  z-index: 10000;
+}
+.consultants .uniyy-page-head-con .dropdown .options {
   color: #17212E;
   font-size: 30upx;
   padding: 18upx 30upx;

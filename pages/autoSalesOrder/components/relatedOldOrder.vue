@@ -1,38 +1,34 @@
 <template>
 	<view>
-		<view v-if="hasrelatedOldOrder" class="related-old-order">
+		<view class="related-old-order">
 			<view class="headtitle row">
 				<view class="headtitleL col-2">
 					关联原有订单
 				</view>
 				<view class="col-2 right">
-					<image class="icon-qiehuan" src="../../../static/images/icons/icon-Line-qiehuan.png" mode="widthFix"></image>
+					<image class="icon-qiehuan" src="../../../static/images/icons/icon-Line-qiehuan.png" mode="widthFix" @click="godetils(orderDetail.basic[0].ID)"></image>
 				</view>
 			</view>
 			<view class="old-order-list pad">
 				<view class="cell-1">
-					<text class="ordernum">OS2018090200001</text>
-					<text class="orderstate">已完成</text>
+					<text class="ordernum">{{orderDetail.basic[0].ORDER_ID}}</text>
+					<text class="orderstate">{{states[orderDetail.basic[0].STATUS]}}</text>
 				</view>
 				<view class="name">
-					谢宝新
+					{{orderDetail.entry1[0].BD_NAME}}
 				</view>
 				<view class="carinfo">
-					蒙迪欧 插电混动2.0L E-CVT智尚版2018款
+					{{orderDetail.entry3[0].OFFICIA_LNAME}}
 				</view>
 				<view class="shopnums">
 					<text class="nums">
 						商品数量
-						<text class="num">3</text>
+						<text class="num">1</text>
 					</text>
-					<text class="date">2019-2-15 10:30:09</text>
+					<text class="date">{{orderDetail.basic[0].ORDER_TIME}}</text>
 				</view>
 			</view>
 		</view>
-		
-		
-		
-		
 	</view>
 </template>
 
@@ -47,18 +43,20 @@
 		export default {
 			name: 'relatedOldOrder',
 			props: {
-				hasrelatedOldOrder: {
-					type: Boolean,
-					default: false
-				}
+				orderDetail:{}
 			},
 			data() {
 				return {
-					
+					states:['未提交','审批中','已审核', '驳回'],//状态
 				}
 			},
 			methods: {
-			
+				godetils(id){
+					// 跳转详情
+					uni.navigateTo({
+					    url: "../autoSalesOrderDetail/autoSalesOrderDetail?id="+id+"&isReview='false'",
+					});
+				}
 			}
 		}
 	</script>

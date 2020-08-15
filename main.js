@@ -17,6 +17,20 @@ Vue.config.productionTip = false
 import BaseScroll from "@/components/base-scroll/base-scroll.vue";
 Vue.component("BaseScroll", BaseScroll);
 
+import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+Vue.component("uniNavBar", uniNavBar);
+import hxNavbar from "@/components/hx-navbar/hx-navbar.vue"
+Vue.component("hxNavbar", hxNavbar);
+
+import uniPopup from '@/components/uni-popup/uni-popup.vue'
+import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
+import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
+Vue.component("uniPopup", uniPopup);
+Vue.component("uniPopupMessage", uniPopup);
+Vue.component("uniPopupDialog", uniPopup);
+        
+import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
+Vue.component("uniLoadMore", uniLoadMore);
 App.mpType = 'app'
 
 const app = new Vue({

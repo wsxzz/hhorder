@@ -68,6 +68,7 @@
 
 <script>
 	import {mapGetters} from 'vuex'
+	import fn from '../../common/filter.js'
 	// import { HHPF_P_AddAutoSalesOrder } from '@/api/index.js';
 	
 	import baseinfo from './components/baseinfo.vue' //基本信息
@@ -169,12 +170,12 @@
 		},
 		onShow() {
 			// console.log("11111111")
-			// // this.relatedOldOrderOK = this.$store.state.src_id==0? false: true//是否有关联订单
-			// this.relatedOldOrderOK = 37==0? false: true//测试
-			// if(this.relatedOldOrderOK ){
-			// 	this.src_id = this.$store.state.src_id;
-			// 	this.getAutoSalesOrder(37)//
-			// }
+			// this.relatedOldOrderOK = this.$store.state.baseinfo.obj.src_id==0? false: true//是否有关联订单
+			this.relatedOldOrderOK = 37==0? false: true//测试
+			if(this.relatedOldOrderOK ){
+				this.src_id = this.$store.state.src_id;
+				this.getAutoSalesOrder(37)//
+			}
 		},
 		created() {
 			this.cusselectOK = this.$store.state.customerInfo.seletOk
@@ -182,6 +183,10 @@
 			this.mortgageOk = this.$store.state.mortgage.mortgageOk
 			this.carinfo = this.$store.state.carinfo.obj
 			this.carinfoall = this.$store.state.carinfo.objall
+			
+			// let oldObj = {KEY:'value'};//测试
+			// let newObj = fn.lowercaseJSONKey(oldObj);
+			// console.log(newObj,"新的")
 		},
 		methods:{
 			async submitinfo(){
@@ -298,13 +303,25 @@
 				await this.$api.HHPF_P_GetAutoSalesOrder(param).then(res => {
 					// 获得数据 
 					if(res.Msg=='success'){
-						this.orderDetail = res.Data
+						this.orderDetail = res.Data//原有订单详情
+						
+						// console.log(newobj,"newdneidjweo")
+						// this.orderDetail.basic.forEach(x=>{
+						// 	console.log(x)
+						// })
+						// this.$store.state.baseinfo.obj
 					}
 					 uni.hideLoading();
 				 }).catch(res => {
 					 console.log(res)
 				 　　// 失败进行的操作
 				 })
+			},
+			//修改store里面定义的默认值
+			resetStoreState(newobj){
+				let baseinfo = this.$store.state.baseinfo.obj
+				let baseinfoOld =  fn.lowercaseJSONKey(res.Data.basic[0])
+				let newobj = Object.assign(,bjidwj)
 			},
 			goshop() {
 				uni.navigateTo({

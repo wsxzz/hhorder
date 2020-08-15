@@ -11,20 +11,20 @@
 			</block>
 			
 			<view :style="{ height: statusBarHeight ,'background': statusBarBackground}" class="hx-status-bar" v-if="statusBar" ></view>
-			<view :style="{color:colorInfo,height: height,'line-height':height}" class="hd hx-navbar__header hx-navbar__content_view">
-				<view class="hx-navbar__header-btns hx-navbar__content_view"  @tap="onClickLeft" v-if="leftSlot" :style="{'color': colorInfo}">
+			<view :style="{color:colorInfo,height: height,'line-height':height}" class="hd hx-navbar__header hx-navbar__content_view content-between">
+				<view class="hx-navbar__header-btns hx-navbar__content_view hx-navbar__header_left hx-navbar_mr10"  @tap="onClickLeft" v-if="leftSlot" :style="{'color': colorInfo}">
 					<block v-if="leftText.length || leftIcon.length || back">
-						<view
-							v-if="leftIcon.length || back"
-							:class="back ? 'left_back' : ''"
-							class="hx-navbar__content_view" >
-							<uni-icons :type="back ? 'arrowleft' : leftIcon" :color="colorInfo" size="28"/>
+						<view class="hx-navbar__content_view mrlu7">
+							<view
+								v-if="leftIcon.length || back"
+								class="hx-navbar__content_view" >
+								<uni-icons :type="back ? 'arrowleft' : leftIcon" :color="colorInfo" size="28"/>
+							</view>
+							<view
+								v-if="leftText.length"
+								:class="{'hx-navbar-btn-icon-left':!leftIcon.length}"
+								class="hx-navbar-btn-text hx-navbar__content_view">{{ leftText }}</view>
 						</view>
-						<view
-							v-if="leftText.length"
-							:class="{'hx-navbar-btn-icon-left':!leftIcon.length}"
-							class="hx-navbar-btn-text hx-navbar__content_view">{{ leftText }}</view>
-						
 					</block>
 					<block v-else>
 						<slot name="leftAfter" v-if="leftSlidiSwitch && slotSlidiSwitch == 1" />
@@ -34,21 +34,21 @@
 				</view>
 			  
 			  
-				<view class="hx-navbar__header-container hx-navbar__content_view">
+				<view class="hx-navbar__content_view" :class="title.length ? 'hx-navbar__header_center' : 'hx-navbar_flex'">
 					<view
 					  v-if="title.length"
-					  class="hx-navbar__header-container-inner hx-navbar__content_view">{{ title }}</view>
+					  class="hx-navbar__header-container-inner hx-navbar__content_view "><text class="hxwrap">{{ title }}</text></view>
 					<!-- 标题插槽 -->
-				
 					<block v-else>
 						<slot name="centerAfter" v-if="centerSlidiSwitch && slotSlidiSwitch == 1"/>
 						<slot v-else/>
-						
 					</block>
 				</view>
 				
-				<view :class="title.length?'hx-navbar__header-btns-right':''"
-					class="hx-navbar__header-btns hx-navbar__content_view"
+				
+				
+				<view
+					class="hx-navbar__header-btns hx-navbar__content_view hx-navbar__header_right hx-navbar__header-btns-right hx-navbar_ml10"
 					@tap="onClickRight"
 					v-if="rightSlot">
 					<!-- 优先显示图标 -->
@@ -281,7 +281,7 @@
 					that.transparentValue = 0;
 					break;
 				case 'auto':
-					this.setTVAuto(that.pageScroll)
+					that.setTVAuto(that.pageScroll)
 					break;
 			}
 			that.setBgColor();
@@ -521,7 +521,15 @@
 		position: relative;
 		padding-top: 0;
 		overflow: hidden;
-		
+		&_mr10{
+			margin-right: 20upx;
+		}
+		&_ml10{
+			margin-left: 20upx;
+		}
+		&_flex{
+			flex: 1;
+		}
 		&__content {
 			display: block;
 			position: relative;
@@ -536,11 +544,12 @@
 				width: 100%;
 			}
 			
-			.hx-navbar__content_view {
+			&_view {
+				
 				// line-height: $nav-height;
 				display: flex;
 				align-items: center;
-				
+				height: 100%;
 			}
 			.hx-status-bar {
 				display: block;
@@ -551,44 +560,61 @@
 				z-index: 1;
 			}
 		}
-	
+		
 		&__header {
 			position: relative;
 			z-index: 1;
 			display: flex;
 			flex-direction: row;
-			width: 100%;
+			padding: 0 20upx;
 			height:  $nav-height;
 			line-height: $nav-height;
 			font-size: 36upx;
-			transition: color 0.5s ease 0s;
+			// transition: color 0.5s ease 0s;
+			&_center{
+				position: absolute;
+				width: 50%;
+				left: 25%;
+				top: 0;
+				bottom: 0;
+				margin: 0;
+				padding: 0;
+				
+			}
+			&_left{
+				
+			}
+			&_right{
+				
+			}
 			&-btns {
 				display: inline-flex;
 				flex-wrap: nowrap;
 				flex-shrink: 0;
-				min-width: 30px;
-				padding: 0 6px;
+				//min-width: 54px;
+				//padding: 0 6px;
 	
 				&:first-child {
 					padding-left: 0;
 				}
 	
 				&:last-child {
-					min-width: 54px;
+					//min-width: 54px;
 				}
 	
-	    &-right:last-child{
-	      width: 120upx;
-	      text-align: right;
-	      flex-direction: row-reverse;
-	    }
+				&-right:last-child{
+				  
+				  text-align: right;
+				  flex-direction: row-reverse;
+				}
 			}
 	
 			&-container {
 				width: 100%;
-				margin: 0 10upx;
+				margin: 0 20upx;
 	
 				&-inner {
+					
 					width: 100%;
 					display: flex;
 					justify-content: center;
@@ -623,13 +649,26 @@
 			right: 0;
 			height: 1px;
 			content: '';
-			-webkit-transform: scaleY(.5);
 			transform: scaleY(.5);
 			background-color: #efefef;
 		}
+		
 	}
-	.left_back{
-		padding-left: 12upx;
-		padding-right: 12upx;
+	// .left_back{
+	// 	padding-left: 12upx;
+	// 	padding-right: 12upx;
+	// }
+	.mrlu7{
+		margin-left: -14upx;
+		margin-right: 14upx;
 	}
+	.content-between{
+		justify-content: space-between;
+	}
+	.hxwrap{
+	    overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	}
+	
 </style>

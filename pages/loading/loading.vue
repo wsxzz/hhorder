@@ -11,8 +11,12 @@
 	export default {
 		data() {
 			return {
+				// datatest:'测试',
 				datatest1:'测试111',
-				appId:'cyx'
+				// bgImg:'bg',
+				// count:0,
+				// step:true,
+				appId:'cyx',
 			}
 		},
 		created(){
@@ -66,14 +70,15 @@
 		  }else{
 			  //测试数据
 				  // let roleType = "10061013,10061019"
-				  // let jwt = ``
-				  // uni.setStorageSync('roleType', roleType);
-				  // uni.setStorageSync('appId', self.appId);
-				  // uni.setStorageSync('jwt',jwt);
-				  // uni.setStorageSync('adviser','nzIAAAAAhdaA733t');//顾问id
-				  // uni.setStorageSync('companyId','nzIAAAAACMDM567U');//顾问id
+				  let roleType = "10061003"
+				  let jwt = ``
+				  uni.setStorageSync('roleType', roleType);
+				  uni.setStorageSync('appId', self.appId);
+				  uni.setStorageSync('jwt',jwt);
+				  uni.setStorageSync('adviser','nzIAAAAAhdaA733t');//顾问id
+				  uni.setStorageSync('companyId','nzIAAAAACMDM567U');//顾问id
 				  this.$store.state.orgID = uni.getStorageSync('companyId');
-				  this.$store.state.adviser = uni.getStorageSync('companyId');
+				  this.$store.state.adviser = uni.getStorageSync('adviser');
 				  self.redirectToWhere(roleType);//跳转到订单首页
 		  }
 		},
@@ -100,6 +105,27 @@
 				}
 				
 			},
+			
+			// 10061003 服务顾问
+			// 10061012 网销顾问
+			// 10061015 展厅顾问
+			// 以上三个和涉及集销一体权限的跳转顾问的订单
+			
+			
+			// 10061013 展厅经理
+			// 10061019 网销经理
+			// 以上两个和涉及集销一体权限的跳转经理的订单
+			// //获取销售类型
+			// async Getsell_kind(){
+			// 	let param = {"codes":["sell_kind"]}
+			// 	await this.$api.HHPF_P_GetBaseEnumByCodes(param).then(res => {
+			// 		// 获得数据 
+			// 		console.log("获取客户档案"+res) 
+			// 	 }).catch(res => {
+			// 		 console.log(res)
+			// 	 　　// 失败进行的操作
+			// 	 })
+			// },
 		}
 			
 	}

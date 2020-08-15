@@ -20,7 +20,7 @@
 							<text class="time">开单时间{{orderDetail.basic[0].ORDER_TIME}}</text>
 						</view>
 						<view class="state right">
-							{{orderDetail.basic[0].STATUS}}
+							{{states[orderDetail.basic[0].STATUS]}}
 						</view>
 					</view>
 					<view class="_list">
@@ -169,7 +169,7 @@
 								与车主关系
 							</view>
 							<view class="infoR col-2 right">
-								{{orderDetail.entry1[0].ENTRUST_RELATION}}
+								{{orderDetail.entry2[0].RELATION_NAME}}
 							</view>
 						</view>
 						<view class="ownerinfo">
@@ -265,7 +265,7 @@
 								委托关系
 							</view>
 							<view class="infoR col-2 right">
-								{{orderDetail.entry1[0].ENTRUST_RELATION}}
+								{{orderDetailS.relation1}}
 							</view>
 						</view>
 						<view class="ownerinfo">
@@ -299,12 +299,13 @@
 			<view class="commodity-Infor">
 				<!-- 整车信息 -->
 				<view v-if="orderDetail.entry3.length!==0">
+					xsadwqdwq
+				</view>
+				<!-- orderDetail.entry3.length!==0 -->
+				<view v-if="false">
 					<view class="blueline-title">
 						商品信息
 						<text class="blueline"></text>
-					</view>
-					<view class="additional_title">
-						服务产品
 					</view>
 					<view class="goodsinfolist pad">
 						<view class="uni-flex uni-row newcarcell_f">
@@ -331,7 +332,7 @@
 						<view class="cell row">
 							<view class="cellL col-2">
 								成交价
-								<text class="check_">查阅</text>
+								<!-- <text class="check_">查阅</text> -->
 							</view>
 							<view class="price cellR col-2 right">
 								<text class="icon-yuan">¥</text>
@@ -343,7 +344,7 @@
 								内饰
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry3[0].TRIM_ID}}
+								{{orderDetail.entry3[0].TRIM_NAME}}
 							</view>
 						</view>
 						<view class="cell row">
@@ -351,7 +352,7 @@
 								颜色
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry3[0].COLOR_ID}}
+								{{orderDetail.entry3[0].COLOR_NAME}}
 							</view>
 						</view>
 						<view class="cell row">
@@ -367,7 +368,7 @@
 								收取方式
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry3[0].COLLECTION_TYPE}}
+								{{orderDetailS.car_pay_typeName}}
 							</view>
 						</view>
 						<view class="cell row">
@@ -697,7 +698,7 @@
 								<view class="cellL col-2">
 									保险优惠
 									<text class="policy">税率以官方收费为准</text>
-									<text class="policybtn">查看政策</text>
+									<!-- <text class="policybtn">查看政策</text> -->
 								</view>
 								<view class="cellR col-2 right">
 									¥{{orderDetail.entry6[0].DISCOUNT_PRICE}}
@@ -870,7 +871,7 @@
 								贷款期限
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry5[0].DEADLINE}}
+								{{orderDetailS.DEADLINE}}
 							</view>
 						</view>
 						
@@ -932,7 +933,7 @@
 								交付方式
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry12[0].GIVE_TYPE}}
+								{{orderDetailS.GIVE_TYPE}}
 							</view>
 						</view>
 						<view class="cell row">
@@ -940,7 +941,7 @@
 								地址类型
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry12[0].ADDRESS_TYPE}}
+								{{orderDetailS.address_kind}}
 							</view>
 						</view>
 						
@@ -984,7 +985,7 @@
 								与客户约定
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry12[0].OTHER}}
+								{{orderDetail.entry12[0].OTHER==0? '否':'是'}}
 							</view>
 						</view>
 						
@@ -1001,7 +1002,7 @@
 								二手车置换
 							</view>
 							<view class="cellR col-2 right">
-								{{orderDetail.entry12[0].IS_PLACE}}
+								{{orderDetail.entry12[0].IS_PLACE==0? '否':'是'}}
 							</view>
 						</view>
 						<view class="cell row">
@@ -1055,7 +1056,7 @@
 			</view>
 			
 			<!-- 底部按钮 -->
-			<view  v-if="isReview">
+			<view  v-if="false">
 				<view class="button-group row">
 					<view class="col-3 button-group-btn center" @click="toggle('bottom','shenhe')">
 						审核信息
@@ -1071,7 +1072,7 @@
 			</view>
 			
 			<!-- 审核订单时的底部按钮 -->
-			<view v-if="!isReview"> 
+			<view v-if="false"> 
 				<view class="row bottom-price">
 					<view class="col-2">
 						<view class="total">
@@ -1097,7 +1098,7 @@
 				</view>
 			</view>
 			<!-- 弹框内容 -->
-			<view v-if="isReview" class="popupbd">
+			<view v-if="false" class="popupbd">
 				<uni-popup ref="popup" :type="type" :animation="true">
 					<view class="popup-content">
 						<view class="row popup-title">
@@ -1159,7 +1160,8 @@
 				</uni-popup>
 			</view>
 			<!-- 审核订单时的底部按钮弹框内容 -->
-			<view v-if="!isReview" class="popupbd">
+			<!-- !isReview" -->
+			<view v-if="false" class="popupbd">
 				<uni-popup ref="popup" :type="type" :animation="true">
 					 
 					<view class="popup-content">
@@ -1191,20 +1193,69 @@
 </template>
 
 <script>
+	import {mapGetters} from 'vuex'
 	import filter from '../../common/filter.js'//基本信息
 	export default {
 		data() {
 			return {
 				orderId:'',//订单id
 				orderDetail:{},//订单详情
+				states:['未提交','审批中','已审核', '驳回'],//状态
 				type: 'top',
 				content:'',
-				isReview:false,//是否是审核信息
+				isReview:true,//是否是审核信息
 				Isdisabled:true,//是否确定按钮可点
 				remarks:"",//备注
 			}
 		},
 		computed: {
+			...mapGetters(['Mortgage_LimitCodes', "car_pay_typeCodes","give_typeCodes","address_kindCodes",'customer_relationCodes']),
+			orderDetailS() {
+				let orderDetailS = {
+					car_pay_typeName:"",//收取方式
+					DEADLINE:'',//贷款期限
+					GIVE_TYPE:"",//交付方式
+					address_kind:"",//地址类型
+					relation1:"",// 委托关系,
+				}
+				this.customer_relationCodes.forEach(x=>{
+					if(this.orderDetail.entry1[0].ENTRUST_RELATION == x.ID){//
+						orderDetailS.relation1 = x.NAME
+					}
+				})
+				
+				this.car_pay_typeCodes.forEach(x=>{
+					if(this.orderDetail.entry3.length>0){
+						if(this.orderDetail.entry3[0].COLLECTION_TYPE == x.ID){
+							orderDetailS.car_pay_typeName = x.NAME
+						}
+					}
+					
+				})
+				this.Mortgage_LimitCodes.forEach(x=>{
+					if(this.orderDetail.entry5.length>0){
+						if(this.orderDetail.entry5[0].DEADLINE == x.ID){
+							orderDetailS.DEADLINE = x.NAME
+						}
+					}
+				})
+				this.give_typeCodes.forEach(x=>{
+					if(this.orderDetail.entry12.length>0){
+						if(this.orderDetail.entry12[0].GIVE_TYPE == x.ID){
+							orderDetailS.GIVE_TYPE = x.NAME
+						}
+					}
+				})
+				this.address_kindCodes.forEach(x=>{
+				 if(this.orderDetail.entry12.length>0){
+					if(this.orderDetail.entry12[0].ADDRESS_TYPE == x.ID){
+						orderDetailS.address_kind = x.NAME
+					}
+				}
+				})
+				
+				return orderDetailS
+			},
 			//计算税额
 			subtotal(){
 				let jqx_price = Number(this.orderDetail.entry6[0].JQX_PRICE	);
@@ -1228,19 +1279,18 @@
 				    }
 			}
 		},
-		onLoad: (ops) => {
-			const isReview = (ops.isReview=='true'? true : false);
-			const orderid = ops.id;
+		
+		onLoad(ops) {
+			// debugger
+			// const isReview = (ops.isReview=='true'? true : false);
+			// const orderid = ops.id;
 			// const isReview = false;//测试数据
-			// const orderid = '37';//测试数据
-			// 无法操作data的数据，用缓存代替
-			uni.setStorageSync('isReview',isReview);
-			uni.setStorageSync('orderid',orderid);
+			const orderid = 71;//测试数据
+			this.isReview = true
+			this.orderId = orderid
 		},
 		created() {
 			filter.tabbarRequired("false");//不带tabbar
-			this.isReview = uni.getStorageSync('isReview');//是顾问还是经理
-			this.orderId = uni.getStorageSync('orderid');//是顾问还是经理
 			this.getAutoSalesOrder(this.orderId);//根据订单id查询详情
 		},
 		methods: {
@@ -1263,23 +1313,13 @@
 				 　　// 失败进行的操作
 				 })
 			},
-			//跳转打印合同
-			goprintcontract(){
-				uni.navigateTo({
-				    url: '../printContract/printContract'
-				});
-			},
-			// 客户信息
-			gocustomerinfor(){
-				uni.navigateTo({
-				    url: '../customer-infor/customer-infor'
-				});
-			},
 			// 底部弹框
 			toggle(type,content) {
 				this.content = content//
 				this.type = type
 				this.$refs.popup.open()
+				
+				
 			},
 			// 底部弹框是否弹出的状态：true弹出 false关闭
 			change(e) {
@@ -1316,6 +1356,11 @@
 					this.remarks="";//清空
 					this.Isdisabled = true
 				}
+				this.$refs.popup.close();
+				// 跳转列表
+				uni.redirectTo({//关闭当前页面
+				    url: '../consultantsLists/consultantsLists'
+				});
 			}
 		}
 		

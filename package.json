@@ -1,0 +1,23 @@
+{
+  "name": "cchhorder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsxzz/hhorder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wsxzz/hhorder/issues"
+  },
+  "homepage": "https://github.com/wsxzz/hhorder#readme",
+  "devDependencies": {
+    "@dcloudio/uni-ui": "^1.2.4"
+  }
+}

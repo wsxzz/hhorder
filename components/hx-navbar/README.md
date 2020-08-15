@@ -4,6 +4,9 @@
 
 本组件目前兼容微信小程序、H5、5+APP。
 
+## QQ群 954035921 
+如有问题可进群发图讨论
+
 ### 本组件支持模式：
 1. 普通固定顶部导航  
 2. 透明导航  
@@ -94,14 +97,16 @@ Vue.component('hx-navbar',hxNavbar)
 | centerAfter           | 屏幕滑动后的中插槽 （需要开启`centerSlidiSwitch`属性才生效）                  |
 | rightAfter            | 屏幕滑动后的右插槽 （需要开启`rightSlidiSwitch`属性才生效）                  |
 
+#### 小程序中首页有特殊要求建议使用插槽
 
 ``` html
 <hx-navbar>
-    <view>标题栏（中间插槽）</view>
     <view slot="left">left（左插槽）</view>
+	<view>标题栏（中间插槽）</view>
     <view  slot="right">right（右插槽）</view>
 </hx-navbar>
 ```
+
 
 
 ### 事件
@@ -117,6 +122,8 @@ Vue.component('hx-navbar',hxNavbar)
 ``` html
 <hx-navbar title="我爱新疆" left-text="返回" />
 ```
+
+
 
 ### 背景颜色线性渐变、头部固定
 ``` html
@@ -223,7 +230,8 @@ onPageScroll(e){
 :border="true" 
 :centerSlidiSwitch="true"
 :rightSlidiSwitch="true"
-:fixed="true">
+:fixed="true"
+:pageScroll.sync="scrollData">
 	<view style="text-align: center;width: 100%;">
 		<text>帮助反馈</text>
 	</view>
@@ -237,4 +245,15 @@ onPageScroll(e){
 		<uni-icons type="chat" size="30" ></uni-icons>
 	</block>
 </hx-navbar>
+```
+``` javascript
+data() {
+	return {
+		scrollData: {},
+	}
+},
+//必须在页面加 onPageScroll(e){} ，才能滑动显示
+onPageScroll(e){
+	this.scrollData = e;
+},
 ```

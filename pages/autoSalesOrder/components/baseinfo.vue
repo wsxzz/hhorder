@@ -124,7 +124,7 @@
 				
 			},
 			created() {
-			
+				
 				this.indexs = this.$store.state.baseinfo.obj
 				// this.getinit();
 			},
