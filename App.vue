@@ -8,7 +8,8 @@ export default {
 		await this.$api.HHPF_P_GetBaseEnumByCodes(param).then(res => {
 			// 获得数据  
 			if(res.Msg=='success'){
-				this.$store.dispatch('getcodes', res.Data);
+				this.$store.state.codes = res.Data
+				// this.$store.dispatch('getcodes', res.Data);
 			}else{
 				uni.showToast({
 				    title: res.Msg,
