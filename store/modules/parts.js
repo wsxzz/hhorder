@@ -8,7 +8,7 @@ const parts = {
 		"entry11": [],//卡券销售信息
 	},
 	getters: {
-		carinfo: state => state.carinfo
+		// carinfo: state => state.carinfo
 	},
 	mutations: {
 		setentry4M(state, obj) {

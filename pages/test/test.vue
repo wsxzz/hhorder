@@ -15,6 +15,7 @@
 							订单类型
 						</view>
 						<view class="notesR right">
+							<!--  -->
 							<button v-for="(item,index) in codes.order_kindCodes" :key="index" @click="ids.order_kindID=item.ID" :class="{'on': item.ID==ids.order_kindID?true:false}"
 							 class="yybtn mini-btn" size="mini" type="default" v-if="item.NAME!=='多车'">
 								{{item.NAME=='单车'? '整车':item.NAME}}
@@ -105,110 +106,35 @@
 			</view>
 		</view>
 
-		<!-- 款项欣欣 -->
-		<view class="payment-infor marB20">
-			<view class="blueline-title row">
-				<view class="col-2 blueline-infor">
-					款项信息
-					<text class="blueline"></text>
-				</view>
-			</view>
-			<view class="commom-content">
-				<view class="content marB20">
-					<view class="list">
-						<view class="cell row">
-							<view class="notesL">
-								订金方式
-							</view>
-							<view class="notesR right">
-								<button v-for="(item,index) in codes.subscription_typeCodes" :key="index" @click="ids.subscription_typeID=item.ID"
-								 :class="{'on':item.ID==ids.subscription_typeID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-								{{ids.subscription_typeID===39? "定金" : "订金"}}
-							</view>
-							<view class="notesR right">
-								<input type="number" class="uni-input" v-model.number="param.entry13.first_price" placeholder-style="color:#C3C3C3"
-								 placeholder="请填写" />
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-								尾款
-							</view>
-							<view class="notesR right">
-								{{last_price}}元
-							</view>
-						</view>
+		<!-- 关联原有订单 -->
+		<!-- !addOrder -->
+		<view class="">
+			<view v-if="false" class="related-old-order">
+				<view class="headtitle row">
+					<view class="headtitleL col-2">
+						关联原有订单
+					</view>
+					<view class="col-2 right">
+						<image class="icon-qiehuan" src="../../static/images/icons/icon-Line-qiehuan.png" mode="widthFix" @click="godetils(orderDetail.basic[0].ID)"></image>
 					</view>
 				</view>
-				<view class="content">
-					<view class="list">
-						<view class="cell row">
-							<view class="notesL Required">
-
-								应收总额
-							</view>
-							<view class="notesR right">
-								{{totalPrice}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								整车款
-							</view>
-							<view class="notesR right">
-								{{param.entry14.car_price}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								精品美容款
-							</view>
-							<view class="notesR right">
-								{{entryArrPrice(param.entry4)}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								产品款
-							</view>
-							<view class="notesR right">
-								{{entryArrPrice(param.entry8)}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								套餐款
-							</view>
-							<view class="notesR right">
-								{{entryArrPrice(param.entry9)}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								代办款
-							</view>
-							<view class="notesR right">
-								{{entryArrPrice(param.entry10)}}元
-							</view>
-						</view>
-						<view class="cell row">
-							<view class="notesL Required">
-
-								卡券款
-							</view>
-							<view class="notesR right">
-								{{entryArrPrice(param.entry11)}}元
-							</view>
-						</view>
+				<view class="old-order-list pad">
+					<view class="cell-1">
+						<text class="ordernum">{{orderDetail.basic[0].ORDER_ID}}</text>
+						<text class="orderstate">{{states[orderDetail.basic[0].STATUS]}}</text>
+					</view>
+					<view class="name">
+						{{orderDetail.entry1[0].BD_NAME}}
+					</view>
+					<view class="carinfo">
+						{{orderDetail.entry3[0].OFFICIA_LNAME}}
+					</view>
+					<view class="shopnums">
+						<text class="nums">
+							商品数量
+							<text class="num">1</text>
+						</text>
+						<text class="date">{{orderDetail.basic[0].ORDER_TIME}}</text>
 					</view>
 				</view>
 			</view>
@@ -217,104 +143,8 @@
 
 
 
-		<!-- 保险信息 -->
-		<view class="Insurance-infor">
-			<view class="blueline-title row">
-				<view class="col-2 blueline-infor">
-					保险信息
-					<text class="blueline"></text>
-				</view>
-				<view class="col-2 right">
-					<image @click="goInsurance" class="blueline-icons" src="../../static/images/icons/icon-public-more2.png" mode="widthFix"></image>
-				</view>
-			</view>
-			<view v-show="param.entry6.org_id!==''">
-				<view class="Insurance-infor-title">
-					{{param.entry6.name}}
-				</view>
-				<view class="Insurance-infor-list">
-					<view class="cell row">
-						<view class="col-2">
-							交强险
-						</view>
-						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.jqx_price" @blur="mblur" />
-						</view>
-					</view>
-					<view class="cell row">
-						<view class="col-2">
-							车船税
-						</view>
-						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.ccs_price" @blur="mblur" />
-							<!-- 0 <text>元</text> -->
-						</view>
-					</view>
 
-					<view class="cell row">
-						<view class="col-2">
-							商业险
-						</view>
-						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.syx_price" @blur="mblur" />
-						</view>
-					</view>
-					<view class="cell row">
-						<view class="col-2">
-							其他
-						</view>
-						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.other_price" @blur="mblur" />
-						</view>
-					</view>
-					<view class="cell row">
-						<view class="col-2">
-							保险类型
-						</view>
-						<view class="cellR col-2 right turntootherpage">
-							<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
-							<view v-for="(item,index) in codes.insurance_kindCodes" :key="item.ID" v-if="item.ID==ids.insurance_kindID">
-								<picker @change="PickChangeinsurance_kind" :value="index" :range-key="'NAME'" :range="codes.insurance_kindCodes">
-									<view class="uni-input">{{codes.insurance_kindCodes[index].NAME}}</view>
-								</picker>
-							</view>
-						</view>
-					</view>
-					<view class="cell row">
-						<view class="col-2">
-							保险优惠
-							<view class="tax-rate">
-								税率以官方收费为准
-							</view>
-							<view class="view-policy" @click="checkpolicy">
-								查看政策
-							</view>
-						</view>
-						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.discount_price" />
-						</view>
-					</view>
 
-					<view class="cell row">
-						<view class="col-2">
-							备注
-						</view>
-						<view class="cellR col-2 right">
-							<textarea v-model="param.entry6.info" placeholder="请填写" auto-height />
-							</view>
-					</view>
-					<view class="row">
-						<view class="subtotal right">
-							<text class="subtotaltxt">小计</text>
-							<text class="subtotalicon">¥</text>
-							<text class="subtotalmoney">{{subtotal}}</text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		
-		
 
 
 		<!-- 关联原有订单 -->
@@ -548,6 +378,7 @@
 			</view>
 		</view>
 
+
 		<view class="Commodity-infor marB20">
 			<view class="blueline-title row">
 				<view class="col-2 blueline-infor">
@@ -558,9 +389,9 @@
 					<image @click="goshop" class="blueline-icons" src="../../static/images/icons/icon-public-more2.png" mode="widthFix"></image>
 				</view>
 			</view>
-		</view>	
-		<view  class="commom-content">
-			<view v-if="param.entry3.length>0"   class="content">
+		</view>
+		<view class="commom-content">
+			<view v-if="param.entry3.length>0" class="content">
 				<view class="optionaltitle">
 					<label>
 						<text class="txt">整车信息</text>
@@ -638,8 +469,8 @@
 							<view class="notesL">
 								收取方式
 							</view>
-							<button v-for="(item,index) in codes.car_pay_typeCodes " :key="index" @click="ids.car_pay_typeID=item.ID"
-							 :class="{'on': item.ID==ids.car_pay_typeID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+							<button v-for="(item,index) in codes.car_pay_typeCodes " :key="index" @click="ids.car_pay_typeID=item.ID" :class="{'on': item.ID==ids.car_pay_typeID?true:false}"
+							 class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
 						</view>
 
 						<view class="cell row">
@@ -668,7 +499,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="Commodity-infor marB20">
 			<view class="Commodity-infor-nonvehical ">
 				<!-- 精品美容 -->
@@ -725,7 +556,7 @@
 														<text class="iconfont">&#xe602;</text>
 													</view>
 												</view>
-					
+
 											</view>
 										</view>
 									</view>
@@ -793,12 +624,12 @@
 														<text class="iconfont">&#xe602;</text>
 													</view>
 												</view>
-					
+
 											</view>
 										</view>
 									</view>
 								</view>
-					
+
 								<view class="row">
 									<view class="subtotal right">
 										<text class="subtotaltxt">小计</text>
@@ -862,12 +693,12 @@
 														<text class="iconfont">&#xe602;</text>
 													</view>
 												</view>
-					
+
 											</view>
 										</view>
 									</view>
 								</view>
-					
+
 								<view class="row">
 									<view class="subtotal right">
 										<text class="subtotaltxt">小计</text>
@@ -884,7 +715,7 @@
 				<!-- 套餐产品 -->
 				<view class="">
 					<!--  -->
-					
+
 					<view v-if="param.entry9.length>0" class="commom-content marB20">
 						<view class="content">
 							<view class="optionaltitle">
@@ -933,12 +764,12 @@
 														<text class="iconfont">&#xe602;</text>
 													</view>
 												</view>
-					
+
 											</view>
 										</view>
 									</view>
 								</view>
-					
+
 								<view class="row">
 									<view class="subtotal right">
 										<text class="subtotaltxt">小计</text>
@@ -1003,12 +834,12 @@
 														<text class="iconfont">&#xe602;</text>
 													</view>
 												</view>
-					
+
 											</view>
 										</view>
 									</view>
 								</view>
-					
+
 								<view class="row">
 									<view class="subtotal right">
 										<text class="subtotaltxt">小计</text>
@@ -1025,41 +856,529 @@
 				<!-- 卡券销售 -->
 				<view class="">
 					<view v-if="false" class="commom-content marB20"></view>
-				</view>	
+				</view>
 			</view>
 		</view>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 
+		<!-- 保险信息 -->
+		<view class="Insurance-infor">
+			<view class="blueline-title row">
+				<view class="col-2 blueline-infor">
+					保险信息
+					<text class="blueline"></text>
+				</view>
+				<view class="col-2 right">
+					<image @click="goInsurance" class="blueline-icons" src="../../static/images/icons/icon-public-more2.png" mode="widthFix"></image>
+				</view>
+			</view>
+			<view v-show="param.entry6.org_id!==''">
+				<view class="Insurance-infor-title">
+					{{param.entry6.name}}
+				</view>
+				<view class="Insurance-infor-list">
+					<view class="cell row">
+						<view class="col-2">
+							交强险
+						</view>
+						<view class="cellR col-2 right">
+							<input type="number" v-model.number="param.entry6.jqx_price" />
+						</view>
+					</view>
+					<view class="cell row">
+						<view class="col-2">
+							车船税
+						</view>
+						<view class="cellR col-2 right">
+							<input type="number" v-model.number="param.entry6.ccs_price" />
+							<!-- 0 <text>元</text> -->
+						</view>
+					</view>
 
+					<view class="cell row">
+						<view class="col-2">
+							商业险
+						</view>
+						<view class="cellR col-2 right">
+							<input type="number" v-model.number="param.entry6.syx_price" />
+						</view>
+					</view>
+					<view class="cell row">
+						<view class="col-2">
+							其他
+						</view>
+						<view class="cellR col-2 right">
+							<input type="number" v-model.number="param.entry6.other_price" />
+						</view>
+					</view>
+					<view class="cell row">
+						<view class="col-2">
+							保险类型
+						</view>
+						<view class="cellR col-2 right turntootherpage">
+							<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+							<view v-for="(item,index) in codes.insurance_kindCodes" :key="item.ID" v-if="item.ID==ids.insurance_kindID">
+								<picker @change="PickChangeinsurance_kind" :value="index" :range-key="'NAME'" :range="codes.insurance_kindCodes">
+									<view class="uni-input">{{codes.insurance_kindCodes[index].NAME}}</view>
+								</picker>
+							</view>
+						</view>
+					</view>
+					<view class="cell row">
+						<view class="col-2">
+							保险优惠
+							<view class="tax-rate">
+								税率以官方收费为准
+							</view>
+							<view class="view-policy" @click="checkpolicy">
+								查看政策
+							</view>
+						</view>
+						<view class="cellR col-2 right">
+							<input type="number" v-model.number="param.entry6.discount_price"/>
+						</view>
+					</view>
 
-
-
-
-
-
-
-	<view class="" @click="submit">
-		提交
+					<view class="cell row">
+						<view class="col-2">
+							备注
+						</view>
+						<view class="cellR col-2 right">
+							<textarea v-model="param.entry6.info" placeholder="请填写" auto-height />
+							</view>
+				</view>
+				<view class="row">
+					<view class="subtotal right">
+						<text class="subtotaltxt">小计</text>
+						<text class="subtotalicon">¥</text>
+						<text class="subtotalmoney">{{bxprice}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
+	
+	
+<!-- 款项欣欣 -->
+		<view class="payment-infor marB20">
+			<view class="blueline-title row">
+				<view class="col-2 blueline-infor">
+					款项信息
+					<text class="blueline"></text>
+				</view>
+			</view>
+			<view class="commom-content">
+				<view class="content marB20">
+					<view class="list">
+						<view class="cell row">
+							<view class="notesL">
+								订金方式
+							</view>
+							<view class="notesR right">
+								<button v-for="(item,index) in codes.subscription_typeCodes" :key="index" @click="ids.subscription_typeID=item.ID"
+								 :class="{'on':item.ID==ids.subscription_typeID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+								{{ids.subscription_typeID===39? "定金" : "订金"}}
+							</view>
+							<view class="notesR right">
+								<input type="number" class="uni-input" v-model.number="param.entry13.first_price" placeholder-style="color:#C3C3C3"
+								 placeholder="请填写" />
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+								尾款
+							</view>
+							<view class="notesR right">
+								{{last_price}}元
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="content">
+					<view class="list">
+						<view class="cell row">
+							<view class="notesL Required">
+
+								应收总额
+							</view>
+							<view class="notesR right">
+								{{totalPrice}}元
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+
+								整车款
+							</view>
+							<view class="notesR right">
+								{{param.entry14.car_price}}元
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+
+								商品款
+							</view>
+							<view class="notesR right">
+								{{entryArrPrice(param.entry4)}}元
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+
+								产品款
+							</view>
+							<view class="notesR right">
+								{{entryArrPrice(param.entry8)}}元
+							</view>
+						</view>
+						<!-- <view class="cell row">
+							<view class="notesL Required">
+
+								套餐款
+							</view>
+							<view class="notesR right">
+								{{entryArrPrice(param.entry9)}}元
+							</view>
+						</view> -->
+						<view class="cell row">
+							<view class="notesL Required">
+
+								代办款
+							</view>
+							<view class="notesR right">
+								{{entryArrPrice(param.entry10)}}元
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL Required">
+
+								卡券款
+							</view>
+							<view class="notesR right">
+								{{entryArrPrice(param.entry11)}}元
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 按揭项目 -->
+		<view class="">
+			<view v-if="ids.pay_typeID==68" class="mortgage-pro marB20">
+					<view class="blueline-title row">
+						<view class="col-2 blueline-infor">
+							按揭项目
+							<text class="blueline"></text>
+						</view>
+					</view>
+					<view class="commom-content marB20">
+						<view class="content">
+							<view class="list">
+								<view class="cell row">
+									<view class="notesL">
+										额度总计
+									</view>
+									<view class="notesR right">
+										¥{{quotaPrice}}
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="commom-content">
+						<view class="content">
+							<view class="list">
+								<view class="cell split-title">
+									贷款信息
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										按揭类型
+									</view>
+									<view class="notesR right">
+										 <button v-for="(item,index) in codes.mortgage_kindCodes " :key="index" @click="ids.mortgage_kindID=item.ID"
+										  :class="{'on': item.ID==ids.mortgage_kindID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										按揭机构
+									</view>
+									<view class="notesR right turntootherpage">
+										<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+										<view v-for="(item,index) in org_list" :key="item.ID" v-if="item.FID==ids.org_Id">
+											<picker @change="PickChangeorg_Id_5" :value="index" :range-key="'FName'" :range="org_list">
+												<view class="uni-input">{{org_list[index].FName}}</view>
+											</picker>
+										</view>
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										机构来源
+									</view>
+									<view class="notesR right">
+										 <button v-for="(item,index) in codes.org_fromCodes " :key="index" @click="ids.org_fromID_5=item.ID"
+										  :class="{'on': item.ID==ids.org_fromID_5?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										还款方式
+									</view>
+									<view class="notesR right turntootherpage">
+										<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+										<view v-for="(item,index) in codes.payback_kindCodes" :key="item.ID" v-if="item.ID==ids.payback_kindID">
+											<picker @change="PickChangepayback_kind" :value="index" :range-key="'NAME'" :range="codes.payback_kindCodes">
+												<view class="uni-input">{{codes.payback_kindCodes[index].NAME}}</view>
+											</picker>
+										</view>
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										首付比例
+									</view>
+									<view class="notesR right unit">
+										<text class="icon-unit">%</text>
+										<input class="uni-input" v-model="param.entry5.first_per" placeholder-style="color:#C3C3C3" placeholder="请填写" />
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										贷款额度
+									</view>
+									<view class="notesR right unit">
+										<text class="icon-unit">元</text>
+										<input class="uni-input" v-model="param.entry5.quota" placeholder-style="color:#C3C3C3" placeholder="请填写" />
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										贷款期限
+									</view>
+									<view class="notesR right turntootherpage">
+										<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+										<view v-for="(item,index) in codes.Mortgage_LimitCodes" :key="item.ID" v-if="item.ID==ids.Mortgage_LimitID">
+											<picker @change="PickChangeMortgage_Limit" :value="index" :range-key="'NAME'" :range="codes.Mortgage_LimitCodes">
+												<view class="uni-input">{{codes.Mortgage_LimitCodes[index].NAME}}</view>
+											</picker>
+										</view>
+									</view>
+									
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										按揭内容
+									</view>
+									<view class="notesR right">
+										{{qutocontent}}
+									</view>
+								</view>
+								<view class="cell row">
+									<view class="notesL">
+										资质要求
+									</view>
+									<view class="notesR right turntootherpage">
+										<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+										<view v-for="(item,index) in codes.Qualification_KindCodes" :key="item.ID" v-if="item.ID==ids.Qualification_KindID">
+											<picker @change="PickChangeQualification_Kind" :value="index" :range-key="'NAME'" :range="codes.Qualification_KindCodes">
+												<view class="uni-input">{{codes.Qualification_KindCodes[index].NAME}}</view>
+											</picker>
+										</view>
+									</view>
+								</view>
+								<view class="cell row">
+										<view class="notesL Required">
+											备注说明
+										</view>
+										<view class="notesR right">
+											<textarea v-model="param.entry5.info" placeholder="请输入" />
+											</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+		</view>
+		<!-- 交付 -->
+
+		<view class="marB20">
+			<view class="blueline-title row">
+				<view class="col-2 blueline-infor">
+					交付信息
+					<text class="blueline"></text>
+				</view>
+			</view>
+			
+			<view class="commom-content marB20">
+				<view class="content">
+					<view class="list">
+						<view class="cell row">
+							<view class="notesL">
+								约定交期
+							</view>
+							<view class="notesR right turntootherpage">
+								<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
+								 <text @click="onShowDatePicker('date')">{{param.entry12.give_date}}</text>
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								交期备注
+							</view>
+							<view class="notesR right">
+								 <input  v-model="param.entry12.remark"  class="uni-input" placeholder-style="color:#C3C3C3" placeholder="请填写" />
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								交付方式        
+							</view>
+							<view class="notesR right">
+								<button v-for="(item,index) in codes.give_typeCodes " :key="index" @click="ids.give_typeID=item.ID"
+								 :class="{'on': item.ID==ids.give_typeID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								地址类型
+							</view>
+							<view class="notesR right">
+								<button v-for="(item,index) in codes.address_kindCodes " :key="index" @click="ids.address_kindID=item.ID"
+								 :class="{'on': item.ID==ids.address_kindID?true:false}" class="yybtn mini-btn" size="mini" type="default">{{item.NAME}}</button>
+						</view>
+						</view>
+						<view class="cell row">
+							<view class="addressL">
+								取/送货地址
+							</view>
+							<view class="addressR right">
+								 <textarea  v-model="param.entry12.address"  auto-height="96upx"  placeholder="请输入地址" />
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								邮编
+							</view>
+							<view class="notesR right">
+								 <input  v-model="param.entry12.postcode"  class="uni-input" placeholder-style="color:#C3C3C3" placeholder="请填写" />
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								联系人
+							</view>
+							<view class="notesR right"> <!-- contacts(1) -->
+								<button @click="param.entry12.is_self=1" :class="{'on': param.entry12.is_self===1}"  class="yybtn mini-btn" size="mini" type="default">客户</button>
+								<button @click="param.entry12.is_self=0" :class="{'on': param.entry12.is_self===0}"  class="yybtn mini-btn" size="mini" type="default">其他</button>
+							</view>
+						</view>
+						
+					</view>
+				</view>
+			</view>
+			<view class="commom-content">
+				<view class="content">
+					<view class="list">
+						<view class="cell split-title">
+							其他约定
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								与客户约定
+							</view>
+							<view class="notesR right">
+								<button @click="param.entry12.other='1'" :class="{'on': param.entry12.other!==''}"  class="yybtn mini-btn" size="mini" type="default">有</button>
+								<button @click="param.entry12.other=''" :class="{'on': param.entry12.other==''}"  class="yybtn mini-btn" size="mini" type="default">无</button>
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								备注
+							</view>
+						</view>
+						<view class="cell">
+							<textarea  v-model="param.entry12.info"  width="100%"  maxlength="128" placeholder="请输入内容 (最多128个字)"/>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								二手车置换
+							</view>
+							<view class="notesR right">
+								<button @click="param.entry12.is_place=1" :class="{'on': param.entry12.is_place===1}"   class="yybtn mini-btn" size="mini" type="default">有</button>
+								<button @click="param.entry12.is_place=0" :class="{'on': param.entry12.is_place===0}"   class="yybtn mini-btn" size="mini" type="default">无</button>
+							</view>
+						</view>
+						<view class="cell row">
+							<view class="notesL">
+								备注
+							</view>
+						</view>
+						<view class="cell">
+							<textarea v-model="param.entry12.info2" width="100%"  maxlength="128" placeholder="请输入内容 (最多128个字)"/>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 发票信息 -->
+		<view class="invoice-infor marB20">
+			<view class="blueline-title row">
+				<view class="col-2 blueline-infor">
+					发票信息
+					<text class="blueline"></text>
+				</view>
+			</view>
+			<view class="commom-content">
+				<view class="content">
+					<view class="list">
+						<view class="cell row">
+							<view class="notesL">
+								发票总额
+							</view>
+							<view class="notesR right">
+								<input  type="number" v-model="param.entry15.invoice_sum"/>
+								<!-- ¥{{}} -->
+							</view>
+						</view>
+					<view class="cell row">
+						<view class="notesL">
+							机动车发票
+						</view>
+						<view class="notesR right">
+							<button @click="param.entry15.invoice=1" :class="{'on': param.entry15.invoice===1}"   class="yybtn mini-btn" size="mini" type="default">是</button>
+							<button @click="param.entry15.invoice=0" :class="{'on': param.entry15.invoice===0}"   class="yybtn mini-btn" size="mini" type="default">否</button>
+						</view>
+					</view>
+					<view class="cell row">
+							<view class="notesL">
+								普通发票
+							</view>
+							<view class="notesR right">
+								<button @click="param.entry15.invoice_public=1" :class="{'on': param.entry15.invoice_public===1}"  class="yybtn mini-btn" size="mini" type="default">是</button>
+								<button @click="param.entry15.invoice_public=0" :class="{'on': param.entry15.invoice_public===0}"  class="yybtn mini-btn" size="mini" type="default">否</button>
+							</view>
+					</view>
+					
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="" @click="submit">
+			提交
+		</view>
 	</view>
 </template>
 
 <script>
-	import {
-		mapGetters
-	} from 'vuex'
+	import {mapMutations,mapGetters} from 'vuex'
 	import fn from '../../common/filter.js'
 	export default {
 		name: 'baseinfo',
@@ -1067,11 +1386,8 @@
 			return {
 				addOrder: false,
 				ids: {},
-				codes: {}, //所有的细分codes
-				stateCodes: [], //所有codes
-				obj: {}, //页面数据
-				subtotal:0,//保险小记
-				totalPrice:0,//应收总额
+				org_list: [],
+				bxprice:0,
 				param: {
 					"basic": {}, //销售订单基础数据
 					"entry1": {}, //客户补充信息
@@ -1092,320 +1408,137 @@
 				}
 			}
 		},
-		computed: {
-			//计算税额
-			taxlimitm() {
-				return function(index) {
-					let tax_num = this.param.entry3[index].tax_num / 100
-					let taxlimitm = this.param.entry3[index].final_price * tax_num
-					return taxlimitm
-				}
-
-			},
-			//非整车的每个小记
-			subtotalPriceTotal(name) {
-				// debugger
-				return function(name) {
-					let self_ = this,
-						total = 0,
-						obj = [];
-					switch (name) {
-						case 'fineBeauty':
-							obj = self_.param.entry4
-							break;
-						case 'companyPro':
-							obj = self_.param.entry8
-							break;
-						case 'Setmeal':
-							obj = self_.param.entry9
-							break;
-						case 'agencyService':
-							obj = self_.param.entry10
-							break;
-						case 'Cardvoucher':
-							obj = self_.param.entry11
-							break;
-						case 'Exinsurance':
-							obj = self_.param.entry7
-							break;
-					}
-					if(name!=="Exinsurance"){
-						obj.forEach(function(key) {
-							total += Number(key.num) * Number(key.final_price);
-						});
+		watch: {
+			ids: {
+				handler(newValue, oldValue) {
+					let that = this
+					if(this.ids.pay_typeID==68){//按揭信息赋值
+						this.param.entry5 = {
+							'repayment_type':that.ids.payback_kindID, //还款方式
+							"org_id" :that.ids.org_Id,
+							"price": 0,
+							"deadline": that.ids.Mortgage_LimitID,
+							"multiple_txt": "",
+							"first_per": 0,
+							"quota": 0,
+							"org_src": "",
+							"qua_id": 0,
+							"info": ""
+						}
 					}else{
-						total  =  Number(obj.num) * Number(obj.final_price);
+						this.param.entry5 = {}
 					}
 					
-					return total
-				}
+					console.log(this.ids,"this.ids")
+				},
+				deep: true
 			},
-			entryArrPrice: function() {
-				return function(arr) {
-					var total = 0
-					arr.forEach((item, index) => {
-						total += Number(item.num) * Number(item.final_price);
-					})
-					return total
-				}
-			},
-			//尾款
-			last_price() {
-				let last_price = this.totalPrice - this.param.entry13.first_price
-				this.param.entry13.last_price = last_price
-				return last_price
+			param: {
+				handler(newValue, oldValue) {
+					if(this.param.entry6.org_id!==""){
+							let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
+							let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
+							let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
+							let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
+							let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
+							this.bxprice = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
+							
+					}
+					console.log(this.param.entry6,"改变了")
+					if(this.param.entry3.length>0){
+						this.param.entry14.car_price = this.param.entry3[0].final_price
+					}
+					this.param.entry14.first_price = this.param.entry13.first_price
+					this.$store.state.order.obj = this.param
+				},
+				deep: true
 			},
 		},
-		
 		created() {
 			let that = this;
-			that.stateCodes = that.$store.state.codes
-			that.getCodessss(that.stateCodes);
-			if (that.addOrder) {
-				that.param = that.$store.state.order.obj
+			if (that.addOrder) { //新增
+				Object.assign(that.param, that.$store.state.order.obj)
+				that.ids = that.$store.state.order.ids
 			} else {
-				that.getAutoSalesOrder(37)
+				that.getAutoSalesOrder(75)
 			}
-			// that.getCodes() //
+			this.getBaseEnumByCodes()
 		},
+		mounted() {
+
+		},
+
 		methods: {
-			submit() { //提交
+			
+		async submit() { //提交
 				let that = this
-				console.log(that.param)
-			},
-			//------------基本点击事件开始---------//
-			PickChangeSell_kind(e) {
-				this.ids.sell_kindID = this.codes.sell_kindCodes[e.target.value].ID //切换样式
-			},
-			PickChangeorder_channel(e) {
-				this.ids.order_channelID = this.codes.order_channelCodes[e.target.value].ID //切换样式
-			},
-			PickChangecustomer_from(e) {
-				this.ids.customer_fromID = this.codes.customer_fromCodes[e.target.value].ID //切换样式
-			},
-			PickChangerelations(e) {
-				this.ids.relationID = this.codes.customer_relationCodes[e.target.value].ID //切换样式
-			},
-			PickChangeentrustrelations(e) {
-				this.ids.entrust_relation = this.codes.customer_relationCodes[e.target.value].ID //切换样式
-			},
-			PickChangeinsurance_kind(e) {
-				this.ids.insurance_kindID = this.codes.insurance_kindCodes[e.target.value].ID //切换样式
-			},
-
-			purchaseTax(e, index) {
-				// debugger
-				this.param.entry3[index].is_tax = e //切换样式
-			},
-			//计算保险小记
-			subtotalmethod(){
-				let subtotal = Number(this.param.entry6.jqx_price) + Number(this.param.entry6.ccs_price) + Number(this.param.entry6.syx_price) + Number(this.param.entry6.discount_price) + Number(this.param.entry6.other_price) 
-				// console.log(subtotal)
-				 return subtotal
-			},
-			// 是否加装
-			isadd(index) {
-				let self_ = this;
-				if (self_.param.entry4[index].is_add == 0) {
-					self_.param.entry4[index].is_add = 1
-				} else if (self_.param.entry4[index].is_add == 1) {
-					self_.param.entry4[index].is_add = 0
-				}
-			},
-			//是否随车
-			isWith(index) {
-				let self_ = this;
-				if (self_.param.entry4[index].is_with == 0) {
-					self_.param.entry4[index].is_with = 1
-					self_.param.entry4[index].final_price = 0 //成交单价
-				} else if (self_.param.entry4[index].is_with == 1) {
-					self_.param.entry4[index].is_with = 0
-					self_.param.entry4[index].final_price = self_.param.entry4[index].guide_price //成交单价
-				}
-			},
-			//是否预装
-			preInstalled(index) {
-				let self_ = this;
-				if (self_.param.entry4[index].pre_installed == 0) {
-					self_.param.entry4[index].pre_installed = 1
-				} else if (self_.param.entry4[index].pre_installed == 1) {
-					self_.param.entry4[index].pre_installed = 0
-				}
-			},
-//商品非整车（随车）
-					changenumber(type, value, index, arr) {
-						let self_ = this,
-							value_new = 0;
-						if (type === "reduce" && value > 0) { //减少
-							value_new = value - 1
-						}
-						if (type === "reduce" && value == 0) { //减少
-							value_new = 0
-						}
-						if (type === "increase") { //增加
-							value_new = Number(value) + Number(1)
-						}
-			
-			
-						switch (arr) {
-							case 'fineBeauty':
-								self_.param.entry4[index].num = value_new;
-								break;
-							case 'Exinsurance':
-								self_.param.entry7.num = value_new;
-								break;
-							case 'companyPro':
-								self_.param.entry8[index].num = value_new;
-								break;
-							case 'Setmeal':
-								self_.param.entry9[index].num = value_new;
-								break;
-							case 'agencyService':
-								self_.param.entry10[index].num = value_new;
-								break;
-							case 'Cardvoucher':
-								self_.param.entry11[index].num = value_new;
-								break;
-			
-						}
-					},
-
-
-			//------------基本点击事件结束---------//
-
-			paramInintID() {
-				let that = this
-				console.log("我应该后出现")
-				let obj_basic_ids = { //收集basic需要的id
-					"sell_kind": that.ids.sell_kindID,
-					"order_kind": that.ids.order_kindID,
-					"order_channel": that.ids.order_channelID,
-					"order_from": that.ids.order_fromID,
-					"pay_type": that.ids.pay_typeID,
-					"car_kind": that.ids.car_kindID,
-				}
-				Object.assign(that.param.basic, obj_basic_ids)
-
-				let obj_entry1_ids = { //收集entry1需要的id
-					"kind": that.ids.customer_kindID, //客户类型
-					"entrust_relation": that.ids.entrust_relation, //委托关系
-				}
-				if (that.ids.customer_kindID == 16) { //如果是单位
-					obj_entry1_ids = { //收集entry1需要的id
-						"kind": that.ids.customer_kindID, //客户类型
-						"entrust_relation": that.ids.entrust_relation, //委托关系
-					}
-				}
-				Object.assign(that.param.entry1, obj_entry1_ids)
-
-				let obj_entry2_ids = { //收集entry2需要的id
-					"relation": that.ids.relationID, //与客户关系
-				}
-				Object.assign(that.param.entry2, obj_entry2_ids)
-
-				if (that.param.entry3.length > 0) {
-					let obj_entry3_ids = { //收集entry3需要的id
-						"collection_type": that.ids.car_pay_typeID,
-						"kind": that.ids.order_kindID,
-					}
-					Object.assign(that.param.entry3[0], obj_entry3_ids)
-				}
-				if (that.ids.pay_typeID == 68) {
-
-					let obj_entry5_ids = { //收集entry5需要的id
-						"repayment_type": that.ids.payback_kindID, //还款方式
-					}
-					Object.assign(that.param.entry5, obj_entry5_ids)
-				}
 				
-				// debugger
-
-				if (JSON.stringify(that.param.entry6) !== "{}") {
-					let obj_entry6_ids = { //收集entry6需要的id
-						"org_src": that.ids.org_fromID_6,
-						"kind": that.ids.insurance_kindID
-					}
-					Object.assign(that.param.entry6, obj_entry6_ids)
-				}
-
-				let obj_entry12_ids = { //收集entry12需要的id
-					"give_type": that.ids.give_typeID,
-					"address_type": that.ids.address_kindID,
-				}
-				Object.assign(that.param.entry12, obj_entry12_ids)
-
-				let obj_entry13_ids = { //收集entry12需要的id
-					"type": this.ids.subscription_typeID
-				}
-
-				Object.assign(that.param.entry13, obj_entry13_ids)
+				// console.log(that.param)
+				let param = that.param
+				await this.$api.HHPF_P_AddAutoSalesOrder(param).then(res => {
+					// 获得数据 
+					uni.redirectTo({
+					    url: 'test0'
+					});
+					
+				 }).catch(res => {
+					 console.log(res)
+				 　　// 失败进行的操作
+				 })
+				
 			},
-			paramInintOBJ() {
-				let that = this;
-				let obj_basic = {
-					"adviser": that.$store.state.adviser,
-					"adviser_org_id": that.$store.state.orgID,
-					"adviser_org_name": that.$store.state.OrgName,
-					"adviser_department_id": that.$store.state.DeptID,
-					"adviser_department_name": that.$store.state.DeptName,
-					"adviser_post_id": that.$store.state.JOB_ID,
-					"adviser_post_name": that.$store.state.JOB_NAME,
-					"adviser_name": that.$store.state.B_NAME
+			getids() { //
+				let that = this
+				console.log("xuyaoyongde codes", that.codes)
+				let codess = that.codes
+				let ids = that.ids
+				console.log(this.org_list,"this.org_list")
+				that.ids = {
+					sell_kindID: ids.sell_kindID==null?codess.sell_kindCodes[0].ID:ids.sell_kindID,
+					order_kindID:ids.order_kindID ==null?codess.order_kindCodes[0].ID:ids.order_kindID,
+					order_channelID:ids.order_channelID ==null? codess.order_channelCodes[0].ID:ids.order_channelID,
+					order_fromID: ids.order_fromID ==null?codess.order_fromCodes[0].ID:ids.order_fromID,
+					customer_kindID: ids.customer_kindID ==null?codess.customer_kindCodes[0].ID:ids.customer_kindID,
+					entrust_relation: ids.entrust_relation ==null?codess.customer_relationCodes[0].ID:ids.entrust_relation, //委托关系
+					customer_fromID: ids.customer_fromID ==null?codess.customer_fromCodes[0].ID:ids.customer_fromID,
+					relationID: ids.relationID ==null?codess.customer_relationCodes[0].ID:ids.relationID, //客户关系
+					mortgage_kindID: ids.mortgage_kindID ==null?codess.mortgage_kindCodes[0].ID:ids.mortgage_kindID, //按揭类型
+					payback_kindID: ids.payback_kindID ==null?codess.payback_kindCodes[0].ID:ids.payback_kindID,
+					subscription_typeID: ids.subscription_typeID ==null?codess.subscription_typeCodes[0].ID:ids.subscription_typeID,
+					give_typeID: ids.give_typeID ==null?codess.give_typeCodes[0].ID:ids.give_typeID,
+					address_kindID: ids.address_kindID ==null?codess.address_kindCodes[0].ID:ids.address_kindID,
+					org_fromID_5: ids.org_fromID_5 ==null?codess.org_fromCodes[0].ID:ids.org_fromID_5,
+					org_fromID_6: ids.org_fromID_6 ==null?codess.org_fromCodes[0].ID:ids.org_fromID_6,
+					insurance_kindID: ids.insurance_kindID ==null?codess.insurance_kindCodes[0].ID:ids.insurance_kindID,
+					car_kindID: ids.car_kindID ==null?codess.car_kindCodes[0].ID:ids.car_kindID,
+					car_pay_typeID: ids.car_pay_typeID ==null?codess.car_pay_typeCodes[0].ID:ids.car_pay_typeID,
+					pay_typeID: ids.pay_typeID ==null?codess.pay_typeCodes[0].ID:ids.pay_typeID,
+					car_typeID: ids.car_typeID ==null?codess.car_typeCodes[0].ID:ids.car_typeID,
+					Mortgage_LimitID: ids.Mortgage_LimitID ==null?codess.Mortgage_LimitCodes[0].ID:ids.Mortgage_LimitID,
+					Qualification_KindID: ids.order_kindID ==null?codess.Qualification_KindCodes[0].ID:ids.order_kindID,
+					org_Id: ids.org_Id ==null?this.org_list[0].FID:ids.org_Id,
+					entry7_org_Id: ids.entry7_org_Id ==null?this.org_list[0].FID:ids.entry7_org_Id,
+					org_fromID_7: ids.org_fromID_7 ==null?codess.org_fromCodes[0].ID:ids.org_fromID_7,
+					kindID_7: ids.kindID_7 ==null?codess.InsuranceExtend_KindCodes[0].ID:ids.kindID_7,
+					card_kindID_11: ids.card_kindID_11 ==null?codess.card_kindCodes[0].ID:ids.card_kindID_11
+
+
 				}
-				Object.assign(that.param.basic, obj_basic)
-
-				let obj_entry1 = {
-					"customer_id": null,
-					"entrust": 0,
-				}
-				if (that.ids.customer_kindID == 16) { //如果是单位
-					obj_entry1 = {
-						"customer_id": null,
-						"entrust": 1,
-						"entrust_name": "",
-						"entrust_phone": "",
-						"entrust_relation_txt": "",
-					}
-				}
-				Object.assign(that.param.entry1, obj_entry1)
-
-				let obj_entry2 = {
-					"name": "",
-					"phone": "",
-					"identity": ""
-				}
-				Object.assign(that.param.entry2, obj_entry2)
-
-				if (that.param.entry3.length > 0) {
-					let obj_entry3 = {
-						"OFFICIA_LNAME": "", //官方名称
-					}
-					Object.assign(that.param.entry3, obj_entry2)
-				}
-
-
-				if (that.ids.pay_typeID == 68) { //按揭消费
-					let obj_entry5 = {
-						// "org_id": "",//调取接口
-						// "repayment_type": null,
-						"price": 0,
-						"deadline": 0,
-						"multiple_txt": "",
-						"first_per": 0,
-						"quota": 0,
-						"org_src": "",
-						"qua_id": 0,
-						"info": ""
-					}
-					Object.assign(that.param.entry5, obj_entry5)
-
-					let obj_entry12 = {
-						"give_date": fn.CurentTime(), //当前时间
-					}
-					Object.assign(that.param.entry12, obj_entry12)
-				}
-
-
+				// Object.assign(that.param.basic, obj_basic_ids)
+				console.log(that.ids, "蝴蝶蝴蝶我的晚饭")
+			},
+			async getBaseEnumByCodes() {
+				await this.$api.HHPlatForm_P_GetMortgageCompany().then(res => {
+					// 获得数据 
+					this.org_list = res
+					this.$store.state.order.org_list = res
+					this.getids()
+					this.paramInintID(this.param)
+					
+				}).catch(res => {
+					console.log(res)
+					// 失败进行的操作
+				})
 			},
 			// 获取销售订单数据
 			getAutoSalesOrder(id) {
@@ -1418,8 +1551,8 @@
 					"id": id
 				}
 				this.$api.HHPF_P_GetAutoSalesOrder(param).then(res => {
+					that.getidsold(res.Data)
 					// 获得数据 
-					console.log("获取销售订单数据" + res.Data)
 					if (res.Msg == 'success') {
 						// that.obj = res.Data
 						let obj_basic = {
@@ -1461,15 +1594,29 @@
 							}
 						}
 						Object.assign(that.param.entry1, obj_entry1)
-
-
+			
+			
 						let obj_entry2 = {
 							"name": res.Data.entry2[0].NAME,
 							"phone": res.Data.entry2[0].PHONE,
 							"identity": res.Data.entry2[0].IDENTITY
 						}
 						Object.assign(that.param.entry2, obj_entry2)
-
+						
+						if (res.Data.entry6.length > 0) {
+							let obj_entry6 = {
+								"name": res.Data.entry6[0].ORG_NAME,
+								"org_id": res.Data.entry6[0].ORG_ID,
+								"jqx_price": res.Data.entry6[0].JQX_PRICE,
+								"ccs_price": res.Data.entry6[0].CCS_PRICE,
+								"syx_price": res.Data.entry6[0].SYX_PRICE,
+								"discount_price": res.Data.entry6[0].DISCOUNT_PRICE,
+								"other_price": res.Data.entry6[0].OTHER_PRICE,
+								"info": res.Data.entry6[0].INFO
+							}
+							// debugger
+							Object.assign(that.param.entry6, obj_entry6)
+						}
 						if (res.Data.entry3.length > 0) {
 							let obj_entry3 = [];
 							obj_entry3[0] = {
@@ -1488,12 +1635,12 @@
 								"img_url": res.Data.entry3[0].IMG_URL,
 								"trim_name": res.Data.entry3[0].TRIM_NAME,
 								"color_name": res.Data.entry3[0].KIND_NAME,
-
+			
 								"OFFICIA_LNAME": res.Data.entry3[0].OFFICIA_LNAME, //官方名称
-
+			
 							}
 							Object.assign(that.param.entry3, obj_entry3)
-
+			
 						}
 						if (res.Data.entry4.length > 0) {
 							let obj_entry4 = []
@@ -1565,20 +1712,8 @@
 							}
 							Object.assign(that.param.entry5, obj_entry5)
 						}
-						if (res.Data.entry6.length > 0) {
-							let obj_entry6 = {
-								"name": res.Data.entry6[0].ORG_NAME,
-								"org_id": res.Data.entry6[0].ORG_ID,
-								"jqx_price": res.Data.entry6[0].JQX_PRICE,
-								"ccs_price": res.Data.entry6[0].CCS_PRICE,
-								"syx_price": res.Data.entry6[0].SYX_PRICE,
-								"discount_price": res.Data.entry6[0].DISCOUNT_PRICE,
-								"other_price": res.Data.entry6[0].OTHER_PRICE,
-								"info": res.Data.entry6[0].INFO
-							}
-							Object.assign(that.param.entry6, obj_entry6)
-						}
-						that.subtotal = that.subtotalmethod();
+						
+						// that.subtotal = that.subtotalmethod();
 						if (res.Data.entry7.length > 0) {
 							let obj_entry7 = {
 								"good_id": res.Data.entry7[0].GOOD_ID,
@@ -1636,7 +1771,7 @@
 							}
 							Object.assign(that.param.entry15, obj_entry15)
 						}
-					that.getids(res.Data);
+					// that.getids(res.Data);
 					}
 					uni.hideLoading();
 				}).catch(res => {
@@ -1644,37 +1779,253 @@
 					// 失败进行的操作
 				})
 			},
-			// getCodes() {
-			// 	uni.showLoading({
-			// 		title: '加载中'
-			// 	});
-			// 	let that = this;
-			// 	//获取大量codes
-			// 	let param = {
-			// 		"codes": ["order_kind", "sell_kind", "order_channel", "order_from", "customer_kind", "customer_from",
-			// 			"customer_relation", "mortgage_kind", "payback_kind", "subscription_type", "give_type", "address_kind",
-			// 			"org_from", "insurance_kind", "hangtag_kind", "hangtag_stage", "car_number_color", "insurance_kind",
-			// 			"car_kind", "car_pay_type", "pay_type", "car_type", "Mortgage_Limit", "Qualification_Kind"
-			// 		]
-			// 	}
-			// 	this.$api.HHPF_P_GetBaseEnumByCodes(param).then(res => {
-			// 		// debugger
-			// 		// 获得数据  
-			// 		if (res.Msg == 'success') {
-			// 			// that.stateCodes = res.Data
-			// 			that.getCodessss(res.Data);
-			// 			uni.hideLoading();
-			// 		} else {
-			// 			uni.showToast({
-			// 				title: res.Msg,
-			// 				duration: 2000
-			// 			})
-			// 		}
-			// 	}).catch(res => {})
-			// },
-			getCodessss(codes) { //获取所有用到的codes
-			console.log(codes,"codes")
-				this.codes = {
+			getidsold(obj) {//回填新的ids
+				this.ids.sell_kindID = obj.basic[0].SELL_KIND //销售类型
+				this.ids.order_kindID = obj.basic[0].ORDER_KIND //订单类型
+				this.ids.order_channelID = obj.basic[0].ORDER_CHANNEL //订单渠道
+				this.ids.order_fromID = obj.basic[0].ORDER_FROM //订单来源
+				this.ids.pay_typeID = obj.basic[0].PAY_TYPE //付款方式
+				this.ids.car_kindID = obj.basic[0].CAR_KIND //车辆类型
+				
+					this.customer_kindID = obj.entry1[0].KIND //客户类型
+					this.entrust_relation = obj.entry1[0].ENTRUST_RELATION
+					this.relationID = obj.entry2[0].RELATION //客户关系
+				
+				
+				if (obj.entry3.length > 0) {
+					this.ids.car_pay_typeID = obj.entry3[0].COLLECTION_TYPE ////车辆销售-收取方式
+				}
+				if (obj.entry5.length > 0) {
+					this.ids.payback_kindID = obj.entry5[0].REPAYMENT_TYPE //还款方式
+					this.ids.Mortgage_LimitID = obj.entry5[0].DEADLINE //按揭期数
+					this.ids.org_fromID_5 = obj.entry5[0].ORG_SRC //机构来源
+					this.ids.Qualification_KindID = obj.entry5[0].QUA_ID //按揭资质要求
+				}
+				if (obj.entry6.length > 0) {
+					this.ids.org_fromID_6 = obj.entry6[0].ORG_SRC
+					this.ids.insurance_kindID = obj.entry6[0].KIND
+				}
+				if (obj.entry12.length > 0) {
+					this.ids.give_typeID = obj.entry12[0].GIVE_TYPE
+					this.ids.address_kindID = obj.entry12[0].ADDRESS_TYPE
+				}
+				if (obj.entry13.length > 0) {
+					this.ids.subscription_typeID = obj.entry13[0].TYPE
+				}
+			},
+			//------------基本点击跳转页面---------//
+			//客户信息
+			selectCustomers() {
+				// debugger
+				// 去客户列表页面
+				let role = '1'
+				if(this.ids.customer_kindID==16){
+					role = '2'
+				}
+				this.$store.dispatch("setorderdate",this.ids)
+				this.$store.dispatch("setorderobj",this.param)
+				uni.navigateTo({
+					url: "../search/search?role=" + role
+				});
+			},
+			//去选择保险
+			goInsurance(){
+				this.$store.dispatch("setorderdate",this.ids)
+				this.$store.dispatch("setorderobj",this.param)
+				
+				uni.navigateTo({
+				    url: '../Insuranceinstitutions/Insuranceinstitutions'
+				});
+			},
+			//去商城
+			// goshop
+			goshop() {
+				this.$store.dispatch("setorderdate",this.ids)
+				this.$store.dispatch("setorderobj",this.param)
+				if(this.ids.order_kindID==7){//非整车
+					this.$store.state.shop = 'noVehicle'
+				}else{
+					this.$store.state.shop = 'Vehicle'
+				}
+				
+				uni.navigateTo({
+					url: '../shop-Mall/shop-Mall'
+				});
+			},
+			
+			//------------基本点击事件开始---------//
+			
+			
+			PickChangeSell_kind(e) {
+				this.ids.sell_kindID = this.codes.sell_kindCodes[e.target.value].ID //切换样式
+			},
+			PickChangeorder_channel(e) {
+				this.ids.order_channelID = this.codes.order_channelCodes[e.target.value].ID //切换样式
+			},
+			PickChangecustomer_from(e) {
+				this.ids.customer_fromID = this.codes.customer_fromCodes[e.target.value].ID //切换样式
+			},
+			PickChangerelations(e) {
+				this.ids.relationID = this.codes.customer_relationCodes[e.target.value].ID //切换样式
+			},
+			PickChangeentrustrelations(e) {
+				this.ids.entrust_relation = this.codes.customer_relationCodes[e.target.value].ID //切换样式
+			},
+			PickChangeorg_Id_5(e) {
+				this.ids.org_Id = this.org_list[e.target.value].FID //切换样式
+			
+			},
+			PickChangepayback_kind(e) {
+				this.ids.payback_kindID = this.codes.payback_kindCodes[e.target.value].ID //切换样式
+			
+			},
+			PickChangeMortgage_Limit(e) {
+				this.ids.Mortgage_LimitID = this.codes.Mortgage_LimitCodes[e.target.value].ID //切换样式
+			
+			},
+			PickChangeQualification_Kind(e) {
+				this.ids.Qualification_KindID = this.codes.Qualification_KindCodes[e.target.value].ID //切换样式
+			
+			},
+			PickChangeinsurance_kind(e) {
+				this.ids.insurance_kindID = this.codes.insurance_kindCodes[e.target.value].ID //切换样式
+			},
+
+			// 代收购置税
+			purchaseTax(e, index) {
+				this.param.entry3[index].is_tax = e
+				this.$set(this.param.entry3,index,this.param.entry3[index])
+			
+			},
+			
+			// 是否加装
+			isadd(index) {
+				let self_ = this;
+				if (self_.param.entry4[index].is_add == 0) {
+					self_.param.entry4[index].is_add = 1
+				} else if (self_.param.entry4[index].is_add == 1) {
+					self_.param.entry4[index].is_add = 0
+				}
+			},
+			//是否随车
+			isWith(index) {
+				let self_ = this;
+				if (self_.param.entry4[index].is_with == 0) {
+					self_.param.entry4[index].is_with = 1
+					self_.param.entry4[index].final_price = 0 //成交单价
+				} else if (self_.param.entry4[index].is_with == 1) {
+					self_.param.entry4[index].is_with = 0
+					self_.param.entry4[index].final_price = self_.param.entry4[index].guide_price //成交单价
+				}
+			},
+			//是否预装
+			preInstalled(index) {
+				let self_ = this;
+				if (self_.param.entry4[index].pre_installed == 0) {
+					self_.param.entry4[index].pre_installed = 1
+				} else if (self_.param.entry4[index].pre_installed == 1) {
+					self_.param.entry4[index].pre_installed = 0
+				}
+			},
+//商品非整车（随车）
+					changenumber(type, value, index, arr) {
+						let self_ = this,
+							value_new = 0;
+						if (type === "reduce" && value > 0) { //减少
+							value_new = value - 1
+						}
+						if (type === "reduce" && value == 0) { //减少
+							value_new = 0
+						}
+						if (type === "increase") { //增加
+							value_new = Number(value) + Number(1)
+						}
+			
+			
+						switch (arr) {
+							case 'fineBeauty':
+								self_.param.entry4[index].num = value_new;
+								break;
+							case 'Exinsurance':
+								self_.param.entry7.num = value_new;
+								break;
+							case 'companyPro':
+								self_.param.entry8[index].num = value_new;
+								break;
+							case 'Setmeal':
+								self_.param.entry9[index].num = value_new;
+								break;
+							case 'agencyService':
+								self_.param.entry10[index].num = value_new;
+								break;
+							case 'Cardvoucher':
+								self_.param.entry11[index].num = value_new;
+								break;
+			
+						}
+					},
+
+			//------------基本点击事件结束---------//
+
+			paramInintID(param) {//初始值IDs
+				let that = this
+				param.basic.sell_kind = that.ids.sell_kindID
+				param.basic.order_kind = that.ids.order_kindID
+				param.basic.order_channel = that.ids.order_channelID
+				param.basic.order_from = that.ids.order_fromID
+				param.basic.pay_type = that.ids.pay_typeID
+				param.basic.car_kind = that.ids.car_kindID
+				param.entry1.kind = that.ids.customer_kindID //客户类型
+				param.entry1.entrust_relation = that.ids.entrust_relation //委托关系
+				param.entry1.entrust = that.ids.customer_kindID == 16 ? 1 : 0
+				param.entry2.relation = that.ids.relationID //客户类型
+				if (that.param.entry3.length > 0) {
+					param.entry3[0].collection_type = that.ids.car_pay_typeID //客户类型
+					param.entry3[0].kind = that.ids.order_kindID //客户类型
+				}
+				if (that.ids.pay_typeID == 68) { //
+					param.entry5.repayment_type = that.ids.payback_kindID //还款方式
+					param.entry5.org_id = that.ids.org_Id
+
+				}
+				if (JSON.stringify(that.param.entry6) !== "{}") {
+					param.entry6.org_src = that.ids.org_fromID_6
+					param.entry6.kind = that.ids.insurance_kindID
+				}
+				if (JSON.stringify(that.param.entry7) !== "{}") {
+					param.entry7.org_id = that.ids.entry7_org_Id
+					param.entry7.org_from = that.ids.org_fromID_7
+					param.entry7.kind = that.ids.kindID_7
+				}
+				if (that.param.entry11.length > 0) {
+					param.entry11.classId = that.ids.card_kindID_11
+				}
+				param.entry12.give_type = that.ids.give_typeID
+				param.entry12.address_type = that.ids.address_kindID
+				param.entry13.type = this.ids.subscription_typeID
+				Object.assign(that.param, param)
+				console.log(this.param,"alllll")
+			},
+			paramInintOBJ() {
+				let that = this;
+				let obj_basic = {
+					"adviser": that.$store.state.adviser,
+					"adviser_org_id": that.$store.state.orgID,
+					"adviser_org_name": that.$store.state.OrgName,
+					"adviser_department_id": that.$store.state.DeptID,
+					"adviser_department_name": that.$store.state.DeptName,
+					"adviser_post_id": that.$store.state.JOB_ID,
+					"adviser_post_name": that.$store.state.JOB_NAME,
+					"adviser_name": that.$store.state.B_NAME
+				}
+				Object.assign(that.param.basic, obj_basic)
+			},
+
+		},
+		computed: {
+			codes() { //获取所有用到的codes
+				let codes = this.$store.state.codes
+				let code = {
 					sell_kindCodes: codes.filter(item => item.CODE === "sell_kind"),
 					order_kindCodes: codes.filter(item => item.CODE === "order_kind"),
 					order_channelCodes: codes.filter(item => item.CODE === "order_channel"),
@@ -1698,91 +2049,173 @@
 					car_typeCodes: codes.filter(item => item.CODE === "car_type"),
 					Mortgage_LimitCodes: codes.filter(item => item.CODE === "Mortgage_Limit"),
 					Qualification_KindCodes: codes.filter(item => item.CODE === "Qualification_Kind"),
+					InsuranceExtend_KindCodes: codes.filter(item => item.CODE === "InsuranceExtend_Kind"),
+					card_kindCodes: codes.filter(item => item.CODE === "card_kind")
+
+
 				}
-				this.getids(this.codes)
+				console.log(code)
+				return code
 			},
-			getids(codess) { //
-				let that = this
-				if (that.addOrder) { //如果是新增新的订单
-					that.ids = {
-						sell_kindID: codess.sell_kindCodes[0].ID,
-						order_kindID: codess.order_kindCodes[0].ID,
-						order_channelID: codess.order_channelCodes[0].ID,
-						order_fromID: codess.order_fromCodes[0].ID,
-						customer_kindID: codess.customer_kindCodes[0].ID,
-						entrust_relation: codess.customer_relationCodes[0].ID, //委托关系
-						customer_fromID: codess.customer_fromCodes[0].ID,
-						relationID: codess.customer_relationCodes[0].ID, //客户关系
-						mortgage_kindID: codess.mortgage_kindCodes[0].ID, //按揭类型
-						payback_kindID: codess.payback_kindCodes[0].ID,
-						subscription_typeID: codess.subscription_typeCodes[0].ID,
-						give_typeID: codess.give_typeCodes[0].ID,
-						address_kindID: codess.address_kindCodes[0].ID,
-						org_fromID_5: codess.org_fromCodes[0].ID,
-						org_fromID_6: codess.org_fromCodes[0].ID,
-						insurance_kindID: codess.insurance_kindCodes[0].ID,
-						car_kindID: codess.car_kindCodes[0].ID,
-						car_pay_typeID: codess.car_pay_typeCodes[0].ID,
-						pay_typeID: codess.pay_typeCodes[0].ID,
-						car_typeID: codess.car_typeCodes[0].ID,
-						Mortgage_LimitID: codess.Mortgage_LimitCodes[0].ID,
-						Qualification_KindID: codess.Qualification_KindCodes[0].ID,
 
-					}
-					that.paramInintID();
-					that.paramInintOBJ()
-				} else {
-					console.log("我应该先到")
-					this.ids = {
-						sell_kindID: codess.basic[0].SELL_KIND, //销售类型
-						order_kindID: codess.basic[0].ORDER_KIND, //订单类型
-						order_channelID: codess.basic[0].ORDER_CHANNEL, //订单渠道
-						order_fromID: codess.basic[0].ORDER_FROM, //订单来源
-						pay_typeID: codess.basic[0].PAY_TYPE, //付款方式
-						// car_kindID:codess.basic[0].CAR_KIND,//车辆类型
-						car_kindID: codess.basic[0].CAR_KIND, //车辆类型
-
-						customer_kindID: codess.entry1[0].KIND, //客户类型
-						entrust_relation: codess.entry1[0].ENTRUST_RELATION, //委托关系
-						customer_fromID: this.codes.customer_fromCodes[0].ID,
-
-						relationID: codess.entry2[0].RELATION, //客户关系
-
-					}
-					if (codess.entry3.length > 0) {
-						this.ids.car_pay_typeID = codess.entry3[0].COLLECTION_TYPE ////车辆销售-收取方式
-					}
-					if (codess.entry5.length > 0) {
-						this.ids.mortgage_kindID = this.codes.mortgage_kindCodes[0].ID //按揭类型
-						this.ids.payback_kindID = codess.entry5[0].REPAYMENT_TYPE //还款方式
-						this.ids.Mortgage_LimitID = codess.entry5[0].DEADLINE //按揭期数
-						this.ids.org_fromID_5 = codess.entry5[0].ORG_SRC //机构来源
-						this.ids.Qualification_KindID = codess.entry5[0].QUA_ID //按揭资质要求
-					}
-					if (codess.entry6.length > 0) {
-						this.ids.org_fromID_6 = codess.entry6[0].ORG_SRC
-						this.ids.insurance_kindID = codess.entry6[0].KIND
-					}
-					if (codess.entry12.length > 0) {
-						this.ids.give_typeID = codess.entry12[0].GIVE_TYPE
-						this.ids.address_kindID = codess.entry12[0].ADDRESS_TYPE
-					}
-					if (codess.entry13.length > 0) {
-						this.ids.subscription_typeID = codess.entry13[0].TYPE
-					}
-					that.paramInintID();
+			//计算税额
+			taxlimitm() {
+				return function(index) {
+					let tax_num = this.param.entry3[index].tax_num / 100
+					let taxlimitm = this.param.entry3[index].final_price * tax_num
+					return taxlimitm
 				}
 
-				console.log(this.ids, "ids")
-				console.log(this.param, "ids")
+			},
+			quotaPrice(){//贷款额度总计=额度*首比例
+				let quotaPrice = 0;
+				if(this.ids.pay_typeID==68){
+					quotaPrice = (this.param.entry5.quota)*(this.param.entry5.first_per)/100
+				}
+				return quotaPrice
+			},
+			qutocontent(){//按揭内容
+				let idcon = ""
+				let con = ""
+				if(this.param.entry3.length>0){
+					idcon += this.param.entry3[0].model_id+","
+					con += this.param.entry3[0].OFFICIA_LNAME+","
+				}
+				if(this.param.entry4.length>0){
+					this.param.entry4.forEach(x=>{
+						idcon += x.good_id+","
+						con += x.good_name+","
+					})
+				}
+				if(this.param.entry8.length>0){
+					this.param.entry8.forEach(x=>{
+						idcon += x.good_id+","
+						con += x.good_name+","
+					})
+				}
+				if(this.param.entry9.length>0){
+					this.param.entry9.forEach(x=>{
+						idcon += x.good_id+","
+						con += x.good_name+","
+					})
+				}
+				if(this.param.entry10.length>0){
+					this.param.entry10.forEach(x=>{
+						idcon += x.good_id+","
+						con += x.good_name+","
+					})
+				}
+				if(this.param.entry11.length>0){
+					this.param.entry11.forEach(x=>{
+						idcon += x.good_id+","
+						con += x.good_name+","
+					})
+				}
+				if(this.param.entry7.length>0){
+					idcon += this.param.entry7.good_id+","
+					con += this.param.entry7.good_name+","
+				}
+				this.param.entry5.multiple_txt = idcon
+				
+				return con
+			},
+			//非整车的每个小记
+			subtotalPriceTotal(name) {
+				return function(name) {
+					let self_ = this,
+						total = 0,
+						obj = [];
+					switch (name) {
+						case 'fineBeauty':
+							obj = self_.param.entry4
+							break;
+						case 'companyPro':
+							obj = self_.param.entry8
+							break;
+						case 'Setmeal':
+							obj = self_.param.entry9
+							break;
+						case 'agencyService':
+							obj = self_.param.entry10
+							break;
+						case 'Cardvoucher':
+							obj = self_.param.entry11
+							break;
+						case 'Exinsurance':
+							obj = self_.param.entry7
+							break;
+					}
+					if(name!=="Exinsurance"){
+						obj.forEach(function(key) {
+							total += Number(key.num) * Number(key.final_price);
+						});
+					}else{
+						total  =  Number(obj.num) * Number(obj.final_price);
+					}
+					// console.log(total,"修改的name是"+name)
+					
+					if(name=="fineBeauty"){
+						self_.param.entry14.goods_price = total	
+						
+					}else if(name=="companyPro"){
+						self_.param.entry14.product_price = total	
+						
+					}else if(name=="agencyService"){
+						self_.param.entry14.commission_price = total
+					}
+					
+					return total
+				}
 				
 			},
-		}
+			//计算保险小记
+			subtotalinsure(){
+				// debugger
+				let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
+				let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
+				let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
+				let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
+				let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
+				let subtotal = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
+				// console.log(subtotal)
+				 return subtotal
+			},
+			totalPrice() {
+				// debugger
+				let carprice = this.param.entry14.car_price
+				let entry4Price = this.param.entry14.goods_price
+				let entry8Price = this.param.entry14.product_price
+				let entry10Price = this.param.entry14.commission_price
+				let entry11Price = this.param.entry14.card_price
+				let totalPrice = Number(entry4Price) + Number(entry8Price) + Number(entry10Price) + Number(entry11Price) + Number(carprice) 
+				
+				console.log(totalPrice)
+				this.param.entry14.get_price = totalPrice
+				return totalPrice
+			},
+			entryArrPrice: function() {
+				return function(arr) {
+					var total = 0
+					arr.forEach((item, index) => {
+						total += Number(item.num) * Number(item.final_price);
+					})
+					return total
+				}
+			},
+			//尾款
+			last_price() {
+				let last_price = this.totalPrice - this.param.entry13.first_price
+				this.param.entry13.last_price = last_price
+				this.param.entry14.last_price = last_price
+				return last_price
+			},
+		},
+
 	}
 </script>
 
 <style scoped>
-page{
-	background-color: #f0f0f0;
-}
+	page {
+		background-color: #f0f0f0;
+	}
 </style>

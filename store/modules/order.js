@@ -1,6 +1,5 @@
-const baseinfo = {
+const order = {
 	state: {
-
 		obj: {
 			"basic": {
 				"sell_kind": null,
@@ -33,6 +32,13 @@ const baseinfo = {
 				"UNIT_NAME":"",//	企业客户名称
 				"REGIST_NO":"",//	企业工商号
 				"REGISTER_SITE":"",//	企业注册地址
+				"customer_id":null,///	是	int	客户ID
+				"kind":null,//	是	int	客户类型
+				"entrust":0,//	是	int	是否委托；0 否，1 是
+				"entrust_name":"",//	否	string	委托人姓名；委托为否时可以不传
+				"entrust_phone"	:"",//否	string	委托人电话；委托为否时可以不传
+				"entrust_relation":0,//	否	int	与客户关系；委托为否时可以不传
+				"entrust_relation_txt":"",//
 			},
 			"entry2": {},
 			"entry3": [
@@ -84,16 +90,16 @@ const baseinfo = {
 				// "info": ""
 			},
 			"entry6": {
-				"name":""
-				// "org_id": "",
-				// "org_src": "",
-				// "jqx_price": 0,
-				// "ccs_price": 0,
-				// "syx_price": 0,
-				// "discount_price": 0,
-				// "other_price": 0,
-				// "info": "",
-				// "kind": null
+				"name":"",
+				"org_id": "",
+				"org_src": "",
+				"jqx_price": 0,
+				"ccs_price": 0,
+				"syx_price": 0,
+				"discount_price": 0,
+				"other_price": 0,
+				"info": "",
+				"kind": null
 			},
 			"entry7": {
 				// "good_id": null,
@@ -182,13 +188,30 @@ const baseinfo = {
 				"invoice_public": 0,
 				"invoice_sum": 0
 			}
+		},
+		ids:{},
+		org_list:[]
+	},
+	getters: {
+	},
+	mutations: {
+		setorderdateM(state, obj) {
+			Object.assign(state.ids,obj)
+		},
+		setorderobjM(state, obj) {
+			Object.assign(state.obj,obj)
 		}
 	},
-	getters: {},
-	mutations: {},
-	actions: {}
+	actions: {
+		setorderdate(context, obj) {
+			context.commit('setorderdateM', obj)
+		},
+		setorderobj(context, obj) {
+			context.commit('setorderobjM', obj)
+		}
+	}
 }
-export default baseinfo
+export default order
 
 				
 

@@ -20,6 +20,9 @@
 			}
 		},
 		created(){
+			uni.showLoading({
+			    title: '加载中'
+			})
 			filter.tabbarRequired("false");
 		  let self = this
 		  let isapp = false//当前是否是app环境
@@ -89,11 +92,13 @@
 			
 				if(roleType.indexOf("10061003") != -1 || roleType.indexOf("10061012") != -1 || roleType.indexOf("10061015") != -1){
 					console.log("跳转顾问的订单")
+					uni.hideLoading()
 					uni.redirectTo({
 						url: '../consultantsLists/consultantsLists'
 					});
 				}else if(roleType.indexOf("10061013") != -1 || roleType.indexOf("10061019") != -1 ){
 					console.log("跳转经理的订单")
+					uni.hideLoading()
 					uni.redirectTo({
 						url: '../managerlist/managerlist'
 					});

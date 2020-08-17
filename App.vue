@@ -1,15 +1,18 @@
 <script>
 	
 export default {
-	 onLaunch: async function() {
+	 onLaunch:function() {
 		 //获取大量codes
 		console.log('App Launch');
-		let param = {"codes":["order_kind", "sell_kind","order_channel","order_from","customer_kind","customer_from","customer_relation","mortgage_kind","payback_kind","subscription_type","give_type","address_kind","org_from","insurance_kind","yes_or_no","hangtag_kind","hangtag_stage","car_number_color","insurance_kind","car_kind","car_pay_type","pay_type","car_type","Mortgage_Limit","Qualification_Kind"]}
-		await this.$api.HHPF_P_GetBaseEnumByCodes(param).then(res => {
+		let param = {"codes":["order_kind", "sell_kind", "order_channel", "order_from", "customer_kind", "customer_from",
+						"customer_relation", "mortgage_kind", "payback_kind", "subscription_type", "give_type", "address_kind",
+						"org_from", "insurance_kind", "hangtag_kind", "hangtag_stage", "car_number_color", "insurance_kind",
+						"car_kind", "car_pay_type", "pay_type", "car_type", "Mortgage_Limit", "Qualification_Kind","InsuranceExtend_Kind","card_kind"]}
+	this.$api.HHPF_P_GetBaseEnumByCodes(param).then(res => {
 			// 获得数据  
 			if(res.Msg=='success'){
 				this.$store.state.codes = res.Data
-				// this.$store.dispatch('getcodes', res.Data);
+				// this.$store.dispatch('getcodes', res.Data);sss
 			}else{
 				uni.showToast({
 				    title: res.Msg,

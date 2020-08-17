@@ -109,7 +109,9 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry4',ie)
+						// self_.$store.dispatch('getentry4',ie)
+						self_.$store.state.order.obj.entry4.push(ie)
+						// Object.assign(self_.$store.state.order.obj.entry4[0], carinfoobj)
 					}
 					if(res[0].GoodType=='2'){//美容
 						let ie = {
@@ -124,7 +126,9 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry4',ie)
+						
+						// self_.$store.dispatch('getentry4',ie)
+						self_.$store.state.order.obj.entry4.push(ie)
 					}
 					if(res[0].GoodType=='3'){//延保
 						let ie = {
@@ -139,7 +143,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry7',ie)
+						// self_.$store.dispatch('getentry7',ie)ie
+						Object.assign(self_.$store.state.order.obj.entry7, ie)
 					}
 					if(res[0].GoodType=='4'){//公司产品
 					// debugger
@@ -152,7 +157,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry8',ie)
+						// self_.$store.dispatch('getentry8',ie)
+						self_.$store.state.order.obj.entry8.push(ie)
 					}
 					if(res[0].GoodType=='5'){//代办业务
 						let ie = {
@@ -164,7 +170,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry10',ie)
+						// self_.$store.dispatch('getentry10',ie)
+						self_.$store.state.order.obj.entry10.push(ie)
 					}
 					
 					if(res[0].GoodType=='6'){//套餐产品
@@ -177,7 +184,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.dispatch('getentry9',ie)
+						// self_.$store.dispatch('getentry9',ie)
+						self_.$store.state.order.obj.entry9.push(ie)
 					}
 				 }).catch(res => {
 					 console.log(res)
@@ -188,7 +196,7 @@
 			addcar(goodsID) {
 				let self_ = this;
 				uni.navigateTo({
-					url: '../../autoSalesOrder/autoSalesOrder'
+					url: '../../test/test'
 				});
 			}
 		}

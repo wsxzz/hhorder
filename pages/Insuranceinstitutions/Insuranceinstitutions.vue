@@ -63,14 +63,13 @@
 			},
 			// 确定
 			handClickgetInsurance(){
-				console.log(this.InsuranceINFO)
-				this.$store.state.insuranceInfo.insselectOK = true
-				this.$store.state.insuranceInfo.obj.org_id = this.InsuranceINFO.split('-')[0]
-				this.$store.state.insuranceInfo.obj.org_src = this.InsuranceINFO.split('-')[2]
-				this.$store.state.insuranceInfo.obj.name = this.InsuranceINFO.split('-')[1]
+				// this.$store.state.insuranceInfo.insselectOK = true
+				this.$store.state.order.obj.entry6.org_id = this.InsuranceINFO.split('-')[0]
+				this.$store.state.order.obj.entry6.org_src = this.InsuranceINFO.split('-')[2]
+				this.$store.state.order.obj.entry6.name = this.InsuranceINFO.split('-')[1]
 				// 返回新增订单
 				uni.navigateTo({
-				    url: '../autoSalesOrder/autoSalesOrder'
+				    url: '../test/test'
 				});
 				
 			}

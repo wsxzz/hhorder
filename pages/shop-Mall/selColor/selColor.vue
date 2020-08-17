@@ -47,6 +47,12 @@
 		data() {
 			return {
 				goodsID:null,
+				obj:{
+					"trim_id": "",
+					"color_id": "",
+					"trim_name": "",
+					"color_name": ""	
+				},
 				colorName:[],//颜色
 				colorId:[],//颜色
 				coloridIndex:0,//颜色
@@ -81,7 +87,8 @@
 								self_.colorId.push(data.FNUMBER)
 								
 							}
-							 
+							self_.obj.color_id = res[0].FNUMBER
+							self_.obj.color_name = res[0].FNAME
 							//回填详情信息
 							let carinfoobj = {
 								"color_id":res[0].FNUMBER, //内饰ID
@@ -90,6 +97,7 @@
 							
 							self_.$store.dispatch('setcarinfoall',carinfoobj)
 							self_.$store.dispatch('setcarinfo',carinfoobj)
+							
 						} else if (Type == '2') { //内饰
 							for (let data of res) {
 								self_.Interior.push(data.FNAME)
@@ -101,6 +109,8 @@
 								"trim_id":res[0].FNUMBER, //内饰ID
 								"trim_name":res[0].FNAME
 							}
+							self_.obj.trim_id = res[0].FNUMBER
+							self_.obj.trim_name = res[0].FNAME
 							
 							self_.$store.dispatch('setcarinfoall',carinfoobj)
 							self_.$store.dispatch('setcarinfo',carinfoobj)
@@ -120,7 +130,8 @@
 					"color_id":this.colorId[e.target.value], //内饰ID
 					"color_name":this.colorName[e.target.value]
 				}
-				
+				this.obj.color_id = this.colorId[e.target.value]
+				this.obj.color_name = this.colorName[e.target.value]
 				this.$store.dispatch('setcarinfoall',carinfoobj)
 				this.$store.dispatch('setcarinfo',carinfoobj)
 				
@@ -131,15 +142,27 @@
 					"color_id":this.InteriorID[e.target.value], //内饰ID
 					"color_name":this.Interior[e.target.value]
 				}
-				
+				this.obj.trim_id = this.InteriorID[e.target.value]
+				this.obj.trim_name = this.Interior[e.target.value]
 				this.$store.dispatch('setcarinfoall',carinfoobj)
 				this.$store.dispatch('setcarinfo',carinfoobj)
 			},
 			comfirm(){
-				// 跳转
-				uni.navigateTo({
-				    url: '../detailed/detailed?goodsID='+this.goodsID
-				});
+				let that = this
+				if(that.obj.trim_id==""||that.obj.trim_name==""||that.obj.color_id==""||that.obj.color_name==""){
+					setTimeout(function(){
+						that.comfirm()
+					},1000)
+					
+				}else{
+					that.$store.state.order.obj.entry3.push(that.obj)
+					console.log(that.$store.state.order.obj.entry3[0],"wewqewqewqewqeqweq2")
+					// // 跳转
+					uni.navigateTo({
+					    url: '../detailed/detailed?goodsID='+that.goodsID
+					});
+				}
+				
 			}
 		
 		}
