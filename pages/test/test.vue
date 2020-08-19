@@ -934,7 +934,7 @@
 							</view>
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.discount_price"/>
+							<input type="number" v-model.number="param.entry6.discount_price" />
 						</view>
 					</view>
 
@@ -1225,7 +1225,12 @@
 							</view>
 							<view class="notesR right turntootherpage">
 								<image class="icon-next" src="../../static/images/icons/icon-public-next.png" mode="widthFix"></image>
-								 <text @click="onShowDatePicker('date')">{{param.entry12.give_date}}</text>
+								<view class="">
+									<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+										<view class="">{{date}}</view>
+									</picker>
+								</view>
+								 <!-- <text @click="onShowDatePicker('date')">{{param.entry12.give_date}}</text> -->
 							</view>
 						</view>
 						<view class="cell row">
@@ -1371,9 +1376,41 @@
 			</view>
 		</view>
 
-		<view class="" @click="submit">
+		<!-- <view class="" >
 			提交
+		</view> -->
+		<view class="bottomgroup">
+			<view class="row bottom-price">
+				<view class="col-2">
+					<view class="total">
+						合计 <text class="price-icon">¥</text>
+						<text class="price">{{totalPrice}}</text>
+					</view>
+					<view class="discount">
+						优惠金额0
+					</view>
+				</view>
+				<view class="col-2 right category">
+					商品数量: <text>0</text>
+				</view>
+			</view>
+			<view class="row bottomgroupbtns">
+				<view class="col-2 selectAllbtn">
+					<label>
+						<checkbox value="SelectAll" checked="true"/><text class="txt">全选</text>
+					</label>
+				</view>
+				<view class="col-2 row ">
+					<!-- <view class="deletebtn">
+						删除
+					</view> -->
+					<view style="width: 100%;" class="comfirmbtn" @click="submit">
+						确定
+					</view>
+				</view>
+			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -1381,10 +1418,15 @@
 	import {mapMutations,mapGetters} from 'vuex'
 	import fn from '../../common/filter.js'
 	export default {
-		name: 'baseinfo',
 		data() {
+			const currentDate = fn.getDateM({
+				format: true
+			})
 			return {
-				addOrder: false,
+				date: currentDate,
+				startDate:fn.CurentTime(),
+				endDate: '2030-01-01',
+				addOrder: true,
 				ids: {},
 				org_list: [],
 				bxprice:0,
@@ -1459,29 +1501,47 @@
 			if (that.addOrder) { //新增
 				Object.assign(that.param, that.$store.state.order.obj)
 				that.ids = that.$store.state.order.ids
-			} else {
+			} else {//修改
 				that.getAutoSalesOrder(75)
 			}
 			this.getBaseEnumByCodes()
 		},
-		mounted() {
-
-		},
-
 		methods: {
-			
+			bindDateChange: function(e) {
+					this.date = e.target.value
+					this.param.entry12.give_date = e.target.value
+				},
 		async submit() { //提交
 				let that = this
+				// debugger
+				// alert(this.$store.state.adviser)
+				that.param.basic.adviser = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser;
+				that.param.basic.adviser_org_id = that.$store.state.orgID == "" ? uni.getStorageSync('orgID') : that.$store.state.orgID;
+				that.param.basic.adviser_org_name = that.$store.state.OrgName == "" ? uni.getStorageSync('OrgName') : that.$store.state.OrgName;
+				that.param.basic.adviser_department_id = that.$store.state.DeptID == "" ? uni.getStorageSync('DeptID') : that.$store.state.DeptID;
+				that.param.basic.adviser_department_name = that.$store.state.DeptName == "" ? uni.getStorageSync('DeptName') : that.$store.state.DeptName;
+				that.param.basic.adviser_post_id = that.$store.state.JOB_ID == "" ? uni.getStorageSync('JOB_ID') : that.$store.state.JOB_ID;
+				that.param.basic.adviser_post_name = that.$store.state.JOB_NAME == "" ? uni.getStorageSync('JOB_NAME') : that.$store.state.JOB_NAME;
+				that.param.basic.adviser_name = that.$store.state.B_NAME == "" ? uni.getStorageSync('B_NAME') : that.$store.state.B_NAME;
 				
-				// console.log(that.param)
 				let param = that.param
+				alert(JSON.stringify(param));
 				await this.$api.HHPF_P_AddAutoSalesOrder(param).then(res => {
+					alert(JSON.stringify(res));
+					let init = that.initdate()
+					that.$store.state.order.obj = init.obj
+					that.$store.state.order.ids = init.ids 
+					that.$store.state.order.org_list = init.org_list 
 					// 获得数据 
 					uni.redirectTo({
-					    url: 'test0'
+					    url: '../consultantsLists/consultantsLists'
 					});
-					
 				 }).catch(res => {
+					 
+					 uni.showToast({
+					     title: '信息填写不全，出错误了',
+					     duration: 2000
+					 });
 					 console.log(res)
 				 　　// 失败进行的操作
 				 })
@@ -1524,9 +1584,8 @@
 
 
 				}
-				// Object.assign(that.param.basic, obj_basic_ids)
-				console.log(that.ids, "蝴蝶蝴蝶我的晚饭")
 			},
+			//获取金融机构
 			async getBaseEnumByCodes() {
 				await this.$api.HHPlatForm_P_GetMortgageCompany().then(res => {
 					// 获得数据 
@@ -1787,9 +1846,9 @@
 				this.ids.pay_typeID = obj.basic[0].PAY_TYPE //付款方式
 				this.ids.car_kindID = obj.basic[0].CAR_KIND //车辆类型
 				
-					this.customer_kindID = obj.entry1[0].KIND //客户类型
-					this.entrust_relation = obj.entry1[0].ENTRUST_RELATION
-					this.relationID = obj.entry2[0].RELATION //客户关系
+				this.ids.customer_kindID = obj.entry1[0].KIND //客户类型
+				this.ids.entrust_relation = obj.entry1[0].ENTRUST_RELATION
+				this.ids.relationID = obj.entry2[0].RELATION //客户关系
 				
 				
 				if (obj.entry3.length > 0) {
@@ -2020,7 +2079,110 @@
 				}
 				Object.assign(that.param.basic, obj_basic)
 			},
-
+			initdate(){
+				const order = {
+						obj: {
+							"basic": {
+								"sell_kind": null,
+								"order_kind": null,
+								"order_channel": null,
+								"order_from": null,
+								"name": "",
+								"sell_org": 0,
+								"second_point": 0,
+								"is_self": 0,
+								"status": 0,
+								"pay_type": null,
+								"car_kind": null,
+								"src_id": 0,
+								"adviser": "",
+								"adviser_org_id": "",
+								"adviser_org_name": "",
+								"adviser_department_id": "",
+								"adviser_department_name": "",
+								"adviser_post_id": "",
+								"adviser_post_name": "",
+								"adviser_name": ""
+							},
+							"entry1": {
+								"BD_NAME":"",//	个人客户名称
+								"COM_PHONE":"",//	个人客户电话
+								"CER_ID_NO":"",//	个人客户身份证
+								"SOURCE_NATURE":"",//	个人客户来源
+								"BD_SEX":"",//	个人客户性别称谓
+								"UNIT_NAME":"",//	企业客户名称
+								"REGIST_NO":"",//	企业工商号
+								"REGISTER_SITE":"",//	企业注册地址
+								"customer_id":null,///	是	int	客户ID
+								"kind":null,//	是	int	客户类型
+								"entrust":0,//	是	int	是否委托；0 否，1 是
+								"entrust_name":"",//	否	string	委托人姓名；委托为否时可以不传
+								"entrust_phone"	:"",//否	string	委托人电话；委托为否时可以不传
+								"entrust_relation":0,//	否	int	与客户关系；委托为否时可以不传
+								"entrust_relation_txt":"",//
+							},
+							"entry2": {},
+							"entry3": [],
+							"entry4": [],
+							"entry5": {},
+							"entry6": {
+								"name":"",
+								"org_id": "",
+								"org_src": "",
+								"jqx_price": 0,
+								"ccs_price": 0,
+								"syx_price": 0,
+								"discount_price": 0,
+								"other_price": 0,
+								"info": "",
+								"kind": null
+							},
+							"entry7": {},
+							"entry8": [],
+							"entry9": [],
+							"entry10": [],
+							"entry11": [],
+							"entry12": {
+								"give_type": null,
+								"address": "",
+								"address_type":null,
+								"postcode": "",
+								"give_date": "",
+								"remark": "",
+								"other": "",
+								"is_self": 0,
+								"other_person": "",
+								"info": "",
+								"is_place": 0,
+								"info2": ""
+							},
+							"entry13": {
+								"type": null,
+								"first_price": 0,
+								"last_price": 0
+							},
+							"entry14": {
+								"first_price": 0,
+								"last_price": 0,
+								"get_price": 0,
+								"car_price": 0,
+								"goods_price": 0,
+								"product_price": 0,
+								"commission_price": 0,
+								"card_price": 0
+							},
+							"entry15": {
+								"invoice": 0,
+								"invoice_public": 0,
+								"invoice_sum": 0
+							}
+						},
+						ids:{},
+						org_list:[]
+					
+				}
+				return order
+			},
 		},
 		computed: {
 			codes() { //获取所有用到的codes

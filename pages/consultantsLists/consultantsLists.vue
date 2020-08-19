@@ -3,7 +3,8 @@
 		<view class="consultants">
 			<!-- 顾问列表 -->
 			<view class="uniyy-page-head-con">
-				<hx-navbar class="hx-navbarr" :back="false" :fixed="true" :left-slot="false" :right-slot="false">
+				<view class="title-padding"></view>
+				<hx-navbar barPlaceholder="show" class="hx-navbarr" :back="false" :fixed="true" :left-slot="false" :right-slot="false">
 					<view class="ctn5" @click="gosearch">
 						<uni-icons type="search" size="22" color="#666666" />
 						<text class="txt">输入搜索关键词</text>
@@ -23,7 +24,7 @@
 						</view>
 					</view>
 				</hx-navbar>
-				
+
 				<view class="screen-bd">
 					<view class="screen-bd-in">
 						<view class="row pad borderB">
@@ -43,8 +44,10 @@
 					</view>
 				</view>
 			</view>
-			<!-- 顾问列表 -->
-			<consultantsLists :consultantslists="consultantslists" :loadAll="loadAll" :NODATA="false" />
+			<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback">
+				<!-- 顾问列表 -->
+				<consultantsLists @reloadlist="refresh" :consultantslists="consultantslists" :loadAll="loadAll" :NODATA="false" />
+			</mescroll-body>
 
 		</view>
 		<view class="">
@@ -57,8 +60,13 @@
 							</view>
 							<view class="row">
 								<view class="col-2 center">
-									<view class="date" @click="pickDtae()">
-										2020-02-02
+									<view class="date">
+										<view class="">
+											<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+												<view class="">{{date}}</view>
+											</picker>
+										</view>
+
 									</view>
 								</view>
 								<view class="col-2 center">
@@ -101,12 +109,19 @@
 			consultantsLists
 		},
 		data() {
+			const currentDate = fn.getDateM({
+				format: true
+			})
 			return {
+				date: currentDate,
+				startDate: '1990-01-01',
+				endDate: fn.CurentTime(),
 				add: false, //头部的add按钮
 				subStatus: '', //提交与已提交的状态
 				screendates: {}, //筛选条件
-				dllist: ['零售', '二手车评估申请单', '收款申请单', '二手车入库单'], //订单类型
-				dllistIndex:0,//当前类型（默认是零售）
+				dllist: ['单车','多车','非整车', '二手车评估申请单', '收款申请单', '二手车入库单'], //订单类型
+				dllistIDs:[5,6,7],
+				dllistIndex: 0, //当前类型（默认是零售）
 				currentTabIndex: 1,
 				loadAll: false, //数据加载完毕
 				NODATA: false, //数据加载完毕
@@ -133,78 +148,101 @@
 				total_yjc: 0, //	已交车数量
 			}
 		},
+		watch: {
+			param: {
+				handler(newValue, oldValue) {
+					let that = this
+					// if (newValue.adviser !== oldValue) {
+					// 	that.GetAutoSalesOrderList();
+					// }
+				},
+				deep: true
+			},
+		},
 		onShow() {
-			fn.tabbarRequired('true'); //该页面是否需要tabbar
-			this.closeAllDialog()
+			this.add = false;
 		},
 		created() {
-			this.param.adviser[0] = this.$store.state.adviser //顾问id
-			this.GetAutoSalesOrderList()
+			this.getinit();
 		},
-		onPullDownRefresh() {
-			console.log("触发了下拉刷新")
-			this.refresh(); //刷新数据
-		},
-		onReachBottom() { //
+		//上拉加载
+		onReachBottom() { 
 			console.log("触发了上拉加载")
 			this.paging() //加载下一页
 		},
 		methods: {
+			getinit() {//初始化得到顾问id和orgid
+				let that = this
+				that.param.adviser[0] = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser //顾问id
+				let userid = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser //顾问id
+				this.GetAutoSalesOrderList()
+				this.CheckLogin(userid);
+			},
+			mescrollInit() { //init
+				this.refresh() //刷新
+			},
+			downCallback(mescroll) {
+				console.log("下拉刷新")
+				this.refresh() //刷新
+				setTimeout(function() {
+					mescroll.endSuccess(1)
+				}, 1000)
+			},
+			async CheckLogin(userid) {
+				let param = {
+					userID: userid
+				}
+				await this.$api.HHPlatForm_P_CheckLoginByUserID(param).then(res => {
+					debugger
+					this.$store.state.OrgName = res[0].OrgName
+					this.$store.state.DeptID = res[0].DeptID
+					this.$store.state.DeptName = res[0].DeptName
+					this.$store.state.JOB_ID = res[0].JOB_ID
+					this.$store.state.JOB_NAME = res[0].JOB_NAME
+					this.$store.state.B_NAME = res[0].B_NAME
+					
+					uni.setStorageSync('OrgName', res[0].OrgName);//
+					uni.setStorageSync('DeptID', res[0].DeptID);//顾问
+					uni.setStorageSync('DeptName', res[0].DeptID);//顾问
+					uni.setStorageSync('JOB_ID', res[0].JOB_ID);//顾问
+					uni.setStorageSync('JOB_NAME', res[0].JOB_NAME);//顾问
+					uni.setStorageSync('B_NAME', res[0].B_NAME);//顾问
+
+				}).catch(res => {
+					console.log(res)
+					// 失败进行的操作
+				})
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value
+				this.param.start_date = e.target.value
+			},
 			submissionStatus(status) { //已提交未提交切换
 				this.param.status = status
+				this.getlistINIT();//重新清空原来的筛选列表
+				this.param.start_date = ""
 				this.closescreen()
 				this.GetAutoSalesOrderList();
 			},
 			//获取筛选框的值，重新触发列表更新
 			comfirm(val) {
 				this.closescreen()
+				console.log(this.param)
 				this.GetAutoSalesOrderList();
 			},
-			pickDtae(){//改变开始时间
-				this.param.start_date = '2020-01-01'
-			},
-			changeDL(i){//改变订单类型
-				if(i==0){
-					this.param.start_date = '2020-01-01'
+			changeDL(i) { //改变订单类型
+				if (i == 0 || i == 1 ||i == 2) {
 					this.dllistIndex = i
-				}else{
+					this.param.order_kind = this.dllistIDs[i]
+				} else {
 					uni.showToast({
-					    title: '暂时没法查询其他类型的订单',
-					    duration: 2000
+						title: '暂时没法查询其他类型的订单',
+						duration: 2000
 					});
 				}
 			},
-			//新增订单
-			gosubmitorder() {
-				this.add = false;
-				this.$store.state.baseinfo.obj.src_id = 0 //无关联订单号码
-				uni.navigateTo({
-					url: "../autoSalesOrder/autoSalesOrder?edit='新增'",
-				});
-			},
-			//新增首款申请单
-			goCollection() {
-				this.add = false;
-			},
-			//新增二手车评估
-			goUsedcarevaluation() {
-				this.add = false;
-			},
-			//去搜索页面
-			gosearch() {
-				uni.navigateTo({
-					url: 'search/search?role=3'
-				});
-			},
-			openscreen() {
-				this.$refs.sreen.open()
-			},
-			closescreen() {
-				this.$refs.sreen.close()
-			},
 			//获取订单列表
 			async GetAutoSalesOrderList() {
-				// debugger
 				uni.showLoading({
 					title: '加载中'
 				});
@@ -232,6 +270,9 @@
 			//刷新数据（回到最初数据）
 			refresh() {
 				this.param.pageIndex = 1; //回到第一页
+				this.getlistINIT();//重新清空原来的筛选列表
+				this.param.adviser = []
+				this.param.start_date = ""
 				this.GetAutoSalesOrderList();
 			},
 			//数据分页
@@ -246,15 +287,53 @@
 					}
 					console.log(this.param.pageIndex)
 					this.GetAutoSalesOrderList();
-				}else{
-					this.loadAll = true//加载全部
+				} else {
+					this.loadAll = true //加载全部
 				}
 
 			},
-			closeAllDialog(){//关闭所有的弹框（）
-				// this.cancel()
+			// 切换条件重新选
+			getlistINIT(){
+				this.consultantslists = [];
+				this.loadAll = false;
+				this.NODATA = false;
+				// this.closescreen();
+			},
+			//新增订单
+			gosubmitorder() {
 				this.add = false;
-				// this.closescreen()
+				this.$store.state.baseinfo.obj.src_id = 0 //无关联订单号码
+				uni.navigateTo({
+					url: "../test/test?edit='新增'",
+				});
+			},
+			//去搜索页面
+			gosearch() {
+				uni.navigateTo({
+					url: '../search/search2?role=3'
+				});
+			},
+			openscreen() {
+				this.$refs.sreen.open()
+			},
+			closescreen() {
+				this.$refs.sreen.close()
+			},
+			//新增首款申请单
+			goCollection() {
+				this.add = false;
+				uni.showToast({
+					title: '此功能还没好',
+					duration: 2000
+				});
+			},
+			//新增二手车评估
+			goUsedcarevaluation() {
+				this.add = false;
+				uni.showToast({
+					title: '此功能还没好',
+					duration: 2000
+				});
 			},
 		}
 	}
@@ -270,5 +349,4 @@
 	.takebar {
 		padding-top: 200upx !important;
 	}
-	
 </style>

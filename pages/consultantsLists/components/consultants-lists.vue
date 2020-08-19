@@ -53,22 +53,22 @@
 		<view class="">
 			<uni-popup ref="orderedits" type="bottom" :animation="true">
 				<view class="uni-list-bd">
-					<view class="center uni-list-item" @click="changeOrder('变更','true')" >
+					<view class="center uni-list-item uni-list-item-disabled" @click="changeOrder('变更','true')" >
 						变更订单
 					</view>
 					<view class="center uni-list-item uni-list-item-disabled" @click="changeOrder('复制','true')" >
 						复制订单
 					</view>
-					<view class="center uni-list-item" @click="changeOrder('追加','true')" >
+					<view class="center uni-list-item uni-list-item-disabled" @click="changeOrder('追加','true')" >
 						追加订单
 					</view>
-					<view class="center uni-list-item" @click="changeOrder('赠送','true')" >
+					<view class="center uni-list-item uni-list-item-disabled" @click="changeOrder('赠送','true')" >
 						赠送订单
 					</view>
-					<view class="center uni-list-item" @click="changeOrder('升级','true')" >
+					<view class="center uni-list-item uni-list-item-disabled" @click="changeOrder('升级','true')" >
 						升级订单
 					</view>
-					<view class="center uni-list-item" @click="deleteorder" >
+					<view class="center uni-list-item " @click="deleteorder" >
 						删除订单
 					</view>
 				</view>
@@ -116,6 +116,7 @@
 			},
 			godetails(orderid){
 				this.orderId = orderid;
+				// alert("跳转详情")
 				uni.navigateTo({
 				    url: "../autoSalesOrderDetail/autoSalesOrderDetail?id="+orderid+"&isReview='true'",
 					// jiaose='1'顾问
@@ -147,21 +148,41 @@
 			},
 			// 编辑订单
 			changeOrder(edit,isOk){
-				if(isOk=="true"){
-					// //对订单进行操作
-					this.$store.state.baseinfo.obj.src_id = this.orderId;
-					this.$refs.orderedits.close()
-					uni.navigateTo({
-					    url: "../autoSalesOrder/autoSalesOrder?edit="+edit,
-					});
-				}
-			},
-			// 删除订单
-			deleteorder(){
 				uni.showToast({
-					icon:"loading",
+				    title: '此功能待完善，请尝试其他的操作',
 				    duration: 2000
 				});
+				// if(isOk=="true"){
+				// 	// //对订单进行操作
+				// 	this.$store.state.baseinfo.obj.src_id = this.orderId;
+				// 	this.$refs.orderedits.close()
+				// 	uni.navigateTo({
+				// 	    url: "../autoSalesOrder/autoSalesOrder?edit="+edit,
+				// 	});
+				// }
+			},
+			async deleteorder(id){
+				let param = {
+								"id": this.orderId
+							}
+				await this.$api.HHPF_P_DeleteAutoSalesOrder(param).then(res => {
+					// 获得数据  
+					if(res.Msg=="success"){
+						uni.showToast({
+						    title: '删除成功啦',
+						    duration: 3000
+						});
+						this.$refs.orderedits.close()
+						this.$emit('reloadlist')
+					}
+				 }).catch(res => {
+					 console.log(res)
+					 uni.showToast({
+					     title:es.Msg,
+					     duration: 2000
+					 });
+				 　　// 失败进行的操作
+				 })
 			},
 			
 		}

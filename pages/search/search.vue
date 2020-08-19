@@ -2,7 +2,12 @@
 	<view class="n_customer">
 		<!-- 获取客户档案（个人） -->
 		<view v-if="role=='1'">
-			<uni-search-bar v-model="keyword1" radius="100" placeholder="姓名/手机号" clearButton="auto" cancelButton="auto" @confirm="search1" />
+			<hx-navbar  style="padding-top:var(--status-bar-height);"  class="hx-navbarr" :back="true" :fixed="true" >
+				<view class="ctn5" style="width: 100%;">
+					<uni-search-bar v-model="keyword1" radius="100" placeholder="姓名/手机号" clearButton="auto" cancelButton="auto" @confirm="search1" />
+				</view>
+			</hx-navbar>
+			
 			<view class="">
 				<!-- 客户列表 -->
 				<view v-if="customerlist.length>0" class="n_customerlist">
@@ -26,7 +31,12 @@
 		</view>
 		<!-- 获取客户档案（企业） -->
 		<view v-if="role=='2'">
-			<uni-search-bar v-model="keyword2" radius="100" placeholder="公司名称" clearButton="auto" cancelButton="auto" @confirm="search2" />
+			<hx-navbar  style="padding-top:var(--status-bar-height);"  class="hx-navbarr" :back="true" :fixed="true" >
+				<view class="ctn5" style="width: 100%;">
+					<uni-search-bar v-model="keyword2" radius="100" placeholder="公司名称" clearButton="auto" cancelButton="auto" @confirm="search2" />
+				</view>
+			</hx-navbar>
+			
 			<view v-if="UnitCustomerlist.length>0" class="n_customerlist">
 				<view v-for="(item,i) in UnitCustomerlist" :key="i">
 					<view class="n_customercell row" @click="handClick(item.ID)">
@@ -72,11 +82,15 @@
 			},
 		},
 		onLoad(ops) {
-			//此页面应该禁止下拉刷新
+			//此页面应Č该禁止下拉刷新
 			console.log(ops.role) //目前角色（需要展示什么的列表）
 			this.role = ops.role;
 		},
 		created() {
+			fn.tabbarRequired("false"); //不带tabbar
+			uni.showLoading({
+			    title: '加载中'
+			})
 			switch (this.role) {
 				case '1':
 					this.getCustomer("");
@@ -112,7 +126,7 @@
 					// 获得数据 
 					// console.log("获取客户档案个人"+res.Data.list)
 					this.customerlist = res.Data.list
-
+					uni.hideLoading(); //停止加载中
 
 
 					if (res.Data.list.length > 0) {
@@ -136,6 +150,7 @@
 					// 获得数据 
 					console.log("获取客户档案公司" + res)
 					this.UnitCustomerlist = res.Data.list
+					uni.hideLoading(); //停止加载中
 					if (res.Data.list.length > 0) {
 						this.nodata = false
 					} else {
@@ -150,6 +165,9 @@
 			// 确定
 			async handClick(id) {
 				let that = this;
+				uni.showLoading({
+				    title: '稍等一下，马上好了'
+				})
 				let param = JSON.stringify({
 					ID: id,
 					CusType: that.role
@@ -172,6 +190,7 @@
 						that.$store.state.order.obj.entry1.REGISTER_SITE = res[0].REGISTER_SITE //注册地址
 						that.$store.state.order.obj.entry1.REGISTER_SITE = res[0].REGIST_NO //营业执照
 					}
+					uni.hideLoading(); //停止加载中
                     uni.navigateTo({
                     	url: "../test/test"
                     });

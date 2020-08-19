@@ -63,6 +63,7 @@
 </template>
 
 <script>
+	import filter  from '../../../common/filter.js' //列表
 	import newcarlist from '../components/newcarlist.vue' //列表
 	export default {
 		components: {
@@ -84,6 +85,7 @@
 			}
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			this.GetAllBrand();//获取所有品牌
 		},
 		methods: {

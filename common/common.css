@@ -108,7 +108,7 @@ page {
 
 /* 自定义头部 */
 .custom-header {
-  padding-top: 90upx !important;
+  padding-top: 88upx !important;
   /* padding-bottom: 140upx!important; */
 }
 .custom-header-con{
@@ -2312,3 +2312,8 @@ border:2upx solid  #007AFF;
   font-size: 26upx;
   color: #17212E;
 }
+.titleNview-placing {
+        height: var(--status-bar-height);
+        padding-top: 44px;
+        box-sizing: content-box;
+    }

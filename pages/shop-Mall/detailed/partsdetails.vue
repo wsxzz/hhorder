@@ -69,6 +69,7 @@
 </template>
 
 <script>
+	import filter  from '../../../common/filter.js' //列表
 	import {mapMutations,mapState,mapGetters} from 'vuex'
 	export default {
 		data() {
@@ -84,6 +85,7 @@
 			this.goodsID = ops.goodsID;
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			let self_ = this;
 			self_.getGoodsInfo(self_.goodsID);//获取详情
 		},

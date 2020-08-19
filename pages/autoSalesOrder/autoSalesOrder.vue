@@ -1,67 +1,6 @@
 <template>
 	<view class="submitorder-content custom-header">
-		
-		<!-- 基本信息 -->
-		<baseinfo @baseinfoChange="getbaseinfo"></baseinfo>
-		<!-- 是否关联原有订单 -->
-		<relatedOldOrder v-if="relatedOldOrderOK" :orderDetail="orderDetail"/>
-		
-		<view class="Commodity-infor marB20">
-			<view class="blueline-title row">
-				<view class="col-2 blueline-infor">
-					商品信息
-					<text class="blueline"></text>
-				</view>
-				<view class="col-2 right">
-					<image @click="goshop" class="blueline-icons" src="../../static/images/icons/icon-public-more2.png" mode="widthFix"></image>
-				</view>
-			</view>
-				<carinfo  :carinfo="carinfo" @carinfoChange="getcarinfo" @carinfosChange="getcarinfos"/>
-				<parts @entry4Change="getentry4" @entry7Change="getentry7" @entry8Change="getentry8" @entry9Change="getentry9" @entry10Change="getentry10" @entry11Change="getentry11" :parts="parts"/>
-		</view>
-		
-		<customerInfor :cusselectOK = "cusselectOK"  @entry1Change="getentry1" @entry2Change="getentry2"/>
-		
-		<insuranceInfor :insselectOK="insselectOK" @insuranceInforValChange="geinsuranceInfor"/>
-		<paymentInfor :param="param" @entry14Change="getentry14" @entry13Change="getentry13"/>
-		
-		<mortgagePro :mortgageOk="mortgageOk" @mortgageProValChange="getmortgage"/>
-		
-		<deliveryInfor @deliveryInforValChange="getdeliveryInfo"/>
-		
-		<invoiceInfor @invoiceInforValChange="getinvoiceInfo"/>
-		
-		<view class="bottomgroup">
-			<view class="row bottom-price">
-				<view class="col-2">
-					<view class="total">
-						合计 <text class="price-icon">¥</text>
-						<text class="price">0</text>
-					</view>
-					<view class="discount">
-						优惠金额0
-					</view>
-				</view>
-				<view class="col-2 right category">
-						商品种类: <text>0</text> 商品数量: <text>0</text>
-				</view>
-			</view>
-			<view class="row bottomgroupbtns">
-				<view class="col-2 selectAllbtn">
-					<label>
-						<checkbox value="SelectAll" checked="true"/><text class="txt">全选</text>
-					</label>
-				</view>
-				<view class="col-2 row ">
-					<!-- <view class="deletebtn">
-						删除
-					</view> -->
-					<view style="width: 100%;" class="comfirmbtn" @click="submitinfo">
-						确定
-					</view>
-				</view>
-			</view>
-		</view>
+		页面出错了
 		
 	</view>
 </template>

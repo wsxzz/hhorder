@@ -29,6 +29,7 @@
 </template>
 
 <script>
+	import fn from '../../common/filter.js'
 	export default {
 		data() {
 			return {
@@ -38,6 +39,7 @@
 			}
 		},
 		created() {
+			fn.tabbarRequired("false"); //不带tabbar
 			this.getInsuranceCompany();//获取保险机构列表
 		},
 		methods: {

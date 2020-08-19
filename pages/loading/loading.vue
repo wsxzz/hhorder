@@ -1,9 +1,8 @@
 <template>
-	<view>
-		<view class="">
-			正在加载。。。。
-		</view>
-	</view>
+ <view class="">
+ 	
+ </view>
+  
 </template>
 
 <script>
@@ -21,12 +20,11 @@
 		},
 		created(){
 			uni.showLoading({
-			    title: '加载中'
+			    title: '页面努力加载中'
 			})
-			filter.tabbarRequired("false");
+		filter.tabbarRequired("true");
 		  let self = this
 		  let isapp = false//当前是否是app环境
-		  // console.log(window);
 		  if(isapp){
 				uni.setStorageSync('roleType', null);
 				const u = navigator.userAgent;//获取机型
@@ -53,24 +51,29 @@
 			  		uni.setStorageSync('jwt', data.jwt);
 					uni.setStorageSync('adviser', data.userId);//顾问id
 					uni.setStorageSync('companyId', data.companyId);//顾问id
-					
+					self.$store.state.orgID = uni.getStorageSync('companyId');
+					self.$store.state.adviser = uni.getStorageSync('adviser');
 					uni.hideLoading()
 					self.redirectToWhere(data.roleType);//跳转到订单首页
 			  	    }
 			  	  } else {
-					  // alert("anzhuo");
 			  		let data = window.Android.getLonginMessage()
-			  		self.datatest1 = data
+			  		self.dtatest1 = data
 			  		data = JSON.parse(data)
 			  	   uni.setStorageSync('roleType', data.roleType);
 			  	   uni.setStorageSync('appId', data.appId);
 			  	   uni.setStorageSync('jwt', data.jwt);
 			  	   uni.setStorageSync('adviser', data.userId);//顾问id
 				   uni.setStorageSync('companyId', data.companyId);//顾问id
+				   self.$store.state.orgID = uni.getStorageSync('companyId');
+				   self.$store.state.adviser = uni.getStorageSync('adviser');
+				   // alert("登陆获取的roleType是"+);
+				   alert("登陆获取的companyId是"+data.companyId+"登陆获取的roleType是"+data.roleType);
 				   // uni.hideLoading()
 				   self.redirectToWhere(data.roleType);//跳转到订单首页
 			  	  }
 		  }else{
+			  // debugger
 			  //测试数据
 				  // let roleType = "10061013,10061019"
 				  let roleType = "10061003"
@@ -79,30 +82,35 @@
 				  uni.setStorageSync('appId', self.appId);
 				  uni.setStorageSync('jwt',jwt);
 				  uni.setStorageSync('adviser','nzIAAAAAhdaA733t');//顾问id
-				  uni.setStorageSync('companyId','nzIAAAAACMDM567U');//顾问id
-				  this.$store.state.orgID = uni.getStorageSync('companyId');
-				  this.$store.state.adviser = uni.getStorageSync('adviser');
+				  uni.setStorageSync('companyId','nzIAAAAACMDM567U');//组织FId
+				  self.$store.state.orgID = uni.getStorageSync('companyId');
+				  self.$store.state.adviser = uni.getStorageSync('adviser');
+				  alert("登陆获取的companyId是"+self.$store.state.orgID+"登陆获取的roleType是"+self.$store.state.adviser);
 				  self.redirectToWhere(roleType);//跳转到订单首页
 		  }
 		},
 		methods: {
 			redirectToWhere(roleType){
+				
 				// var str = "10061003,10061012,10061015"
 				// var str = "10061013"
 			
 				if(roleType.indexOf("10061003") != -1 || roleType.indexOf("10061012") != -1 || roleType.indexOf("10061015") != -1){
+					// alert("即将跳转顾问的订单");
 					console.log("跳转顾问的订单")
 					uni.hideLoading()
 					uni.redirectTo({
 						url: '../consultantsLists/consultantsLists'
 					});
 				}else if(roleType.indexOf("10061013") != -1 || roleType.indexOf("10061019") != -1 ){
+					// alert("即将跳转经理的订单");
 					console.log("跳转经理的订单")
 					uni.hideLoading()
 					uni.redirectTo({
 						url: '../managerlist/managerlist'
 					});
 				}else{
+					uni.hideLoading()
 					uni.showToast({
 					    title: '网络加载慢，请返回其他模块',
 					    duration: 2000

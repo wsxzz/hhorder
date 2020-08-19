@@ -132,6 +132,7 @@
 </template>
 
 <script>
+	import filter  from '../../../common/filter.js' //列表
 	import {
 		mapMutations,
 		mapState,
@@ -153,6 +154,7 @@
 			this.goodsID = ops.goodsID;
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			let self_ = this;
 			if (self_.$store.state.shop == 'Vehicle') { //如果是整车
 				self_.getAutoTypeInfo(self_.goodsID); //获取详情

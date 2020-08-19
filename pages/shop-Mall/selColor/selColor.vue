@@ -42,6 +42,7 @@
 </template>
 
 <script>
+	import filter  from '../../../common/filter.js' //列表
 	import {mapMutations,mapState,mapGetters} from 'vuex'
 	export default {
 		data() {
@@ -65,6 +66,9 @@
 			this.getColorInner('1','nzIAAAAAaYHINe3g','nzIAAAAAhH9a2qc+');
 			this.getColorInner('2','nzIAAAAAaYHINe3g','nzIAAAAAhH9a2qc+');
 			this.goodsID = ope.goodsID
+		},
+		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 		},
 		methods:{
 			//获取颜色和内饰

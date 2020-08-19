@@ -50,6 +50,7 @@
 </template>
 
 <script>
+	import filter  from '../../../common/filter.js' //列表
 	import modelist from '../components/modelist.vue' //列表
 	export default {
 		components: {
@@ -84,6 +85,7 @@
 			
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			if(this.$store.state.shop == 'Vehicle'){
 				this.getAutoTypeListbySeriesFID(uni.getStorageSync('myseriesFID'))//根据车系获取车型列表
 			}else{
@@ -120,6 +122,8 @@
 							uni.setNavigationBarTitle({
 								title: res[0].APP_FName
 							})
+							// debugger
+							
 						//查询列表（根据四级+组织fid）
 							 that.getGoodsList(that.$store.state.orgID,res[0].EAS_FID)//配件
 					} 

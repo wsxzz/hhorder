@@ -54,6 +54,7 @@
 
 <script>
 	import carlist from './components/carlist.vue' //列表
+	import filter  from '../../common/filter.js' //列表
 	export default {
 		components: {
 			carlist
@@ -70,6 +71,7 @@
 		},
 		created() {
 			var that = this;
+			filter.tabbarRequired("false"); //不带tabbar
 			that.getGoodsOneType();//获取一级商品分类
 		},
 		methods: {
