@@ -46,7 +46,7 @@
 			</view>
 			<mescroll-body ref="mescrollRef" @init="mescrollInit" @down="downCallback">
 				<!-- 顾问列表 -->
-				<consultantsLists @reloadlist="refresh" :consultantslists="consultantslists" :loadAll="loadAll" :NODATA="false" />
+				<consultantsLists @reloadlist="refresh" :consultantslists="consultantslists" :loadAll="loadAll" :NODATA="NODATA" />
 			</mescroll-body>
 
 		</view>
@@ -71,7 +71,7 @@
 								</view>
 								<view class="col-2 center">
 									<view class="date">
-										{{param.end_date}}
+										{{endDate}}
 									</view>
 								</view>
 							</view>
@@ -128,7 +128,7 @@
 				consultantslists: [], //零售数据
 				param: {
 					"start_date": "",
-					"end_date": fn.CurentTime(),
+					"end_date": "",
 					"order_from": 0,
 					"order_kind": 0,
 					"order_channel": 0,
@@ -139,7 +139,7 @@
 					"adviser": [],
 					"status": 0,
 					"pageIndex": 1,
-					"pageSize": 4
+					"pageSize": 6
 				},
 				loadFlag: true,
 				total: 0, //	订单列表总数，总单量
@@ -173,10 +173,8 @@
 		methods: {
 			getinit() {//初始化得到顾问id和orgid
 				let that = this
-				that.param.adviser[0] = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser //顾问id
-				let userid = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser //顾问id
 				this.GetAutoSalesOrderList()
-				this.CheckLogin(userid);
+				this.CheckLogin();
 			},
 			mescrollInit() { //init
 				this.refresh() //刷新
@@ -188,12 +186,13 @@
 					mescroll.endSuccess(1)
 				}, 1000)
 			},
-			async CheckLogin(userid) {
+			async CheckLogin() {
+				let userid = this.$store.state.adviser == "" ? uni.getStorageSync('adviser') : this.$store.state.adviser //顾问id
 				let param = {
 					userID: userid
 				}
 				await this.$api.HHPlatForm_P_CheckLoginByUserID(param).then(res => {
-					debugger
+					// debugger
 					this.$store.state.OrgName = res[0].OrgName
 					this.$store.state.DeptID = res[0].DeptID
 					this.$store.state.DeptName = res[0].DeptName
@@ -222,12 +221,15 @@
 				this.getlistINIT();//重新清空原来的筛选列表
 				this.param.start_date = ""
 				this.closescreen()
+				this.add = false
 				this.GetAutoSalesOrderList();
 			},
 			//获取筛选框的值，重新触发列表更新
 			comfirm(val) {
 				this.closescreen()
-				console.log(this.param)
+				this.param.start_date = this.date//开始时间（结束时间默认是空）
+				this.param.order_kind = this.dllistIDs[this.dllistIndex]//订单类型
+				console.log(this.param,"确定之后的数据")
 				this.GetAutoSalesOrderList();
 			},
 			changeDL(i) { //改变订单类型
@@ -246,14 +248,26 @@
 				uni.showLoading({
 					title: '加载中'
 				});
+				this.param.adviser[0] = this.$store.state.adviser == "" ? uni.getStorageSync('adviser') : this.$store.state.adviser //顾问id
 				let param = this.param;
+				console.log(param,"param")
+				
 				await this.$api.HHPF_P_GetAutoSalesOrderList(param).then(res => {
 					if (res.Data.list.length > 0) {
+						this.loadAll = false //加载全部
 						this.total = res.Data.total //数据总数
 						this.total_pc = res.Data.total_pc //	已配车数量
 						this.total_wpc = res.Data.total_wpc //	未配车数量
 						this.total_yjc = res.Data.total_yjc //	已交车数量
-						this.consultantslists = [...this.consultantslists, ...res.Data.list]
+						if(this.consultantslists.length>0&&this.param.pageIndex!==1){
+							this.consultantslists = [...this.consultantslists, ...res.Data.list]
+						}else{
+							if(res.Data.total<=6){
+								this.loadAll = true //加载全部
+							}
+							this.consultantslists = res.Data.list
+						}
+						
 						this.NODATA = false
 						this.loadFlag = true
 						uni.startPullDownRefresh(); //停止刷新
@@ -269,28 +283,41 @@
 			},
 			//刷新数据（回到最初数据）
 			refresh() {
-				this.param.pageIndex = 1; //回到第一页
 				this.getlistINIT();//重新清空原来的筛选列表
-				this.param.adviser = []
-				this.param.start_date = ""
+				this.param = {//重置筛选条件
+					"start_date":"",
+					"end_date":"",
+					"order_from":0,
+					"order_kind":0,
+					"order_channel":0,
+					"customer_name":"",
+					"customer_phone":"",
+					"model_id":0,
+					"chassis_num":"",
+					"adviser":[],
+					"status":0,
+					"pageIndex": 1,
+					"pageSize": 6
+				}
 				this.GetAutoSalesOrderList();
 			},
 			//数据分页
 			paging() {
 				// debugger
-				let totalPage = Math.ceil(this.total / 4) //总页数
-				console.log(totalPage)
-				if (this.param.pageIndex < totalPage) {
-					if (this.loadFlag) {
-						this.param.pageIndex++; //下一页
-						this.loadFlag = false
+				let totalPage = Math.ceil(this.total / 6) //总页数
+				console.log("总页数"+totalPage)
+				if(totalPage>0){
+					if (this.param.pageIndex < totalPage) {
+						if (this.loadFlag) {
+							this.param.pageIndex++; //下一页
+							this.loadFlag = false
+						}
+						console.log(this.param.pageIndex)
+						this.GetAutoSalesOrderList();
+					} else {
+						this.loadAll = true //加载全部
 					}
-					console.log(this.param.pageIndex)
-					this.GetAutoSalesOrderList();
-				} else {
-					this.loadAll = true //加载全部
 				}
-
 			},
 			// 切换条件重新选
 			getlistINIT(){
@@ -342,8 +369,6 @@
 <style lang="scss" scoped>
 	page {
 		background-color: #F5F5F5;
-		// height: 500upx;
-		// overflow: hidden;
 	}
 
 	.takebar {

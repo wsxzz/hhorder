@@ -68,7 +68,7 @@
 				   self.$store.state.orgID = uni.getStorageSync('companyId');
 				   self.$store.state.adviser = uni.getStorageSync('adviser');
 				   // alert("登陆获取的roleType是"+);
-				   alert("登陆获取的companyId是"+data.companyId+"登陆获取的roleType是"+data.roleType);
+				   alert("登陆获取的companyId是"+data.companyId+"登陆获取的adviser是"+data.userId+"登陆获取的roleType是"+data.roleType);
 				   // uni.hideLoading()
 				   self.redirectToWhere(data.roleType);//跳转到订单首页
 			  	  }
@@ -81,8 +81,8 @@
 				  uni.setStorageSync('roleType', roleType);
 				  uni.setStorageSync('appId', self.appId);
 				  uni.setStorageSync('jwt',jwt);
-				  uni.setStorageSync('adviser','nzIAAAAAhdaA733t');//顾问id
-				  uni.setStorageSync('companyId','nzIAAAAACMDM567U');//组织FId
+				  uni.setStorageSync('adviser','fOj1QAnwSTS93doR*bY1B4Dvfe0_');//顾问id
+				  uni.setStorageSync('companyId','nzLAAAAACTjM567U');//组织FId
 				  self.$store.state.orgID = uni.getStorageSync('companyId');
 				  self.$store.state.adviser = uni.getStorageSync('adviser');
 				  alert("登陆获取的companyId是"+self.$store.state.orgID+"登陆获取的roleType是"+self.$store.state.adviser);

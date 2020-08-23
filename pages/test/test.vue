@@ -1,6 +1,5 @@
 <template>
 	<view class="submitorder-content">
-
 		<view class="blueline-title row">
 			<view class="col-2 blueline-infor">
 				基本信息
@@ -207,7 +206,8 @@
 							客户电话
 						</view>
 						<view class="infoR col-2 right">
-							<input class="uni-input" :value="param.entry1.COM_PHONE" :disabled="false" />
+							{{param.entry1.COM_PHONE}}
+							<!-- <input class="uni-input" :value="param.entry1.COM_PHONE" :disabled="false" /> -->
 						</view>
 					</view>
 					<view class="info row">
@@ -216,7 +216,8 @@
 							身份证号
 						</view>
 						<view class="infoR col-2 right">
-							<input class="uni-input" :disabled="false" :value="param.entry1.CER_ID_NO" />
+							{{param.entry1.CER_ID_NO}}
+							<!-- <input class="uni-input" :disabled="false" :value="param.entry1.CER_ID_NO" /> -->
 						</view>
 					</view>
 					<view class="info row">
@@ -316,8 +317,7 @@
 							委托人电话
 						</view>
 						<view class="infoR col-2 right">
-							<input class="uni-input" v-model="param.entry1.entrust_phone" value="" placeholder-style="color:#C3C3C3"
-							 placeholder="请输入" />
+							<input class="uni-input" v-model="param.entry1.entrust_phone" value="" placeholder-style="color:#C3C3C3" placeholder="请输入" />
 						</view>
 					</view>
 					<view class="info row">
@@ -325,7 +325,8 @@
 							机构代码
 						</view>
 						<view class="infoR col-2 right">
-							<input class="uni-input" :value="param.entry1.REGIST_NO" :disabled="true" />
+							{{param.entry1.REGIST_NO}}
+							<!-- <input class="uni-input" :value="param.entry1.REGIST_NO" :disabled="true" /> -->
 						</view>
 					</view>
 					<view class="info row">
@@ -333,7 +334,8 @@
 							注册地址
 						</view>
 						<view class="infoR col-2 right">
-							<input class="uni-input" :value="param.entry1.REGISTER_SITE" :disabled="true" />
+							{{param.entry1.REGISTER_SITE}}
+							<!-- <input class="uni-input" :value="param.entry1.REGISTER_SITE" :disabled="true" /> -->
 						</view>
 					</view>
 
@@ -361,7 +363,8 @@
 									公司名称
 								</view>
 								<view class="cellR col-2 right">
-									<input class="uni-input" :value="param.entry1.UNIT_NAME" :disabled="true" />
+									{{param.entry1.UNIT_NAME}}
+									<!-- <input class="uni-input" :value="param.entry1.UNIT_NAME" :disabled="true" /> -->
 								</view>
 							</view>
 							<view class="cell row">
@@ -369,7 +372,8 @@
 									营业执照
 								</view>
 								<view class="cellR col-2 right">
-									<input class="uni-input" :value="param.entry1.REGIST_NO" :disabled="true" />
+									{{param.entry1.REGIST_NO}}
+									<!-- <input class="uni-input" :value="param.entry1.REGIST_NO" :disabled="true" /> -->
 								</view>
 							</view>
 						</view>
@@ -491,7 +495,8 @@
 							</view>
 							<view class="cellR col-2 right unit">
 								<text class="icon-unit">元</text>
-								<input class="uni-input" :value="taxlimitm(carinfoindex)" :disabled="true" />
+								{{taxlimitm(carinfoindex)}}
+								<!-- <input class="uni-input" :value="taxlimitm(carinfoindex)" :disabled="true" /> -->
 							</view>
 						</view>
 
@@ -881,7 +886,7 @@
 							交强险
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.jqx_price" />
+							<input type="number" v-model.number="param.entry6.jqx_price" @focus="clearValue('jqx_price')" @blur="initVlaue('jqx_price')"/>
 						</view>
 					</view>
 					<view class="cell row">
@@ -889,7 +894,7 @@
 							车船税
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.ccs_price" />
+							<input type="number" v-model.number="param.entry6.ccs_price" @focus="clearValue('ccs_price')" @blur="initVlaue('ccs_price')"/>
 							<!-- 0 <text>元</text> -->
 						</view>
 					</view>
@@ -899,7 +904,7 @@
 							商业险
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.syx_price" />
+							<input type="number" v-model.number="param.entry6.syx_price" @focus="clearValue('syx_price')"  @blur="initVlaue('syx_price')"/>
 						</view>
 					</view>
 					<view class="cell row">
@@ -907,7 +912,7 @@
 							其他
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.other_price" />
+							<input type="number" v-model.number="param.entry6.other_price" @focus="clearValue('other_price')" @blur="initVlaue('other_price')"/>
 						</view>
 					</view>
 					<view class="cell row">
@@ -934,7 +939,7 @@
 							</view>
 						</view>
 						<view class="cellR col-2 right">
-							<input type="number" v-model.number="param.entry6.discount_price" />
+							<input type="number" v-model.number="param.entry6.discount_price" @focus="clearValue('discount_price')"  @blur="initVlaue('discount_price')"/>
 						</view>
 					</view>
 
@@ -950,7 +955,7 @@
 					<view class="subtotal right">
 						<text class="subtotaltxt">小计</text>
 						<text class="subtotalicon">¥</text>
-						<text class="subtotalmoney">{{bxprice}}</text>
+						<text class="subtotalmoney">{{subtotalinsure}}</text>
 					</view>
 				</view>
 			</view>
@@ -983,8 +988,7 @@
 								{{ids.subscription_typeID===39? "定金" : "订金"}}
 							</view>
 							<view class="notesR right">
-								<input type="number" class="uni-input" v-model.number="param.entry13.first_price" placeholder-style="color:#C3C3C3"
-								 placeholder="请填写" />
+								<input type="number" class="uni-input" v-model.number="param.entry13.first_price" placeholder-style="color:#C3C3C3" placeholder="请填写" @focus="clearValue('first_price')"  @blur="initVlaue('first_price')"/>
 							</view>
 						</view>
 						<view class="cell row">
@@ -1084,7 +1088,7 @@
 										额度总计
 									</view>
 									<view class="notesR right">
-										¥{{quotaPrice}}
+										<input type="number" v-model.number="quotaPrice" @focus="clearValue('quotaPrice')" @blur="initVlaue('quotaPrice')"/>
 									</view>
 								</view>
 							</view>
@@ -1155,7 +1159,7 @@
 									</view>
 									<view class="notesR right unit">
 										<text class="icon-unit">元</text>
-										<input class="uni-input" v-model="param.entry5.quota" placeholder-style="color:#C3C3C3" placeholder="请填写" />
+										{{quota}}
 									</view>
 								</view>
 								<view class="cell row">
@@ -1348,7 +1352,7 @@
 								发票总额
 							</view>
 							<view class="notesR right">
-								<input  type="number" v-model="param.entry15.invoice_sum"/>
+								<input  type="number" v-model="param.entry15.invoice_sum" @focus="clearValue('invoice_sum')" @blur="initVlaue('invoice_sum')"/>
 								<!-- ¥{{}} -->
 							</view>
 						</view>
@@ -1429,7 +1433,7 @@
 				addOrder: true,
 				ids: {},
 				org_list: [],
-				bxprice:0,
+				quotaPrice:0,//额度总计
 				param: {
 					"basic": {}, //销售订单基础数据
 					"entry1": {}, //客户补充信息
@@ -1477,16 +1481,16 @@
 			},
 			param: {
 				handler(newValue, oldValue) {
-					if(this.param.entry6.org_id!==""){
-							let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
-							let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
-							let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
-							let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
-							let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
-							this.bxprice = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
+					// if(this.param.entry6.org_id!==""){
+					// 		let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
+					// 		let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
+					// 		let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
+					// 		let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
+					// 		let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
+					// 		this.bxprice = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
 							
-					}
-					console.log(this.param.entry6,"改变了")
+					// }
+					// console.log(this.param.entry6,"改变了")
 					if(this.param.entry3.length>0){
 						this.param.entry14.car_price = this.param.entry3[0].final_price
 					}
@@ -1507,6 +1511,75 @@
 			this.getBaseEnumByCodes()
 		},
 		methods: {
+			initVlaue(val){//默认是0
+				if(val=='jqx_price'&&this.param.entry6.jqx_price == ""){
+					this.param.entry6.jqx_price = 0
+					return
+				}
+				if(val=='ccs_price'&&this.param.entry6.ccs_price == ""){
+					this.param.entry6.ccs_price = 0
+					return
+				}
+				if(val=='syx_price'&&this.param.entry6.syx_price == ""){
+					this.param.entry6.syx_price = 0
+					return
+				}
+				if(val=='discount_price'&&this.param.entry6.discount_price == ""){
+					this.param.entry6.discount_price = 0
+					return
+				}
+				if(val=='other_price'&&this.param.entry6.other_price == ""){
+					this.param.entry6.other_price = 0
+					return
+				}
+				if(val=='first_price'&&this.param.entry13.first_price == ""){
+					this.param.entry13.first_price = 0
+					return
+				}
+				if(val=='invoice_sum'&&this.param.entry15.invoice_sum == ""){
+					this.param.entry15.invoice_sum = 0
+					return
+				}
+				if(val=='quotaPrice'&&this.quotaPrice == ""){
+					this.quotaPrice = 0
+					return
+				}
+			},
+			clearValue(val){
+				
+				if(val=='quotaPrice'){
+					this.quotaPrice = ""
+					return
+				}
+				if(val=='jqx_price'){
+					this.param.entry6.jqx_price = ""
+					return
+				}
+				if(val=='ccs_price'){
+					this.param.entry6.ccs_price = ""
+					return
+				}
+				if(val=='syx_price'){
+					this.param.entry6.syx_price = ""
+					return
+				}
+				if(val=='discount_price'){
+					this.param.entry6.discount_price = ""
+					return
+				}
+				if(val=='other_price'){
+					this.param.entry6.other_price = ""
+					return
+				}
+				if(val=='first_price'){
+					this.param.entry13.first_price = ""
+					return
+				}
+				if(val=='invoice_sum'){
+					this.param.entry15.invoice_sum = ""
+					return
+				}
+			},
 			bindDateChange: function(e) {
 					this.date = e.target.value
 					this.param.entry12.give_date = e.target.value
@@ -2229,12 +2302,13 @@
 				}
 
 			},
-			quotaPrice(){//贷款额度总计=额度*首比例
-				let quotaPrice = 0;
+			quota(){//贷款额度总计=额度*首比例
+				let quota = 0;
 				if(this.ids.pay_typeID==68){
-					quotaPrice = (this.param.entry5.quota)*(this.param.entry5.first_per)/100
+					quota = (this.quotaPrice)*(100-this.param.entry5.first_per)/100
 				}
-				return quotaPrice
+				this.param.entry5.quota = quota
+				return quota
 			},
 			qutocontent(){//按揭内容
 				let idcon = ""
@@ -2334,10 +2408,10 @@
 			subtotalinsure(){
 				// debugger
 				let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
-				let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
-				let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
-				let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
-				let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
+				let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.ccs_price
+				let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.syx_price
+				let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.discount_price
+				let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.other_price
 				let subtotal = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
 				// console.log(subtotal)
 				 return subtotal
