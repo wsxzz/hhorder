@@ -166,7 +166,8 @@ const order = {
 				"other_person": "",
 				"info": "",
 				"is_place": 0,
-				"info2": ""
+				"info2": "",
+				"is_other": 0,
 			},
 			"entry13": {
 				"type": null,

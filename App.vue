@@ -23,6 +23,16 @@ export default {
 			 console.log(res)
 		 　　// 失败进行的操作
 		 })
+	
+		let param1 = { FType: "1" }//默认是厂家
+		 this.$api.HHPlatForm_P_GetMortgageCompany(param1).then(res => {
+		 		// 获得数据  
+			this.$store.state.org_list1 = res
+		 }).catch(res => {
+			 console.log(res)
+		 　　// 失败进行的操作
+		 })
+		 
 		},
 	onShow: function() {
 		console.log('App Show');

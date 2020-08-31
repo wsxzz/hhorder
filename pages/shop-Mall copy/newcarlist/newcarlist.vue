@@ -84,10 +84,8 @@
 				carSeriesId: '', //当前选择的车系id(用来暂时存储车系id)
 			}
 		},
-		onShow() {
-			filter.tabbarRequired("false"); //不带tabbar
-		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			this.GetAllBrand();//获取所有品牌
 		},
 		methods: {

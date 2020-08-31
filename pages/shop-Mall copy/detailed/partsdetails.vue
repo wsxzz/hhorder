@@ -81,13 +81,11 @@
 		},
 		computed:{
 		},
-		onShow() {
-			filter.tabbarRequired("false"); //不带tabbar
-		},
 		onLoad(ops) {
 			this.goodsID = ops.goodsID;
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			let self_ = this;
 			self_.getGoodsInfo(self_.goodsID);//获取详情
 		},
@@ -106,13 +104,16 @@
 							is_add:0,//	是	int	是否加装； 0 否， 1 是
 							is_with:0,//	是	int	是否随车；0 否， 1 是
 							pre_installed:0,//	是	int	是否预装；0 否， 1 是
-							num:1,//	是	int	销售数量
+							num:0,//	是	int	销售数量
 							guide_price:res[0].GuidingPrice,//	是	int	指导价，单位分
 							final_price:res[0].GuidingPrice,//	是	int	成交价，单位分
+							noswith__price:res[0].GuidingPrice,//b不随车价格 = 成交价
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry4.push(ie)
+						// self_.$store.dispatch('getentry4',ie)
+						self_.$store.state.order.obj.entry4.push(ie)
+						// Object.assign(self_.$store.state.order.obj.entry4[0], carinfoobj)
 					}
 					if(res[0].GoodType=='2'){//美容
 						let ie = {
@@ -120,38 +121,46 @@
 							is_add:0,//	是	int	是否加装； 0 否， 1 是
 							is_with:0,//	是	int	是否随车；0 否， 1 是
 							pre_installed:0,//	是	int	是否预装；0 否， 1 是
-							num:1,//	是	int	销售数量
+							num:0,//	是	int	销售数量
 							guide_price:res[0].GuidingPrice,//	是	int	指导价，单位分
 							final_price:res[0].GuidingPrice,//	是	int	成交价，单位分
+							noswith__price:res[0].GuidingPrice,//b不随车价格 = 成交价
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry4.push(ie)
+						
+						// self_.$store.dispatch('getentry4',ie)
+						self_.$store.state.order.obj.entry4.push(ie)
 					}
 					if(res[0].GoodType=='3'){//延保
 						let ie = {
 							good_id:res[0].goodsID,//	是	int	商品ID
 							org_id:"",//	是	string	保险机构ID
-							org_src:27,//	是	string	机构来源ID
-							kind:62,//	是	int	延保类型ID
-							num:1,//	是	int	销售数量
+							org_src:"",//	是	string	机构来源ID
+							kind:null,//	是	int	延保类型ID
+							num:0,//	是	int	销售数量
 							guide_price:res[0].GuidingPrice,//	是	int	指导价，单位分
 							final_price:res[0].GuidingPrice,//	是	int	成交价，单位分
+							noswith__price:res[0].GuidingPrice,//b不随车价格 = 成交价
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry7 = ie
+						// self_.$store.dispatch('getentry7',ie)ie
+						Object.assign(self_.$store.state.order.obj.entry7, ie)
 					}
 					if(res[0].GoodType=='4'){//公司产品
+					// debugger
 						let ie = {
 							good_id:res[0].goodsID,//	是	int	商品ID
-							num:1,//	是	int	销售数量
+							num:0,//	是	int	销售数量
 							guide_price:res[0].GuidingPrice,//	是	int	指导价，单位分
 							final_price:res[0].GuidingPrice,//	是	int	成交价，单位分
+							noswith__price:res[0].GuidingPrice,//b不随车价格 = 成交价
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry8.push(ie)
+						// self_.$store.dispatch('getentry8',ie)
+						self_.$store.state.order.obj.entry8.push(ie)
 					}
 					if(res[0].GoodType=='5'){//代办业务
 						let ie = {
@@ -163,7 +172,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry10.push(ie)
+						// self_.$store.dispatch('getentry10',ie)
+						self_.$store.state.order.obj.entry10.push(ie)
 					}
 					
 					if(res[0].GoodType=='6'){//套餐产品
@@ -176,7 +186,8 @@
 							good_name:res[0].GoodName,//	是	string	商品名称
 							img_url:res[0].goodpic,//	是	string	图片地址
 						}
-						self_.$store.state.test.param.entry9.push(ie)
+						// self_.$store.dispatch('getentry9',ie)
+						self_.$store.state.order.obj.entry9.push(ie)
 					}
 				 }).catch(res => {
 					 console.log(res)
@@ -187,7 +198,7 @@
 			addcar(goodsID) {
 				let self_ = this;
 				uni.navigateTo({
-					url: '../../autoSalesOrder/autoSalesOrder'
+					url: '../../test/test'
 				});
 			}
 		}

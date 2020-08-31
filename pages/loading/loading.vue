@@ -18,11 +18,13 @@
 				appId:'cyx',
 			}
 		},
+		onShow() {
+			filter.tabbarRequired("true");
+		},
 		created(){
 			uni.showLoading({
 			    title: '页面努力加载中'
 			})
-		filter.tabbarRequired("true");
 		  let self = this
 		  let isapp = false//当前是否是app环境
 		  if(isapp){
@@ -82,10 +84,12 @@
 				  uni.setStorageSync('appId', self.appId);
 				  uni.setStorageSync('jwt',jwt);
 				  uni.setStorageSync('adviser','fOj1QAnwSTS93doR*bY1B4Dvfe0_');//顾问id
-				  uni.setStorageSync('companyId','nzLAAAAACTjM567U');//组织FId
+				  // uni.setStorageSync('companyId','nzIAAAAACTjM567U');//组织FId
+				  uni.setStorageSync('companyId','nzIAAAAACMDM567U');//组织FId
+				  
 				  self.$store.state.orgID = uni.getStorageSync('companyId');
 				  self.$store.state.adviser = uni.getStorageSync('adviser');
-				  alert("登陆获取的companyId是"+self.$store.state.orgID+"登陆获取的roleType是"+self.$store.state.adviser);
+				  alert("登陆获取的companyId是"+self.$store.state.orgID+"登陆获取的adviser是"+self.$store.state.adviser);
 				  self.redirectToWhere(roleType);//跳转到订单首页
 		  }
 		},

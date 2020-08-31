@@ -963,7 +963,9 @@
 				}
 			}
 		},
-
+		onShow() {
+			filter.tabbarRequired("false"); //不带tabbar
+		},
 		onLoad(ops) {
 			// debugger
 			const isReview = (ops.isReview == 'true' ? true : false);
@@ -979,7 +981,6 @@
 				icon: 'loading',
 				title: '加载中'
 			});
-			filter.tabbarRequired("false"); //不带tabbar
 			// alert("created的id"+this.orderId)
 			this.getAutoSalesOrder(this.orderId); //根据订单id查询详情
 		},

@@ -150,13 +150,11 @@
 		computed: {
 			...mapGetters(['car_kindCodes'])
 		},
-		onShow() {
-			filter.tabbarRequired("false"); //不带tabbar
-		},
 		onLoad(ops) {
 			this.goodsID = ops.goodsID;
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			let self_ = this;
 			if (self_.$store.state.shop == 'Vehicle') { //如果是整车
 				self_.getAutoTypeInfo(self_.goodsID); //获取详情
@@ -199,11 +197,7 @@
 					//回填详情信息
 
 					let carinfoobj = {
-						"trim_id": self_.$store.state.test.param.entry3[0].trim_id,
-						"color_id": self_.$store.state.test.param.entry3[0].color_id,
-						"trim_name": self_.$store.state.test.param.entry3[0].trim_name,
-						"color_name": self_.$store.state.test.param.entry3[0].color_name,	
-						"officia_lname": res[0].OFFICIA_LNAME,
+						"OFFICIA_LNAME": res[0].OFFICIA_LNAME,
 						"brand_id": res[0].BrandFID, //	是	string	车辆品牌ID
 						"series_id": res[0].SERIES_ID, //	是	string	车系ID
 						"model_id": res[0].goodsID, //	是	string	车型ID
@@ -211,18 +205,135 @@
 
 						"guide_price": res[0].GuidingPrice, //	是	int	指导价，单位分
 						"final_price": res[0].GuidingPrice, //	是	int	成交价，单位分
-						"kind":64 , //	是	int	商品分类
+						"kind": 5, //	是	int	商品分类
 						"img_url": res[0].goodpic, //	是	string	图片地址
-						"collection_type": 65,
-						"is_tax": 1,
+						"collection_type": null,
+						"is_tax": 0,
 						"tax_num": 0,
 						"tax_limit": 0,
 					}
-					// debugger
-					
-					self_.$store.state.test.param.entry3[0] = carinfoobj
-					
-				
+
+
+					Object.assign(self_.$store.state.order.obj.entry3[0], carinfoobj)
+					//console.log(self_.$store.state.order.obj.entry3, "w23232131232131231231231231231")
+
+
+					self_.$store.dispatch('setcarinfoall', res[0])
+					self_.$store.dispatch('setcarinfo', carinfoobj)
+
+
+
+				}).catch(res => {
+					console.log(res)
+					// 失败进行的操作
+				})
+			},
+			//获取某个商品详细信息(非整车)
+			async getGoodsInfo(goodsID) {
+				let self_ = this;
+				let param = JSON.stringify({
+					ID: goodsID
+				})
+				await self_.$api.HHPlatForm_P_GetGoodsInfo(param).then(res => {
+					self_.gooddetail = res[0] //展示详情
+
+					if (res[0].GoodType == '1') { //精品
+						let ie = {
+								good_id: res[0].goodsID, //	是	int	商品ID
+								is_add: 0, //	是	int	是否加装； 0 否， 1 是
+								is_with: 0, //	是	int	是否随车；0 否， 1 是
+								pre_installed: 0, //	是	int	是否预装；0 否， 1 是
+								num: 0, //	是	int	销售数量
+								guide_price: res[0].GuidingPrice, //	是	int	指导价，单位分
+								final_price: res[0].GuidingPrice, //	是	int	成交价，单位分
+								noswith__price: res[0].GuidingPrice, //b不随车价格 = 成交价
+								good_name: res[0].GoodName, //	是	string	商品名称
+								img_url: res[0].goodpic, //	是	string	图片地址
+							},
+							fineBeauty = self_.$store.state.saleOrderDates.fineBeauty;
+						if (fineBeauty[0].good_id == null) {
+							fineBeauty = [];
+						}
+						fineBeauty.push(ie)
+						console.log(fineBeauty)
+					}
+					if (res[0].GoodType == '2') { //美容
+						let ie = {
+								good_id: res[0].goodsID, //	是	int	商品ID
+								is_add: 0, //	是	int	是否加装； 0 否， 1 是
+								is_with: 0, //	是	int	是否随车；0 否， 1 是
+								pre_installed: 0, //	是	int	是否预装；0 否， 1 是
+								num: 0, //	是	int	销售数量
+								guide_price: res[0].GuidingPrice, //	是	int	指导价，单位分
+								final_price: res[0].GuidingPrice, //	是	int	成交价，单位分
+								noswith__price: res[0].GuidingPrice, //b不随车价格 = 成交价
+								good_name: res[0].GoodName, //	是	string	商品名称
+								img_url: res[0].goodpic, //	是	string	图片地址
+							},
+							fineBeauty = self_.$store.state.saleOrderDates.fineBeauty;
+						if (fineBeauty[0].good_id == null) {
+							fineBeauty = [];
+						}
+						fineBeauty.push(ie)
+						console.log(fineBeauty)
+					}
+					if (res[0].GoodType == '3') { //延保
+						let ie = {
+								good_id: res[0].goodsID, //	是	int	商品ID
+								org_id: "", //	是	string	保险机构ID
+								org_src: "", //	是	string	机构来源ID
+								kind: null, //	是	int	延保类型ID
+								num: 0, //	是	int	销售数量
+								guide_price: res[0].GuidingPrice, //	是	int	指导价，单位分
+								final_price: res[0].GuidingPrice, //	是	int	成交价，单位分
+								noswith__price: res[0].GuidingPrice, //b不随车价格 = 成交价
+								good_name: res[0].GoodName, //	是	string	商品名称
+								img_url: res[0].goodpic, //	是	string	图片地址
+							},
+							Exinsurance = self_.$store.state.saleOrderDates.Exinsurance;
+						if (Exinsurance[0].good_id == null) {
+							Exinsurance = [];
+						}
+						Exinsurance.push(ie)
+						console.log(Exinsurance)
+					}
+					if (res[0].GoodType == '4') { //公司产品
+						// debugger
+						let ie = {
+								good_id: res[0].goodsID, //	是	int	商品ID
+								num: 0, //	是	int	销售数量
+								guide_price: res[0].GuidingPrice, //	是	int	指导价，单位分
+								final_price: res[0].GuidingPrice, //	是	int	成交价，单位分
+								noswith__price: res[0].GuidingPrice, //b不随车价格 = 成交价
+								good_name: res[0].GoodName, //	是	string	商品名称
+								img_url: res[0].goodpic, //	是	string	图片地址
+							},
+							companyPro = self_.$store.state.saleOrderDates.companyPro;
+						if (companyPro[0].good_id == null) {
+							self_.$store.state.saleOrderDates.companyPro = [];
+						}
+						self_.$store.state.saleOrderDates.companyPro.push(ie)
+						console.log(self_.$store.state.saleOrderDates.companyPro)
+					}
+					if (res[0].GoodType == '5') { //代办业务
+						let ie = {
+								good_id: res[0].goodsID, //	是	int	商品ID
+								num: 0, //	是	int	销售数量
+								guide_price: res[0].GuidingPrice, //	是	int	指导价，单位分
+								final_price: res[0].GuidingPrice, //	是	int	成交价，单位分
+								noswith__price: res[0].GuidingPrice, //b不随车价格 = 成交价
+								good_name: res[0].GoodName, //	是	string	商品名称
+								img_url: res[0].goodpic, //	是	string	图片地址
+
+
+							},
+							agencyService = self_.$store.state.saleOrderDates.agencyService;
+						if (agencyService[0].good_id == null) {
+							agencyServiceagencyService = [];
+						}
+						agencyService.push(ie)
+						console.log(agencyService)
+					}
 				}).catch(res => {
 					console.log(res)
 					// 失败进行的操作
@@ -234,7 +345,7 @@
 				//修改vuex里面的goodsID
 				// self_.$store.state.saleOrder.baseinfoData.ISfirst = false
 				uni.navigateTo({
-					url: '../../autoSalesOrder/autoSalesOrder'
+					url: '../../test/test'
 				});
 			}
 		}

@@ -46,8 +46,8 @@
 	    ,{
             "path" : "pages/autoSalesOrder/autoSalesOrder",
             "style" : {
-				"navigationStyle": "custom"
-			}
+            	"navigationBarTitleText": "新增订单"
+            }
         },
 		{
 			"path": "pages/shop-Mall/shop-Mall",
@@ -87,7 +87,12 @@
 				"navigationStyle": "custom"
 			}
 		},
-		
+		{
+		    "path" : "pages/search/search0",
+		    "style" : {
+				"navigationStyle": "custom"
+			}
+		},
 		{
 		    "path" : "pages/Insuranceinstitutions/Insuranceinstitutions",
 		    "style" : {
@@ -107,7 +112,11 @@
         ,{
             "path" : "pages/test/test",
             "style" : {}
-        }
+        },
+		{
+		    "path" : "pages/test/test001",
+		    "style" : {}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

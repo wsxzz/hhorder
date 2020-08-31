@@ -963,7 +963,7 @@
 	</view>
 	
 	
-<!-- 款项欣欣 -->
+<!-- 款项信息 -->
 		<view class="payment-infor marB20">
 			<view class="blueline-title row">
 				<view class="col-2 blueline-infor">
@@ -1303,8 +1303,8 @@
 								与客户约定
 							</view>
 							<view class="notesR right">
-								<button @click="param.entry12.other='1'" :class="{'on': param.entry12.other!==''}"  class="yybtn mini-btn" size="mini" type="default">有</button>
-								<button @click="param.entry12.other=''" :class="{'on': param.entry12.other==''}"  class="yybtn mini-btn" size="mini" type="default">无</button>
+							<button @click="param.entry12.is_other=1" :class="{'on': param.entry12.is_other===1}"   class="yybtn mini-btn" size="mini" type="default">有</button>
+								<button @click="param.entry12.is_other=0" :class="{'on': param.entry12.is_other===0}"   class="yybtn mini-btn" size="mini" type="default">无</button>
 							</view>
 						</view>
 						<view class="cell row">
@@ -1413,6 +1413,10 @@
 					</view>
 				</view>
 			</view>
+			
+			<view class="">
+				<textarea :value="testValue" placeholder="" />
+			</view>
 		</view>
 		
 	</view>
@@ -1427,6 +1431,7 @@
 				format: true
 			})
 			return {
+				testValue:"",//
 				date: currentDate,
 				startDate:fn.CurentTime(),
 				endDate: '2030-01-01',
@@ -1481,16 +1486,6 @@
 			},
 			param: {
 				handler(newValue, oldValue) {
-					// if(this.param.entry6.org_id!==""){
-					// 		let jqx_price = this.param.entry6.jqx_price==undefined?0:this.param.entry6.jqx_price
-					// 		let ccs_price = this.param.entry6.ccs_price==undefined?0:this.param.entry6.jqx_price
-					// 		let syx_price = this.param.entry6.syx_price==undefined?0:this.param.entry6.jqx_price
-					// 		let discount_price = this.param.entry6.discount_price==undefined?0:this.param.entry6.jqx_price
-					// 		let other_price = this.param.entry6.other_price==undefined?0:this.param.entry6.jqx_price
-					// 		this.bxprice = Number(jqx_price) + Number(ccs_price) + Number(syx_price) + Number(discount_price) + Number(other_price) 
-							
-					// }
-					// console.log(this.param.entry6,"改变了")
 					if(this.param.entry3.length>0){
 						this.param.entry14.car_price = this.param.entry3[0].final_price
 					}
@@ -1501,12 +1496,13 @@
 			},
 		},
 		created() {
+			// debugger
 			let that = this;
 			if (that.addOrder) { //新增
 				Object.assign(that.param, that.$store.state.order.obj)
 				that.ids = that.$store.state.order.ids
 			} else {//修改
-				that.getAutoSalesOrder(75)
+				that.getAutoSalesOrder(37)
 			}
 			this.getBaseEnumByCodes()
 		},
@@ -1589,7 +1585,7 @@
 				// debugger
 				// alert(this.$store.state.adviser)
 				that.param.basic.adviser = that.$store.state.adviser == "" ? uni.getStorageSync('adviser') : that.$store.state.adviser;
-				that.param.basic.adviser_org_id = that.$store.state.orgID == "" ? uni.getStorageSync('orgID') : that.$store.state.orgID;
+				that.param.basic.adviser_org_id = that.$store.state.orgID == "" ? uni.getStorageSync('companyId') : that.$store.state.orgID;
 				that.param.basic.adviser_org_name = that.$store.state.OrgName == "" ? uni.getStorageSync('OrgName') : that.$store.state.OrgName;
 				that.param.basic.adviser_department_id = that.$store.state.DeptID == "" ? uni.getStorageSync('DeptID') : that.$store.state.DeptID;
 				that.param.basic.adviser_department_name = that.$store.state.DeptName == "" ? uni.getStorageSync('DeptName') : that.$store.state.DeptName;
@@ -1598,7 +1594,9 @@
 				that.param.basic.adviser_name = that.$store.state.B_NAME == "" ? uni.getStorageSync('B_NAME') : that.$store.state.B_NAME;
 				
 				let param = that.param
-				alert(JSON.stringify(param));
+				// alert(JSON.stringify(param));
+				console.log(JSON.stringify(param))
+				this.testValue = JSON.stringify(param);
 				await this.$api.HHPF_P_AddAutoSalesOrder(param).then(res => {
 					alert(JSON.stringify(res));
 					let init = that.initdate()
@@ -1621,8 +1619,9 @@
 				
 			},
 			getids() { //
+			// debugger
 				let that = this
-				console.log("xuyaoyongde codes", that.codes)
+				console.log("xuyaoyongde codes", JSON.stringify(that.codes))
 				let codess = that.codes
 				let ids = that.ids
 				console.log(this.org_list,"this.org_list")
@@ -1649,28 +1648,30 @@
 					car_typeID: ids.car_typeID ==null?codess.car_typeCodes[0].ID:ids.car_typeID,
 					Mortgage_LimitID: ids.Mortgage_LimitID ==null?codess.Mortgage_LimitCodes[0].ID:ids.Mortgage_LimitID,
 					Qualification_KindID: ids.order_kindID ==null?codess.Qualification_KindCodes[0].ID:ids.order_kindID,
-					org_Id: ids.org_Id ==null?this.org_list[0].FID:ids.org_Id,
-					entry7_org_Id: ids.entry7_org_Id ==null?this.org_list[0].FID:ids.entry7_org_Id,
+					// org_Id: ids.org_Id ==null?this.org_list[0].FID:ids.org_Id,
+					// entry7_org_Id: ids.entry7_org_Id ==null?this.org_list[0].FID:ids.entry7_org_Id,
 					org_fromID_7: ids.org_fromID_7 ==null?codess.org_fromCodes[0].ID:ids.org_fromID_7,
 					kindID_7: ids.kindID_7 ==null?codess.InsuranceExtend_KindCodes[0].ID:ids.kindID_7,
 					card_kindID_11: ids.card_kindID_11 ==null?codess.card_kindCodes[0].ID:ids.card_kindID_11
 
-
+				
 				}
+				 console.log(JSON.stringify(that.ids) );
 			},
 			//获取金融机构
 			async getBaseEnumByCodes() {
-				await this.$api.HHPlatForm_P_GetMortgageCompany().then(res => {
-					// 获得数据 
+				let param1 = { FType: "1" }//默认是厂家
+				 this.$api.HHPlatForm_P_GetMortgageCompany(param1).then(res => {
+				 		// 获得数据  
+						// debugger
 					this.org_list = res
 					this.$store.state.order.org_list = res
 					this.getids()
 					this.paramInintID(this.param)
-					
-				}).catch(res => {
-					console.log(res)
-					// 失败进行的操作
-				})
+				 }).catch(res => {
+					 console.log(res)
+				 　　// 失败进行的操作
+				 })
 			},
 			// 获取销售订单数据
 			getAutoSalesOrder(id) {
@@ -1682,229 +1683,231 @@
 				let param = {
 					"id": id
 				}
-				this.$api.HHPF_P_GetAutoSalesOrder(param).then(res => {
+				this.$api.HHPF_P_GetAutoSalesOrderLower(param).then(res => {
 					that.getidsold(res.Data)
+					
+					
 					// 获得数据 
-					if (res.Msg == 'success') {
-						// that.obj = res.Data
-						let obj_basic = {
-							"name": res.Data.basic[0].NAME,
-							"sell_org": res.Data.basic[0].SELL_ORG,
-							"second_point": res.Data.basic[0].SECOND_POINT,
-							"is_self": res.Data.basic[0].IS_SELF,
-							"adviser": res.Data.basic[0].ADVISER,
-							"status": res.Data.basic[0].STATUS,
-							"src_id": res.Data.basic[0].ID,
-							"adviser_org_id": res.Data.basic[0].ADVISER_ORG_ID,
-							"adviser_org_name": res.Data.basic[0].ADVISER_ORG_NAME,
-							"adviser_department_id": res.Data.basic[0].ADVISER_DEPARTMENT_ID,
-							"adviser_department_name": res.Data.basic[0].ADVISER_DEPARTMENT_NAME,
-							"adviser_post_id": res.Data.basic[0].ADVISER_POST_ID,
-							"adviser_post_name": res.Data.basic[0].ADVISER_POST_NAME,
-							"adviser_name": res.Data.basic[0].ADVISER_NAME
-						}
-						Object.assign(that.param.basic, obj_basic)
-						let obj_entry1 = {
-							"customer_id": res.Data.entry1[0].CUSTOMER_ID,
-							"entrust": 0,
-							"BD_NAME": res.Data.entry1[0].BD_NAME, //	个人客户名称
-							"COM_PHONE": res.Data.entry1[0].COM_PHONE, //	个人客户电话
-							"CER_ID_NO": res.Data.entry1[0].CER_ID_NO, //	个人客户身份证
-							"SOURCE_NATURE": res.Data.entry1[0].SOURCE_NATURE, //	个人客户来源
-							"BD_SEX": res.Data.entry1[0].BD_SEX, //	个人客户性别称谓
-							"UNIT_NAME": res.Data.entry1[0].UNIT_NAME, //	企业客户名称
-							"REGIST_NO": res.Data.entry1[0].REGIST_NO, //	企业工商号
-							"REGISTER_SITE": res.Data.entry1[0].REGISTER_SITE, //	企业注册地址
-						}
-						if (that.param.entry1.kind == 16) { //如果是单位
-							obj_entry1 = {
-								"customer_id": res.Data.entry1[0].CUSTOMER_ID,
-								"entrust": 1,
-								"entrust_name": res.Data.entry1[0].ENTRUST_NAME,
-								"entrust_phone": res.Data.entry1[0].ENTRUST_PHONE,
-								"entrust_relation_txt": res.Data.entry1[0].ENTRUST_RELATION_TXT,
-							}
-						}
-						Object.assign(that.param.entry1, obj_entry1)
+			// 		if (res.Msg == 'success') {
+			// 			// that.obj = res.Data
+			// 			let obj_basic = {
+			// 				"name": res.Data.basic[0].NAME,
+			// 				"sell_org": res.Data.basic[0].SELL_ORG,
+			// 				"second_point": res.Data.basic[0].SECOND_POINT,
+			// 				"is_self": res.Data.basic[0].IS_SELF,
+			// 				"adviser": res.Data.basic[0].ADVISER,
+			// 				"status": res.Data.basic[0].STATUS,
+			// 				"src_id": res.Data.basic[0].ID,
+			// 				"adviser_org_id": res.Data.basic[0].ADVISER_ORG_ID,
+			// 				"adviser_org_name": res.Data.basic[0].ADVISER_ORG_NAME,
+			// 				"adviser_department_id": res.Data.basic[0].ADVISER_DEPARTMENT_ID,
+			// 				"adviser_department_name": res.Data.basic[0].ADVISER_DEPARTMENT_NAME,
+			// 				"adviser_post_id": res.Data.basic[0].ADVISER_POST_ID,
+			// 				"adviser_post_name": res.Data.basic[0].ADVISER_POST_NAME,
+			// 				"adviser_name": res.Data.basic[0].ADVISER_NAME
+			// 			}
+			// 			Object.assign(that.param.basic, obj_basic)
+			// 			let obj_entry1 = {
+			// 				"customer_id": res.Data.entry1[0].CUSTOMER_ID,
+			// 				"entrust": 0,
+			// 				"BD_NAME": res.Data.entry1[0].BD_NAME, //	个人客户名称
+			// 				"COM_PHONE": res.Data.entry1[0].COM_PHONE, //	个人客户电话
+			// 				"CER_ID_NO": res.Data.entry1[0].CER_ID_NO, //	个人客户身份证
+			// 				"SOURCE_NATURE": res.Data.entry1[0].SOURCE_NATURE, //	个人客户来源
+			// 				"BD_SEX": res.Data.entry1[0].BD_SEX, //	个人客户性别称谓
+			// 				"UNIT_NAME": res.Data.entry1[0].UNIT_NAME, //	企业客户名称
+			// 				"REGIST_NO": res.Data.entry1[0].REGIST_NO, //	企业工商号
+			// 				"REGISTER_SITE": res.Data.entry1[0].REGISTER_SITE, //	企业注册地址
+			// 			}
+			// 			if (that.param.entry1.kind == 16) { //如果是单位
+			// 				obj_entry1 = {
+			// 					"customer_id": res.Data.entry1[0].CUSTOMER_ID,
+			// 					"entrust": 1,
+			// 					"entrust_name": res.Data.entry1[0].ENTRUST_NAME,
+			// 					"entrust_phone": res.Data.entry1[0].ENTRUST_PHONE,
+			// 					"entrust_relation_txt": res.Data.entry1[0].ENTRUST_RELATION_TXT,
+			// 				}
+			// 			}
+			// 			Object.assign(that.param.entry1, obj_entry1)
 			
 			
-						let obj_entry2 = {
-							"name": res.Data.entry2[0].NAME,
-							"phone": res.Data.entry2[0].PHONE,
-							"identity": res.Data.entry2[0].IDENTITY
-						}
-						Object.assign(that.param.entry2, obj_entry2)
+			// 			let obj_entry2 = {
+			// 				"name": res.Data.entry2[0].NAME,
+			// 				"phone": res.Data.entry2[0].PHONE,
+			// 				"identity": res.Data.entry2[0].IDENTITY
+			// 			}
+			// 			Object.assign(that.param.entry2, obj_entry2)
 						
-						if (res.Data.entry6.length > 0) {
-							let obj_entry6 = {
-								"name": res.Data.entry6[0].ORG_NAME,
-								"org_id": res.Data.entry6[0].ORG_ID,
-								"jqx_price": res.Data.entry6[0].JQX_PRICE,
-								"ccs_price": res.Data.entry6[0].CCS_PRICE,
-								"syx_price": res.Data.entry6[0].SYX_PRICE,
-								"discount_price": res.Data.entry6[0].DISCOUNT_PRICE,
-								"other_price": res.Data.entry6[0].OTHER_PRICE,
-								"info": res.Data.entry6[0].INFO
-							}
-							// debugger
-							Object.assign(that.param.entry6, obj_entry6)
-						}
-						if (res.Data.entry3.length > 0) {
-							let obj_entry3 = [];
-							obj_entry3[0] = {
-								"brand_id": res.Data.entry3[0].BRAND_ID,
-								"series_id": res.Data.entry3[0].SERIES_ID,
-								"model_id": res.Data.entry3[0].MODEL_ID,
-								"chassis_num": res.Data.entry3[0].CHASSIS_NUM,
-								"trim_id": res.Data.entry3[0].TRIM_ID,
-								"color_id": res.Data.entry3[0].COLOR_ID,
-								"guide_price": res.Data.entry3[0].GUIDE_PRICE,
-								"final_price": res.Data.entry3[0].FINAL_PRICE,
-								"kind": res.Data.entry3[0].KIND,
-								"is_tax": res.Data.entry3[0].IS_TAX,
-								"tax_num": res.Data.entry3[0].TAX_NUM,
-								"tax_limit": res.Data.entry3[0].TAX_LIMIT,
-								"img_url": res.Data.entry3[0].IMG_URL,
-								"trim_name": res.Data.entry3[0].TRIM_NAME,
-								"color_name": res.Data.entry3[0].KIND_NAME,
+			// 			if (res.Data.entry6.length > 0) {
+			// 				let obj_entry6 = {
+			// 					"name": res.Data.entry6[0].ORG_NAME,
+			// 					"org_id": res.Data.entry6[0].ORG_ID,
+			// 					"jqx_price": res.Data.entry6[0].JQX_PRICE,
+			// 					"ccs_price": res.Data.entry6[0].CCS_PRICE,
+			// 					"syx_price": res.Data.entry6[0].SYX_PRICE,
+			// 					"discount_price": res.Data.entry6[0].DISCOUNT_PRICE,
+			// 					"other_price": res.Data.entry6[0].OTHER_PRICE,
+			// 					"info": res.Data.entry6[0].INFO
+			// 				}
+			// 				// debugger
+			// 				Object.assign(that.param.entry6, obj_entry6)
+			// 			}
+			// 			if (res.Data.entry3.length > 0) {
+			// 				let obj_entry3 = [];
+			// 				obj_entry3[0] = {
+			// 					"brand_id": res.Data.entry3[0].BRAND_ID,
+			// 					"series_id": res.Data.entry3[0].SERIES_ID,
+			// 					"model_id": res.Data.entry3[0].MODEL_ID,
+			// 					"chassis_num": res.Data.entry3[0].CHASSIS_NUM,
+			// 					"trim_id": res.Data.entry3[0].TRIM_ID,
+			// 					"color_id": res.Data.entry3[0].COLOR_ID,
+			// 					"guide_price": res.Data.entry3[0].GUIDE_PRICE,
+			// 					"final_price": res.Data.entry3[0].FINAL_PRICE,
+			// 					"kind": res.Data.entry3[0].KIND,
+			// 					"is_tax": res.Data.entry3[0].IS_TAX,
+			// 					"tax_num": res.Data.entry3[0].TAX_NUM,
+			// 					"tax_limit": res.Data.entry3[0].TAX_LIMIT,
+			// 					"img_url": res.Data.entry3[0].IMG_URL,
+			// 					"trim_name": res.Data.entry3[0].TRIM_NAME,
+			// 					"color_name": res.Data.entry3[0].KIND_NAME,
 			
-								"OFFICIA_LNAME": res.Data.entry3[0].OFFICIA_LNAME, //官方名称
+			// 					"OFFICIA_LNAME": res.Data.entry3[0].OFFICIA_LNAME, //官方名称
 			
-							}
-							Object.assign(that.param.entry3, obj_entry3)
+			// 				}
+			// 				Object.assign(that.param.entry3, obj_entry3)
 			
-						}
-						if (res.Data.entry4.length > 0) {
-							let obj_entry4 = []
-							res.Data.entry4.forEach(x => {
-								obj_entry4.push({
-									"good_id": x.GOOD_ID,
-									"is_add": x.IS_ADD,
-									"is_with": x.IS_WITH,
-									"pre_installed": x.PRE_INSTALLED,
-									"num": x.NUM,
-									"guide_price": x.GUIDE_PRICE,
-									"final_price": x.FINAL_PRICE,
-									"good_name": x.GOOD_NAME,
-									"img_url": x.IMG_URL
-								})
-							})
-							Object.assign(that.param.entry4, obj_entry4)
-						}
-						if (res.Data.entry8.length > 0) {
-							let obj_entry8 = []
-							res.Data.entry8.forEach(x => {
-								obj_entry8.push({
-									"good_id": x.GOOD_ID,
-									"guide_price": x.GUIDE_PRICE,
-									"final_price": x.FINAL_PRICE,
-									"num": x.NUM,
-									"good_name": x.GOOD_NAME,
-									"img_url": x.IMG_URL
-								})
-							})
-							Object.assign(that.param.entry8, obj_entry8)
-						}
-						if (res.Data.entry9.length > 0) {
-							let obj_entry9 = []
-							res.Data.entry9.forEach(x => {
-								obj_entry9.push({
-									"good_id": x.GOOD_ID,
-									"guide_price": x.GUIDE_PRICE,
-									"final_price": x.FINAL_PRICE,
-									"num": x.NUM,
-									"good_name": x.GOOD_NAME,
-									"img_url": x.IMG_URL
-								})
-							})
-							Object.assign(that.param.entry9, obj_entry9)
-						}
-						if (res.Data.entry10.length > 0) {
-							let obj_entry10 = []
-							res.Data.entry10.forEach(x => {
-								obj_entry10.push({
-									"good_id": x.GOOD_ID,
-									"guide_price": x.GUIDE_PRICE,
-									"final_price": x.FINAL_PRICE,
-									"num": x.NUM,
-									"good_name": x.GOOD_NAME,
-									"img_url": x.IMG_URL
-								})
-							})
-							Object.assign(that.param.entry10, obj_entry10)
-						}
-						if (res.Data.entry5.length > 0) {
-							let obj_entry5 = {
-								"org_id": res.Data.entry5[0].ORG_ID,
-								"price": res.Data.entry5[0].PRICE,
-								"multiple_txt": res.Data.entry5[0].MULTIPLE_TXT,
-								"first_per": res.Data.entry5[0].FIRST_PER,
-								"quota": res.Data.entry5[0].QUOTA,
-								"info": res.Data.entry5[0].INFO
-							}
-							Object.assign(that.param.entry5, obj_entry5)
-						}
+			// 			}
+			// 			if (res.Data.entry4.length > 0) {
+			// 				let obj_entry4 = []
+			// 				res.Data.entry4.forEach(x => {
+			// 					obj_entry4.push({
+			// 						"good_id": x.GOOD_ID,
+			// 						"is_add": x.IS_ADD,
+			// 						"is_with": x.IS_WITH,
+			// 						"pre_installed": x.PRE_INSTALLED,
+			// 						"num": x.NUM,
+			// 						"guide_price": x.GUIDE_PRICE,
+			// 						"final_price": x.FINAL_PRICE,
+			// 						"good_name": x.GOOD_NAME,
+			// 						"img_url": x.IMG_URL
+			// 					})
+			// 				})
+			// 				Object.assign(that.param.entry4, obj_entry4)
+			// 			}
+			// 			if (res.Data.entry8.length > 0) {
+			// 				let obj_entry8 = []
+			// 				res.Data.entry8.forEach(x => {
+			// 					obj_entry8.push({
+			// 						"good_id": x.GOOD_ID,
+			// 						"guide_price": x.GUIDE_PRICE,
+			// 						"final_price": x.FINAL_PRICE,
+			// 						"num": x.NUM,
+			// 						"good_name": x.GOOD_NAME,
+			// 						"img_url": x.IMG_URL
+			// 					})
+			// 				})
+			// 				Object.assign(that.param.entry8, obj_entry8)
+			// 			}
+			// 			if (res.Data.entry9.length > 0) {
+			// 				let obj_entry9 = []
+			// 				res.Data.entry9.forEach(x => {
+			// 					obj_entry9.push({
+			// 						"good_id": x.GOOD_ID,
+			// 						"guide_price": x.GUIDE_PRICE,
+			// 						"final_price": x.FINAL_PRICE,
+			// 						"num": x.NUM,
+			// 						"good_name": x.GOOD_NAME,
+			// 						"img_url": x.IMG_URL
+			// 					})
+			// 				})
+			// 				Object.assign(that.param.entry9, obj_entry9)
+			// 			}
+			// 			if (res.Data.entry10.length > 0) {
+			// 				let obj_entry10 = []
+			// 				res.Data.entry10.forEach(x => {
+			// 					obj_entry10.push({
+			// 						"good_id": x.GOOD_ID,
+			// 						"guide_price": x.GUIDE_PRICE,
+			// 						"final_price": x.FINAL_PRICE,
+			// 						"num": x.NUM,
+			// 						"good_name": x.GOOD_NAME,
+			// 						"img_url": x.IMG_URL
+			// 					})
+			// 				})
+			// 				Object.assign(that.param.entry10, obj_entry10)
+			// 			}
+			// 			if (res.Data.entry5.length > 0) {
+			// 				let obj_entry5 = {
+			// 					"org_id": res.Data.entry5[0].ORG_ID,
+			// 					"price": res.Data.entry5[0].PRICE,
+			// 					"multiple_txt": res.Data.entry5[0].MULTIPLE_TXT,
+			// 					"first_per": res.Data.entry5[0].FIRST_PER,
+			// 					"quota": res.Data.entry5[0].QUOTA,
+			// 					"info": res.Data.entry5[0].INFO
+			// 				}
+			// 				Object.assign(that.param.entry5, obj_entry5)
+			// 			}
 						
-						// that.subtotal = that.subtotalmethod();
-						if (res.Data.entry7.length > 0) {
-							let obj_entry7 = {
-								"good_id": res.Data.entry7[0].GOOD_ID,
-								"org_id": res.Data.entry7[0].ORG_ID,
-								"guide_price": res.Data.entry7[0].GUIDE_PRICE,
-								"final_price": res.Data.entry7[0].FINAL_PRICE,
-								"num": res.Data.entry7[0].NUM,
-								"org_src": res.Data.entry7[0].ORG_SRC,
-								"kind": res.Data.entry7[0].KIND,
-								"good_name": res.Data.entry7[0].GOOD_NAME,
-								"img_url": res.Data.entry7[0].IMG_URL
-							}
-							Object.assign(that.param.entry7, obj_entry7)
-						}
-						if (res.Data.entry12.length > 0) {
-							let obj_entry12 = {
-								"address": res.Data.entry12[0].ADDRESS,
-								"postcode": res.Data.entry12[0].POSTCODE,
-								"give_date": res.Data.entry12[0].GIVE_DATE,
-								"remark": res.Data.entry12[0].REMARK,
-								"other": res.Data.entry12[0].OTHER,
-								"is_self": res.Data.entry12[0].IS_SELF,
-								"other_person": res.Data.entry12[0].OTHER_PERSON,
-								"info": res.Data.entry12[0].INFO,
-								"is_place": res.Data.entry12[0].IS_PLACE,
-								"info2": res.Data.entry12[0].INFO2
-							}
-							Object.assign(that.param.entry12, obj_entry12)
-						}
-						if (res.Data.entry13.length > 0) {
-							let obj_entry13 = {
-								"first_price": res.Data.entry13[0].FIRST_PRICE,
-								"last_price": res.Data.entry13[0].LAST_PRICE
-							}
-							Object.assign(that.param.entry13, obj_entry13)
-						}
-						if (res.Data.entry14.length > 0) {
-							let obj_entry14 = {
-								"first_price": res.Data.entry14[0].FIRST_PRICE,
-								"last_price": res.Data.entry14[0].LAST_PRICE,
-								"get_price": res.Data.entry14[0].GET_PRICE,
-								"car_price": res.Data.entry14[0].CAR_PRICE,
-								"goods_price": res.Data.entry14[0].GOODS_PRICE,
-								"product_price": res.Data.entry14[0].PRODUCT_PRICE,
-								"commission_price": res.Data.entry14[0].COMMISSION_PRICE,
-								"card_price": res.Data.entry14[0].CARD_PRICE
-							}
-							Object.assign(that.param.entry14, obj_entry14)
-						}
-						if (res.Data.entry15.length > 0) {
-							let obj_entry15 = {
-								"invoice": res.Data.entry15[0].INVOICE,
-								"invoice_public": res.Data.entry15[0].INVOICE_PUBLIC,
-								"invoice_sum": res.Data.entry15[0].INVOICE_SUM
-							}
-							Object.assign(that.param.entry15, obj_entry15)
-						}
+			// 			// that.subtotal = that.subtotalmethod();
+			// 			if (res.Data.entry7.length > 0) {
+			// 				let obj_entry7 = {
+			// 					"good_id": res.Data.entry7[0].GOOD_ID,
+			// 					"org_id": res.Data.entry7[0].ORG_ID,
+			// 					"guide_price": res.Data.entry7[0].GUIDE_PRICE,
+			// 					"final_price": res.Data.entry7[0].FINAL_PRICE,
+			// 					"num": res.Data.entry7[0].NUM,
+			// 					"org_src": res.Data.entry7[0].ORG_SRC,
+			// 					"kind": res.Data.entry7[0].KIND,
+			// 					"good_name": res.Data.entry7[0].GOOD_NAME,
+			// 					"img_url": res.Data.entry7[0].IMG_URL
+			// 				}
+			// 				Object.assign(that.param.entry7, obj_entry7)
+			// 			}
+			// 			if (res.Data.entry12.length > 0) {
+			// 				let obj_entry12 = {
+			// 					"address": res.Data.entry12[0].ADDRESS,
+			// 					"postcode": res.Data.entry12[0].POSTCODE,
+			// 					"give_date": res.Data.entry12[0].GIVE_DATE,
+			// 					"remark": res.Data.entry12[0].REMARK,
+			// 					"other": res.Data.entry12[0].OTHER,
+			// 					"is_self": res.Data.entry12[0].IS_SELF,
+			// 					"other_person": res.Data.entry12[0].OTHER_PERSON,
+			// 					"info": res.Data.entry12[0].INFO,
+			// 					"is_place": res.Data.entry12[0].IS_PLACE,
+			// 					"info2": res.Data.entry12[0].INFO2
+			// 				}
+			// 				Object.assign(that.param.entry12, obj_entry12)
+			// 			}
+			// 			if (res.Data.entry13.length > 0) {
+			// 				let obj_entry13 = {
+			// 					"first_price": res.Data.entry13[0].FIRST_PRICE,
+			// 					"last_price": res.Data.entry13[0].LAST_PRICE
+			// 				}
+			// 				Object.assign(that.param.entry13, obj_entry13)
+			// 			}
+			// 			if (res.Data.entry14.length > 0) {
+			// 				let obj_entry14 = {
+			// 					"first_price": res.Data.entry14[0].FIRST_PRICE,
+			// 					"last_price": res.Data.entry14[0].LAST_PRICE,
+			// 					"get_price": res.Data.entry14[0].GET_PRICE,
+			// 					"car_price": res.Data.entry14[0].CAR_PRICE,
+			// 					"goods_price": res.Data.entry14[0].GOODS_PRICE,
+			// 					"product_price": res.Data.entry14[0].PRODUCT_PRICE,
+			// 					"commission_price": res.Data.entry14[0].COMMISSION_PRICE,
+			// 					"card_price": res.Data.entry14[0].CARD_PRICE
+			// 				}
+			// 				Object.assign(that.param.entry14, obj_entry14)
+			// 			}
+			// 			if (res.Data.entry15.length > 0) {
+			// 				let obj_entry15 = {
+			// 					"invoice": res.Data.entry15[0].INVOICE,
+			// 					"invoice_public": res.Data.entry15[0].INVOICE_PUBLIC,
+			// 					"invoice_sum": res.Data.entry15[0].INVOICE_SUM
+			// 				}
+			// 				Object.assign(that.param.entry15, obj_entry15)
+			// 			}
 					// that.getids(res.Data);
-					}
+					// }
 					uni.hideLoading();
 				}).catch(res => {
 					console.log(res)
@@ -2227,7 +2230,8 @@
 								"other_person": "",
 								"info": "",
 								"is_place": 0,
-								"info2": ""
+								"info2": "",
+								"is_other": 0
 							},
 							"entry13": {
 								"type": null,

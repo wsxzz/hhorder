@@ -161,6 +161,7 @@
 		},
 		onShow() {
 			this.add = false;
+			fn.tabbarRequired("true");
 		},
 		created() {
 			this.getinit();
@@ -331,8 +332,11 @@
 				this.add = false;
 				this.$store.state.baseinfo.obj.src_id = 0 //无关联订单号码
 				uni.navigateTo({
-					url: "../test/test?edit='新增'",
+					url: "../autoSalesOrder/autoSalesOrder?num=0",
 				});
+				// uni.navigateTo({
+				// 	url: "../test/test0?num=0",
+				// });
 			},
 			//去搜索页面
 			gosearch() {

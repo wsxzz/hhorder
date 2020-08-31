@@ -69,11 +69,9 @@
 				vehicleDisabled: true, //整车可选，配件置灰
 			}
 		},
-		onShow() {
-			filter.tabbarRequired("false"); //不带tabbar
-		},
 		created() {
 			var that = this;
+			filter.tabbarRequired("false"); //不带tabbar
 			that.getGoodsOneType();//获取一级商品分类
 		},
 		methods: {

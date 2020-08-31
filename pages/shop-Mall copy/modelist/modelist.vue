@@ -66,9 +66,6 @@
 				list:[]
 			}
 		},
-		onShow() {
-			filter.tabbarRequired("false"); //不带tabbar
-		},
 		onLoad(ope) {
 			if(ope.Vehicle=='true'){//如果是整车
 				this.$store.state.shop = 'Vehicle'//非整车
@@ -88,6 +85,7 @@
 			
 		},
 		created() {
+			filter.tabbarRequired("false"); //不带tabbar
 			if(this.$store.state.shop == 'Vehicle'){
 				this.getAutoTypeListbySeriesFID(uni.getStorageSync('myseriesFID'))//根据车系获取车型列表
 			}else{

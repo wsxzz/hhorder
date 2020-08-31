@@ -33,6 +33,11 @@ Vue.component("uniPopupDialog", uniPopup);
         
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
 Vue.component("uniLoadMore", uniLoadMore);
+
+import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
+Vue.component("uniNumberBox", uniNumberBox);
+
+
 App.mpType = 'app'
 
 const app = new Vue({

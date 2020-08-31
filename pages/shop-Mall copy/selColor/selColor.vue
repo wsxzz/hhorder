@@ -67,7 +67,7 @@
 			this.getColorInner('2','nzIAAAAAaYHINe3g','nzIAAAAAhH9a2qc+');
 			this.goodsID = ope.goodsID
 		},
-		onShow() {
+		created() {
 			filter.tabbarRequired("false"); //不带tabbar
 		},
 		methods:{
@@ -99,6 +99,8 @@
 								"color_name":res[0].FNAME
 							}
 							
+							self_.$store.dispatch('setcarinfoall',carinfoobj)
+							self_.$store.dispatch('setcarinfo',carinfoobj)
 							
 						} else if (Type == '2') { //内饰
 							for (let data of res) {
@@ -114,8 +116,8 @@
 							self_.obj.trim_id = res[0].FNUMBER
 							self_.obj.trim_name = res[0].FNAME
 							
-							
-							
+							self_.$store.dispatch('setcarinfoall',carinfoobj)
+							self_.$store.dispatch('setcarinfo',carinfoobj)
 						}
 						
 						
@@ -134,7 +136,8 @@
 				}
 				this.obj.color_id = this.colorId[e.target.value]
 				this.obj.color_name = this.colorName[e.target.value]
-				
+				this.$store.dispatch('setcarinfoall',carinfoobj)
+				this.$store.dispatch('setcarinfo',carinfoobj)
 				
 			},
 			PickChangeInterior(e){
@@ -145,7 +148,8 @@
 				}
 				this.obj.trim_id = this.InteriorID[e.target.value]
 				this.obj.trim_name = this.Interior[e.target.value]
-				
+				this.$store.dispatch('setcarinfoall',carinfoobj)
+				this.$store.dispatch('setcarinfo',carinfoobj)
 			},
 			comfirm(){
 				let that = this
@@ -155,8 +159,8 @@
 					},1000)
 					
 				}else{
-					that.$store.state.test.param.entry3[0] = that.obj
-					console.log(that.$store.state.test.param.entry3[0],"wewqewqewqewqeqweq2")
+					that.$store.state.order.obj.entry3.push(that.obj)
+					console.log(that.$store.state.order.obj.entry3[0],"wewqewqewqewqeqweq2")
 					// // 跳转
 					uni.navigateTo({
 					    url: '../detailed/detailed?goodsID='+that.goodsID

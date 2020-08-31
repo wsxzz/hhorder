@@ -69,11 +69,25 @@
 				this.$store.state.order.obj.entry6.org_id = this.InsuranceINFO.split('-')[0]
 				this.$store.state.order.obj.entry6.org_src = this.InsuranceINFO.split('-')[2]
 				this.$store.state.order.obj.entry6.name = this.InsuranceINFO.split('-')[1]
-				// 返回新增订单
-				uni.navigateTo({
-				    url: '../test/test'
-				});
 				
+				this.$store.state.test.param.entry6.org_id =  this.InsuranceINFO.split('-')[0]
+				this.$store.state.test.param.entry6.org_src = 0//机构来源
+				this.$store.state.test.param.entry6.org_name = this.InsuranceINFO.split('-')[1]
+				this.$store.state.test.param.entry6.jqx_price = 0
+				this.$store.state.test.param.entry6.ccs_price = 0
+				this.$store.state.test.param.entry6.syx_price = 0
+				this.$store.state.test.param.entry6.discount_price = 0
+				this.$store.state.test.param.entry6.other_price = 0
+				this.$store.state.test.param.entry6.info = ""
+				this.$store.state.test.param.entry6.kind = 47
+				
+				// 返回新增订单
+				// uni.navigateTo({
+				//     url: '../test/test'
+				// });
+				uni.navigateTo({
+				    url: "../test/test0?num=1"
+				});
 			}
 		}
 	}

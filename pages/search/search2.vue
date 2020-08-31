@@ -151,6 +151,9 @@
 				}
 			},
 		},
+		onShow() {
+			fn.tabbarRequired("false"); //不带tabbar
+		},
 		onLoad(ops) {
 			
 			//此页面应该禁止下拉刷新
@@ -159,7 +162,6 @@
 			// this.role = 3;//测试
 		},
 		created() {
-			fn.tabbarRequired("false"); //不带tabbar
 			if(this.role==3||this.role==4){
 				this.GetAutoSalesOrderList (this.paramOrderList);
 			}else{
